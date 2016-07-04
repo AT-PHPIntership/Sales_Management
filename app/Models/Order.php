@@ -27,12 +27,12 @@ class Order extends Model
     }
 
     /**
-     * Order has many Order_Detail
+     * Order has many OrderDetail
      *
      * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function order_details()
+    public function orderDetail()
     {
-        return $this->hasMany('App\Models\Order_Detail', 'id');
+        return $this->hasMany('App\Models\OrderDetail', 'id');
     }
 }

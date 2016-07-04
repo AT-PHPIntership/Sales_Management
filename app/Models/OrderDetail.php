@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Order_Detail extends Model
+class OrderDetail extends Model
 {
     /**
      * Order_Detail belongs to Order
