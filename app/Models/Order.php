@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    /*
+    /**
      * Order belongs to user
      *
      * @return Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -16,7 +16,7 @@ class Order extends Model
         return $this->belongsTo('App\Models\User', 'user_id');
     }
 
-    /*
+    /**
      * Order belongs to Supplier
      *
      * @return Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -26,7 +26,7 @@ class Order extends Model
         return $this->belongsTo('App\Models\Supplier', 'supplier_id');
     }
 
-    /*
+    /**
      * Order has many Order_Detail
      *
      * @return Illuminate\Database\Eloquent\Relations\HasMany
