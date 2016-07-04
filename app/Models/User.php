@@ -25,4 +25,21 @@ class User extends Authenticatable
     ];
 
     public $timestamps = false;
+
+    /**
+     * User has many orders
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders() {
+      return $this->hasMany('App\Models\Order');
+    }
+
+    /**
+     * User has many bills
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function bills() {
+      return $this->hasMany('App\Models\Bill');
+    }
+
 }

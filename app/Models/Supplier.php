@@ -19,4 +19,12 @@ class Supplier extends Model
     ];
 
     public $timestamps = false;
+
+    /**
+     * Supplier has many orders
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders() {
+        return $this->hasMany('App\Models\Order');
+    }
 }
