@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,10 +13,10 @@ class Supplier extends Model
      *
      * @var array
      */
-    
+
     protected $fillable = [
         'name', 'description',
     ];
-    
+
     public $timestamps = false;
 }
