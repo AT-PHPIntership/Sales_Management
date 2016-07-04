@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Supplier extends Model
 {
-	protected $table = 'suppliers';
+    protected $table = 'suppliers';
 
     /**
      * The attributes that are mass assignable.
@@ -22,9 +22,11 @@ class Supplier extends Model
 
     /**
      * Supplier has many orders
+     *
      * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function orders() {
+    public function orders()
+    {
         return $this->hasMany('App\Models\Order');
     }
 }
