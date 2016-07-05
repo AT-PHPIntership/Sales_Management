@@ -17,7 +17,7 @@ class CreateBillsDetailsTable extends Migration
             $table->integer('bill_id')->unsigned();
             $table->foreign('bill_id')
                   ->references('id')->on('bills');
-            $table->integer('product_id');
+            $table->integer('product_id')->unsigned();
             $table->integer('amount')->unsigned()->default(0);
             $table->integer('cost')->unsigned()->default(0);
             $table->foreign('product_id')
