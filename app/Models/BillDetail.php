@@ -23,4 +23,24 @@ class BillDetail extends Model
         'created_at',
         'updated_at'
     );
+
+    /**
+     * Bill detail belongs to a bill
+     *
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function bill()
+    {
+        return $this->belongsTo('App\Models\Bill', 'bill_id');
+    }
+
+    /**
+     * Bill detail has a product
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function product()
+    {
+        return $this->hasOne('App\Models\Product', 'id');
+    }
 }

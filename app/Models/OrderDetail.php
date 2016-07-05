@@ -17,12 +17,12 @@ class OrderDetail extends Model
     }
 
     /**
-     * Order_Detail has many Product
+     * Order_Detail has one Product
      *
      * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function product()
     {
-        return $this->hasMany('App\Models\Product', 'id');
+        return $this->hasOne('App\Models\Product', 'id');
     }
 }
