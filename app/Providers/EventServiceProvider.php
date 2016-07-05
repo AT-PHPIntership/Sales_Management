@@ -21,7 +21,8 @@ class EventServiceProvider extends ServiceProvider
     /**
      * Register any other events for your application.
      *
-     * @param  \Illuminate\Contracts\Events\Dispatcher  $events
+     * @param \Illuminate\Contracts\Events\Dispatcher $events the event to be registered
+     *
      * @return void
      */
     public function boot(DispatcherContract $events)
