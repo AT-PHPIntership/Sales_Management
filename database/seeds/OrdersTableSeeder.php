@@ -18,9 +18,9 @@ class OrdersTableSeeder extends Seeder
         for ($i=0; $i < 10; $i++) { 
             $order = Order::create([
                 'user_id' => rand(1, 10),
-                'description' => $faker->text,
+                'description' => $faker->realText($maxNbChars = 255, $indexSize = 2),
                 'supplier_id' => rand(1, 5),
-                'total_cost' => rand(1, 3000),
+                'total_cost' => rand(10000, 5000000),
                 'created_at' => $faker->dateTimeThisYear($max = 'now'),
                 'updated_at' => $faker->dateTimeThisYear($max = 'now')
             ]);

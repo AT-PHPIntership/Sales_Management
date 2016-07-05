@@ -18,7 +18,7 @@ class CategoriesTableSeeder extends Seeder
         for ($i=0; $i < 5; $i++) { 
             $category = Category::create([
                 'name' => $faker->word,
-                'description' => $faker->text,
+                'description' => $faker->realText($maxNbChars = 255, $indexSize = 2),
                 'created_at' => $faker->dateTimeThisYear($max = 'now'),
                 'updated_at' => $faker->dateTimeThisYear($max = 'now')
             ]);
