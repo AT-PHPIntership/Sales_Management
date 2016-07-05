@@ -18,10 +18,11 @@ class CreateProductsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
             $table->string('name', 45);
             $table->string('description',255);
-            $table->integer('price')->unsigned()->default(0);;
-            $table->integer('remaining_amount')->unsigned()->default(0);;
+            $table->integer('price')->unsigned()->default(0);
+            $table->integer('remaining_amount')->unsigned()->default(0);
+            $table->smallInteger('is_on_sale')->default(1);
             $table->timestamps();
-          
+
         });
     }
 
