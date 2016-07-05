@@ -14,11 +14,11 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        
-        for ($i=0; $i < 5; $i++) { 
+
+        for ($i=0; $i < 5; $i++) {
             $category = Category::create([
                 'name' => $faker->word,
-                'description' => $faker->realText($maxNbChars = 255, $indexSize = 2),
+                'description' => $faker->realText(255, 2),
                 'created_at' => $faker->dateTimeThisYear($max = 'now'),
                 'updated_at' => $faker->dateTimeThisYear($max = 'now')
             ]);

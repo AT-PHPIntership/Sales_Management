@@ -14,11 +14,11 @@ class SuppliersTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        
-        for ($i=0; $i < 5; $i++) { 
+
+        for ($i=0; $i < 5; $i++) {
             $supplier = Supplier::create([
-                'name' => $faker->name,
-                'description' => $faker->company,
+                'name' => $faker->company,
+                'description' => $faker->realText(255, 2),
                 'created_at' => $faker->dateTimeThisYear($max = 'now'),
                 'updated_at' => $faker->dateTimeThisYear($max = 'now')
             ]);

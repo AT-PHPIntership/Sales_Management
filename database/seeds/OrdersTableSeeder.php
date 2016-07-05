@@ -14,13 +14,13 @@ class OrdersTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        
-        for ($i=0; $i < 10; $i++) { 
+
+        for ($i=0; $i < 10; $i++) {
             $order = Order::create([
                 'user_id' => rand(1, 10),
                 'description' => $faker->realText($maxNbChars = 255, $indexSize = 2),
                 'supplier_id' => rand(1, 5),
-                'total_cost' => rand(10000, 5000000),
+                'total_cost' => rand(1, 990) * 100000,
                 'created_at' => $faker->dateTimeThisYear($max = 'now'),
                 'updated_at' => $faker->dateTimeThisYear($max = 'now')
             ]);
