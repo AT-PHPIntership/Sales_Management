@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Order;
 use App\Models\OrderDetail;
+
 class OrderDetailsTableSeeder extends Seeder
 {
     /**
@@ -13,15 +15,14 @@ class OrderDetailsTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-        for ($i = 1; $i <= 10 ; $i++) {
+        $orders = Order::all();
+        foreach ($orders as $order) {
             $amount = rand(1, 10);
             for ($j = 0; $j < $amount; $j++) {
                 OrderDetail::create([
-                    'order_id' => $i,
+                    'order_id' => $order->id,
                     'product_id' => rand(1, 200),
-                    'amount' => rand(20, 100),
-                    'created_at' => $faker->dateTimeThisYear($max = 'now'),
-                    'updated_at' => $faker->dateTimeThisYear($max = 'now')
+                    'amount' => rand(20, 100)
                 ]);
             }
         }

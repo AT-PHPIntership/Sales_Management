@@ -14,8 +14,8 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        
-        for ($i=0; $i < 10; $i++) { 
+
+        for ($i=0; $i < 10; $i++) {
             $user = User::create([
                 'name' => $faker->name,
                 'email' => $faker->email,
@@ -26,7 +26,6 @@ class UsersTableSeeder extends Seeder
                 'address' => $faker->address,
                 'phone_number' => $faker->phoneNumber,
                 'created_at' => $faker->dateTimeThisYear($max = 'now'),
-                'updated_at' => $faker->dateTimeThisYear($max = 'now'),
                 'remember_token' => str_random(10)
             ]);
         }

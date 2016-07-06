@@ -19,8 +19,7 @@ class SuppliersTableSeeder extends Seeder
             $supplier = Supplier::create([
                 'name' => $faker->company,
                 'description' => $faker->realText(255, 2),
-                'created_at' => $faker->dateTimeThisYear($max = 'now'),
-                'updated_at' => $faker->dateTimeThisYear($max = 'now')
+                'created_at' => $faker->dateTimeThisYear($max = 'now')
             ]);
         }
     }

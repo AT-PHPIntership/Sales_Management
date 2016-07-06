@@ -20,9 +20,7 @@ class OrdersTableSeeder extends Seeder
                 'user_id' => rand(1, 10),
                 'description' => $faker->realText($maxNbChars = 255, $indexSize = 2),
                 'supplier_id' => rand(1, 5),
-                'total_cost' => rand(1, 990) * 100000,
-                'created_at' => $faker->dateTimeThisYear($max = 'now'),
-                'updated_at' => $faker->dateTimeThisYear($max = 'now')
+                'total_cost' => rand(1, 990) * 100000
             ]);
         }
     }

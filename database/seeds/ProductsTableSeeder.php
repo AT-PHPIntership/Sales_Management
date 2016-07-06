@@ -23,8 +23,7 @@ class ProductsTableSeeder extends Seeder
                 'price' => rand(1, 15) * 100000,
                 'remaining_amount' => rand(0, 50),
                 'is_on_sale' => rand(0, 10) > 0 ? 1 : 0,
-                'created_at' => $faker->dateTimeThisYear($max = 'now'),
-                'updated_at' => $faker->dateTimeThisYear($max = 'now')
+                'created_at' => $faker->dateTimeThisYear($max = 'now')
             ]);
         }
     }
