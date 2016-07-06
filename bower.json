@@ -1,0 +1,21 @@
+{
+  "name": "sales_management",
+  "description": "this is for front end",
+  "main": "",
+  "authors": [
+    "dungnv"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/AT-PHPIntership/Sales_Management",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "gentelella": "^1.3.0"
+  }
+}
