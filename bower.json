@@ -13,7 +13,8 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "public/bower_resources"
   ],
   "dependencies": {
     "gentelella": "^1.3.0"
