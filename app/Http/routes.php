@@ -11,10 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::get('/adduser', function () {
+    return view('users.create');
 });
 
-Route::get('/index', function () {
+Route::group(['middleware' => ['auth']], function () {
+  Route::get('/', function () {
     return view('layouts.app');
+  });
+
 });
+
+Route::controllers([
+    'auth' => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController'
+]);
+
+Route::auth();
