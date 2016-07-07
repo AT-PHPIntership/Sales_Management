@@ -22,6 +22,7 @@
 
     <!-- Custom Theme Style -->
     <link href="bower_resources/gentelella/build/css/custom.min.css" rel="stylesheet">
+    @stack('scripts')
   </head>
 
   <body class="nav-md">
@@ -56,8 +57,8 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-buysellads"></i> Sales <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="">New Bill</a></li>
-                      <li><a href="">List Bills</a></li>
+                      <li><a href="index.html">New Bill</a></li>
+                      <li><a href="index.html">List Bills</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-database"></i> Products <span class="fa fa-chevron-down"></span></a>
@@ -87,8 +88,8 @@
                   </li>
                   <li><a><i class="fa fa-users"></i> Human Resource <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Add New Staff</a></li>
-                      <li><a href="chartjs2.html">List Staffs</a></li>
+                      <li><a href="/adduser">Add New Staff</a></li>
+                      <li><a href="index.html">List Staffs</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -132,9 +133,8 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>@yield('page-header') This is page header</h3>
+                <h3>@yield('page-header')</h3>
               </div>
-
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                   <div class="input-group">
@@ -153,11 +153,11 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>@yield('section-title') This is section title</h2>
+                    <h2>@yield('section-title')</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                      @yield('page-content') Here is page content
+                      @yield('page-content')
                   </div>
                 </div>
               </div>
@@ -214,5 +214,7 @@
 
     <!-- Custom Theme Scripts -->
     <script src="bower_resources/gentelella/build/js/custom.min.js"></script>
-    </body>
+
+    @stack('end-page-scripts')
+  </body>
 </html>
