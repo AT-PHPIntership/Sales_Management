@@ -11,21 +11,16 @@
 |
 */
 
+Route::auth();
 
-Route::get('/adduser', function () {
-    return view('users.create');
-});
+Route::get('/home', 'HomeController@index');
 
 Route::group(['middleware' => ['auth']], function () {
-  Route::get('/', function () {
-    return view('layouts.app');
-  });
+    Route::get('/', function () {
+        return view('layouts.app');
+    });
 
+    Route::get('/user/new', function () {
+        return view('users.create');
+    });
 });
-
-Route::controllers([
-    'auth' => 'Auth\AuthController',
-    'password' => 'Auth\PasswordController'
-]);
-
-Route::auth();

@@ -57,39 +57,39 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-buysellads"></i> Sales <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="index.html">New Bill</a></li>
-                      <li><a href="index.html">List Bills</a></li>
+                      <li><a href="{{ url('/bill/new') }}">New Bill</a></li>
+                      <li><a href="{{ url('/bill') }}">List Bills</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-database"></i> Products <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="">Add Product</a></li>
-                      <li><a href="">Products Status</a></li>
+                      <li><a href="{{ url('/product/new') }}">Add Product</a></li>
+                      <li><a href="{{ url('/product') }}">Products Status</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-folder-open-o"></i> Categoies <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="">New Category</a></li>
-                      <li><a href="">List Category</a></li>
+                      <li><a href="{{ url('/category/new') }}">New Category</a></li>
+                      <li><a href="{{ url('/category') }}">List Category</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-arrow-circle-right"></i> Import <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="">Add Receipt</a></li>
-                      <li><a href="">List Receipt</a></li>
+                      <li><a href="{{ url('/receipt/new') }}">Add Receipt</a></li>
+                      <li><a href="{{ url('/receipt') }}">List Receipt</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-line-chart"></i> Finance <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="">Daily Statistic</a></li>
-                      <li><a href="">Monthly Statistic</a></li>
-                      <li><a href="">Quarterly Statistic</a></li>
+                      <li><a href="{{ url('/statistic/daily') }}">Daily Statistic</a></li>
+                      <li><a href="{{ url('/statistic/monthly') }}">Monthly Statistic</a></li>
+                      <li><a href="{{ url('/statistic/quarterly') }}">Quarterly Statistic</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-users"></i> Human Resource <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/adduser">Add New Staff</a></li>
-                      <li><a href="index.html">List Staffs</a></li>
+                      <li><a href="{{ url('/user/new') }}">Add New Staff</a></li>
+                      <li><a href="{{ url('/user') }}">List Staffs</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -114,12 +114,12 @@
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
+                    <li><a href="{{ url('/profile') }}"> Profile</a></li>
                     <li>
-                      <a href="javascript:;"> Settings</a>
+                      <a href="{{ url('/profile/setting') }}"> Settings</a>
                     </li>
                     <li><a href="javascript:;"> Help <span class="label label-success pull-right">Coming Soon</span></a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
               </ul>
