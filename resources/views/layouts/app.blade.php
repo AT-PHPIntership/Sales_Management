@@ -13,16 +13,11 @@
     <link href="/bower_resources/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="/bower_resources/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="/bower_resources/gentelella/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <!-- bootstrap-progressbar -->
-    <link href="/bower_resources/gentelella/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <!-- jVectorMap -->
-    <link href="/css/maps/jquery-jvectormap-2.0.3.css" rel="stylesheet"/>
-
     <!-- Custom Theme Style -->
     <link href="/bower_resources/gentelella/build/css/custom.min.css" rel="stylesheet">
-    @stack('scripts')
+    <!-- Custom css -->
+    <link rel="stylesheet" href="/css/custom.css">
+    @stack('stylesheet')
   </head>
 
   <body class="nav-md">
@@ -31,7 +26,7 @@
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-tags"></i> <span>Sales Mgmt</span></a>
+              <a href="{{ url('/home') }}" class="site_title"><i class="fa fa-tags"></i> <span>Sales Management</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -39,11 +34,11 @@
             <!-- menu profile quick info -->
             <div class="profile">
               <div class="profile_pic">
-                <img src="/bower_resources/gentelella/production/images/img.jpg" alt="..." class="img-circle profile_img">
+                <img src="/file/avatar/{{ Auth::user()->avatar }}" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <h2>{{ Auth::user()->name }}</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -110,11 +105,11 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="/bower_resources/gentelella/production/images/img.jpg" alt="">John Doe
+                    <img src="/file/avatar/{{ Auth::user()->avatar }}" alt="">{{ Auth::user()->name }}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="{{ url('/profile') }}"> Profile</a></li>
+                    <li><a href="{{ url('/user/' . Auth::user()->id) }}"> Profile</a></li>
                     <li>
                       <a href="{{ url('/profile/setting') }}"> Settings</a>
                     </li>
@@ -159,7 +154,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Sales Managements System by AT-Internships <a href="#">Superman</a>
+            <a href="https://github.com/AT-PHPIntership/Sales_Management">Sales Managements System by AT-Internships Team <i class="fa fa-github"></i></a>
           </div>
           <div class="clearfix"></div>
         </footer>
@@ -175,32 +170,6 @@
     <script src="/bower_resources/gentelella/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="/bower_resources/gentelella/vendors/nprogress/nprogress.js"></script>
-    <!-- Chart.js -->
-    <script src="/bower_resources/gentelella/vendors/Chart.js/dist/Chart.min.js"></script>
-    <!-- gauge.js -->
-    <script src="/bower_resources/gentelella/vendors/bernii/gauge.js/dist/gauge.min.js"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="/bower_resources/gentelella/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    <!-- iCheck -->
-    <script src="/bower_resources/gentelella/vendors/iCheck/icheck.min.js"></script>
-    <!-- Skycons -->
-    <script src="/bower_resources/gentelella/vendors/skycons/skycons.js"></script>
-    <!-- Flot -->
-    <script src="/bower_resources/gentelella/vendors/Flot/jquery.flot.js"></script>
-    <script src="/bower_resources/gentelella/vendors/Flot/jquery.flot.pie.js"></script>
-    <script src="/bower_resources/gentelella/vendors/Flot/jquery.flot.time.js"></script>
-    <script src="/bower_resources/gentelella/vendors/Flot/jquery.flot.stack.js"></script>
-    <script src="/bower_resources/gentelella/vendors/Flot/jquery.flot.resize.js"></script>
-    <!-- Flot plugins -->
-    <script src="/js/flot/jquery.flot.orderBars.js"></script>
-    <script src="/js/flot/date.js"></script>
-    <script src="/js/flot/jquery.flot.spline.js"></script>
-    <script src="/js/flot/curvedLines.js"></script>
-    <!-- jVectorMap -->
-    <script src="/js/maps/jquery-jvectormap-2.0.3.min.js"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="/js/moment/moment.min.js"></script>
-    <script src="/js/datepicker/daterangepicker.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="/bower_resources/gentelella/build/js/custom.min.js"></script>
