@@ -39,8 +39,7 @@
             <div class="content">
                 <div class="title">
                     <i class="fa fa-heart"></i>
-                    Sales <button type="button" class="btn btn-success">Success</button>
-                    <button class="btn btn-warning" type="button" name="button">Delete</button>
+                    Sales
                 </div>
             </div>
         </div>

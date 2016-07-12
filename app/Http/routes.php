@@ -11,16 +11,6 @@
 |
 */
 
-Route::auth();
-
-Route::get('/home', 'HomeController@index');
-
-Route::group(['middleware' => ['auth']], function () {
-    Route::get('/', function () {
-        return view('layouts.app');
-    });
-
-    Route::get('/user/new', function () {
-        return view('users.create');
-    });
+Route::get('/', function () {
+    return view('welcome');
 });
