@@ -2,9 +2,8 @@
 <html>
     <head>
         <title>Laravel</title>
-
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-
+        <link rel="stylesheet" href="bower_resources/bootstrap/dist/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+        <link rel="stylesheet" href="bower_resources/font-awesome/css/font-awesome.min.css" media="screen" title="no title" charset="utf-8">
         <style>
             html, body {
                 height: 100%;
@@ -39,6 +38,7 @@
         <div class="container">
             <div class="content">
                 <div class="title">
+                    <i class="fa fa-heart"></i>
                     Sales
                 </div>
             </div>
