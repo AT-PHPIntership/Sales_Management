@@ -31,7 +31,7 @@ class BillDetail extends Model
      */
     public function bill()
     {
-        return $this->belongsTo('App\Models\Bill', 'bill_id');
+        return $this->belongsTo('App\Models\Bill');
     }
 
     /**
@@ -41,6 +41,6 @@ class BillDetail extends Model
      */
     public function product()
     {
-        return $this->hasOne('App\Models\Product', 'id');
+        return $this->hasOne('App\Models\Product');
     }
 }

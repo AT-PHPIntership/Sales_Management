@@ -15,18 +15,51 @@ class UsersTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i=0; $i < 10; $i++) {
+        $user = new User();
+        $user->name = 'Super Admin';
+        $user->email = 'superadmin@salesmanagement.com';
+        $user->password = '123456';
+        $user->roles = 2;
+        $user->birthday = '1994-10-03';
+        $user->gender = 0;
+        $user->address = 'Asian Tech Inc';
+        $user->phone_number = '0123456789';
+        $user->save();
+
+        $user = new User();
+        $user->name = 'Admin';
+        $user->email = 'admin@salesmanagement.com';
+        $user->password = '123456';
+        $user->roles = 1;
+        $user->birthday = '1994-10-03';
+        $user->gender = 0;
+        $user->address = 'Asian Tech Inc';
+        $user->phone_number = '0123456789';
+        $user->save();
+
+        $user = new User();
+        $user->name = 'Quan Ly';
+        $user->email = 'quanly@salesmanagement.com';
+        $user->password = '123456';
+        $user->roles = 0;
+        $user->birthday = '1994-10-03';
+        $user->gender = 0;
+        $user->address = 'Asian Tech Inc';
+        $user->phone_number = '0123456789';
+        $user->save();
+
+        for ($i=0; $i < 7; $i++) {
             $user = User::create([
                 'name' => $faker->name,
                 'email' => $faker->email,
-                'password' => bcrypt('12345678'),
+                'password' => '12345678',
                 'roles' => rand(0, 1),
                 'birthday' => $faker->dateTimeBetween('-40 years', '-18 years'),
                 'gender' => rand(0, 1),
                 'address' => $faker->address,
                 'phone_number' => $faker->phoneNumber,
-                'created_at' => $faker->dateTimeThisYear($max = 'now'),
-                'remember_token' => str_random(10)
+                'remember_token' => str_random(60),
+                'created_at' => $faker->dateTimeThisYear($max = 'now')
             ]);
         }
     }

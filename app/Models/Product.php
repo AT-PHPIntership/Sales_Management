@@ -13,7 +13,7 @@ class Product extends Model
      */
     public function category()
     {
-        return $this->belongsTo('App\Models\Category', 'category_id');
+        return $this->belongsTo('App\Models\Category');
     }
     /**
      * Product belongs to many BillDetail
@@ -22,15 +22,15 @@ class Product extends Model
      */
     public function billDetail()
     {
-        return $this->belongsToMany('App\Models\BillDetail', 'product_id');
+        return $this->belongsToMany('App\Models\BillDetail');
     }
     /**
      * Product belongs to many OrderDetail
      *
-     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function orderDetail()
     {
-        return $this->belongsToMany('App\Models\OrderDetail', 'product_id');
+        return $this->hasMany('App\Models\OrderDetail');
     }
 }

@@ -6,13 +6,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    public $image;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'roles', 'birthday', 'gender', 'address', 'phone_number',
+        'name', 'email', 'password', 'roles', 'birthday', 'gender', 'address', 'phone_number', 'avatar'
     ];
 
     /**
@@ -44,5 +46,17 @@ class User extends Authenticatable
     public function bills()
     {
         return $this->hasMany('App\Models\Bill');
+    }
+
+    /**
+     * Encode the password
+     *
+     * @param string $password password input
+     *
+     * @return void
+     */
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
     }
 }

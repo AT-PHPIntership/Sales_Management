@@ -13,16 +13,16 @@ class OrderDetail extends Model
      */
     public function order()
     {
-        return $this->belongsTo('App\Models\Order', 'order_id');
+        return $this->belongsTo('App\Models\Order');
     }
 
     /**
      * Order_Detail has one Product
      *
-     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function product()
     {
-        return $this->hasOne('App\Models\Product', 'id');
+        return $this->belongsTo('App\Models\Product');
     }
 }
