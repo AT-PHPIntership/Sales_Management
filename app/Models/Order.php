@@ -13,7 +13,7 @@ class Order extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\Models\User', 'user_id');
+        return $this->belongsTo('App\Models\User');
     }
 
     /**
@@ -23,7 +23,7 @@ class Order extends Model
      */
     public function supplier()
     {
-        return $this->belongsTo('App\Models\Supplier', 'supplier_id');
+        return $this->belongsTo('App\Models\Supplier');
     }
 
     /**
@@ -31,8 +31,8 @@ class Order extends Model
      *
      * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function orderDetail()
+    public function orderDetails()
     {
-        return $this->hasMany('App\Models\OrderDetail', 'id');
+        return $this->hasMany('App\Models\OrderDetail');
     }
 }
