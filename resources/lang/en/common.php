@@ -7,7 +7,7 @@ return [
     'help' => 'Help',
     'comming_soon' => 'Comming Soon',
     'logout' => 'Log Out',
-    'copy_right' => 'Sales Managements System by AT-Internships Team',
+    'copy_right' => '&copy; Sales Managements System by AT-Internships Team',
     'menu_sales' => 'Sales',
     'menu_products' => 'Products',
     'menu_categories' => 'Categories',
@@ -28,6 +28,4 @@ return [
     'item_quarterly' => 'Quarterly Statistic',
     'item_add_account' => 'Add Account',
     'item_list_account' => 'List Staffs',
-    '' => '',
-    '' => '',
 ];
