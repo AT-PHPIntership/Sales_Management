@@ -59,4 +59,47 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($password);
     }
+
+    /**
+     * User has a role
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function role()
+    {
+        return $this->hasOne('App\Models\Role', 'id', 'role_id');
+    }
+
+    /**
+     * User has roles
+     *
+     * @param Array $roles all roles we need check
+     *
+     * @return boolean has Role
+     */
+    public function hasRole($roles)
+    {
+        if (is_array($roles)) {
+            foreach ($roles as $role) {
+                if ($this->checkIfUserHasRole($role)) {
+                    return true;
+                }
+            }
+        } else {
+            return $this->checkIfUserHasRole($roles);
+        }
+        return false;
+    }
+
+    /**
+     * Check if user has role
+     *
+     * @param String $role name attribute of \App\Models\Role
+     *
+     * @return boolean
+     */
+    private function checkIfUserHasRole($role)
+    {
+        return (strtolower($role) == strtolower($this->role->name)) ? true: false;
+    }
 }
