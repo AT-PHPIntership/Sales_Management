@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
         $user->name = 'Super Admin';
         $user->email = 'superadmin@salesmanagement.com';
         $user->password = '123456';
-        $user->roles = 2;
+        $user->role_id = 1;
         $user->birthday = '1994-10-03';
         $user->gender = 0;
         $user->address = 'Asian Tech Inc';
@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
         $user->name = 'Admin';
         $user->email = 'admin@salesmanagement.com';
         $user->password = '123456';
-        $user->roles = 1;
+        $user->role_id = 2;
         $user->birthday = '1994-10-03';
         $user->gender = 0;
         $user->address = 'Asian Tech Inc';
@@ -41,7 +41,7 @@ class UsersTableSeeder extends Seeder
         $user->name = 'Quan Ly';
         $user->email = 'quanly@salesmanagement.com';
         $user->password = '123456';
-        $user->roles = 0;
+        $user->role_id = 3;
         $user->birthday = '1994-10-03';
         $user->gender = 0;
         $user->address = 'Asian Tech Inc';
@@ -53,7 +53,7 @@ class UsersTableSeeder extends Seeder
                 'name' => $faker->name,
                 'email' => $faker->email,
                 'password' => '12345678',
-                'roles' => rand(0, 1),
+                'role_id' => rand(2, 3),
                 'birthday' => $faker->dateTimeBetween('-40 years', '-18 years'),
                 'gender' => rand(0, 1),
                 'address' => $faker->address,
