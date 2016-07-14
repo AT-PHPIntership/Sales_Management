@@ -1,6 +1,6 @@
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
   <div class="menu_section menu_fixed">
-    <h3>MANAGEMENT</h3>
+    <h3>{{ strtoupper(Auth::user()->role->name) }}</h3>
     <ul class="nav side-menu">
       <li><a><i class="fa fa-buysellads"></i> @lang('common.menu_sales') <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
