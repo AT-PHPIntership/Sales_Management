@@ -28,4 +28,5 @@ return [
     'label_password'    => 'Password',
     'label_confirm_pass' => 'Confirm Password',
     'btn_send_reset'    => 'Send Password Reset Link',
+    'label_click_to_reset_pass' => 'Click here to reset your password',
 ];

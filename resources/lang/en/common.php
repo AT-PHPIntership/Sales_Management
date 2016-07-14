@@ -7,6 +7,7 @@ return [
     'help' => 'Help',
     'comming_soon' => 'Comming Soon',
     'logout' => 'Log Out',
+    'welcome' => 'Welcome',
     'copy_right' => '&copy; Sales Managements System by AT-Internships Team',
     'menu_sales' => 'Sales',
     'menu_products' => 'Products',

@@ -3,7 +3,7 @@
     <img src="{{ url('/file/avatar/' . Auth::user()->avatar) }}" alt="..." class="img-circle profile_img">
   </div>
   <div class="profile_info">
-    <span>Welcome,</span>
+    <span>@lang('common.welcome'),</span>
     <h2>{{ Auth::user()->name }}</h2>
   </div>
 </div>
