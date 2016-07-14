@@ -24,8 +24,7 @@ class CheckRole
         if (Auth::user()->hasRole($roles) || !$roles) {
             return $next($request);
         }
-        // Raise an exception, redirect to 403 page if the user have no roles
-        abort(403, 'Unauthorized action.');
+        abort(\Config::get('constants.403_FORBIDDEN'), 'Unauthorized action.');
     }
 
     /**
