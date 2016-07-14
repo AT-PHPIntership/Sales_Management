@@ -24,7 +24,7 @@ class CheckRole
         if (Auth::user()->hasRole($roles) || !$roles) {
             return $next($request);
         }
-        abort(\Config::get('constants.403_FORBIDDEN'), 'Unauthorized action.');
+        abort(\Config::get('http_error_code.403_FORBIDDEN'), 'Unauthorized action.');
     }
 
     /**
