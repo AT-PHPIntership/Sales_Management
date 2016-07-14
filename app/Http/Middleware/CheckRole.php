@@ -24,7 +24,7 @@ class CheckRole
         if (Auth::user()->hasRole($roles) || !$roles) {
             return $next($request);
         }
-        abort(403, 'Không thể vào mục này!');
+        abort(403);
     }
 
     /**
