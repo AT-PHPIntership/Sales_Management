@@ -2,41 +2,41 @@
   <div class="menu_section menu_fixed">
     <h3>MANAGEMENT</h3>
     <ul class="nav side-menu">
-      <li><a><i class="fa fa-buysellads"></i> Sales <span class="fa fa-chevron-down"></span></a>
+      <li><a><i class="fa fa-buysellads"></i> @lang('common.menu_sales') <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
-          <li><a href="{{ route('bill.create') }}">New Bill</a></li>
-          <li><a href="{{ route('bill.index') }}">List Bills</a></li>
+          <li><a href="{{ route('bill.create') }}">@lang('common.item_new_bill')</a></li>
+          <li><a href="{{ route('bill.index') }}">@lang('common.item_list_bill')</a></li>
         </ul>
       </li>
-      <li><a><i class="fa fa-database"></i> Products <span class="fa fa-chevron-down"></span></a>
+      <li><a><i class="fa fa-database"></i> @lang('common.menu_products') <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
-          <li><a href="{{ route('product.create') }}">Add Product</a></li>
-          <li><a href="{{ route('product.index') }}">Products Status</a></li>
+          <li><a href="{{ route('product.create') }}">@lang('common.item_add_product')</a></li>
+          <li><a href="{{ route('product.index') }}">@lang('common.item_list_product')</a></li>
         </ul>
       </li>
-      <li><a><i class="fa fa-folder-open-o"></i> Categoies <span class="fa fa-chevron-down"></span></a>
+      <li><a><i class="fa fa-folder-open-o"></i> @lang('common.menu_categories') <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
-          <li><a href="{{ route('category.create') }}">New Category</a></li>
-          <li><a href="{{ route('category.index') }}">List Category</a></li>
+          <li><a href="{{ route('category.create') }}">@lang('common.item_new_category')</a></li>
+          <li><a href="{{ route('category.index') }}">@lang('common.item_list_categories')</a></li>
         </ul>
       </li>
-      <li><a><i class="fa fa-arrow-circle-right"></i> Import <span class="fa fa-chevron-down"></span></a>
+      <li><a><i class="fa fa-arrow-circle-right"></i> @lang('common.menu_import') <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
-          <li><a href="{{ route('order.create') }}">Add Order</a></li>
-          <li><a href="{{ route('order.index') }}">List Orders</a></li>
+          <li><a href="{{ route('order.create') }}">@lang('common.item_add_order')</a></li>
+          <li><a href="{{ route('order.index') }}">@lang('common.item_list_order')</a></li>
         </ul>
       </li>
-      <li><a><i class="fa fa-line-chart"></i> Finance <span class="fa fa-chevron-down"></span></a>
+      <li><a><i class="fa fa-line-chart"></i> @lang('common.menu_statistic') <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
-          <li><a href="{{ route('statistic.weekly') }}">Daily Statistic</a></li>
-          <li><a href="{{ route('statistic.monthly') }}">Monthly Statistic</a></li>
-          <li><a href="{{ route('statistic.quarterly') }}">Quarterly Statistic</a></li>
+          <li><a href="{{ route('statistic.daily') }}">@lang('common.item_daily')</a></li>
+          <li><a href="{{ route('statistic.monthly') }}">@lang('common.item_monthly')</a></li>
+          <li><a href="{{ route('statistic.quarterly') }}">@lang('common.item_quarterly')</a></li>
         </ul>
       </li>
-      <li><a><i class="fa fa-users"></i> Human Resource <span class="fa fa-chevron-down"></span></a>
+      <li><a><i class="fa fa-users"></i> @lang('common.menu_human_src') <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
-          <li><a href="{{ route('user.create') }}">Add New Staff</a></li>
-          <li><a href="{{ route('product.index') }}">List Staffs</a></li>
+          <li><a href="{{ route('user.create') }}">@lang('common.item_add_account')</a></li>
+          <li><a href="{{ route('product.index') }}">@lang('common.item_list_account')</a></li>
         </ul>
       </li>
     </ul>
