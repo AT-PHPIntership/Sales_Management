@@ -15,5 +15,10 @@ return [
 
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-
+    
+    'please_login'      => 'Please Login',
+    'btn_login'         => 'Login',
+    'forget_password'   => 'Forget your password?',
+    'footer_title'      => 'Sales Management',
+    'copy_right'        => '©2016 All Rights Reserved. Gentelella Alela! template.',
 ];

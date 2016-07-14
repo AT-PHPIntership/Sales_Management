@@ -11,10 +11,41 @@
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.app');
-});
-
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('/', function () {
+        return view('layouts.app');
+    });
+
+    Route::get('/home', ['uses' => 'BillController@create', 'as' => 'home']);
+
+    Route::resource('bill', 'BillController');
+
+    Route::resource('product', 'ProductController');
+
+    Route::resource('category', 'CategoryController');
+
+    Route::resource('order', 'OrderController');
+
+    Route::resource('user', 'UserController');
+
+    Route::group(['prefix' => 'statistic'], function () {
+
+        Route::get('/weekly', [
+            'uses' => 'StatisticController@weekly',
+            'as' => 'statistic.weekly'
+        ]);
+
+        Route::get('/monthly', [
+            'uses' => 'StatisticController@monthly',
+            'as' => 'statistic.monthly'
+        ]);
+
+        Route::get('/quarterly', [
+            'uses' => 'StatisticController@quarterly',
+            'as' => 'statistic.quarterly'
+        ]);
+    });
+});
