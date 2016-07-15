@@ -1,0 +1,14 @@
+.site_title {
+    font-size: 20px;
+}
+
+.table-borderless tbody tr td, .table-borderless tbody tr th, .table-borderless thead tr th {
+    border: none;
+    padding: 5px;
+    font-weight: bold;
+}
+
+.menu_section h3 {
+    margin-left: 68px;
+    padding-bottom: 32px;
+}
