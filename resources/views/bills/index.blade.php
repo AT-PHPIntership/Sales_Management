@@ -29,7 +29,7 @@
             <tr>
               <td>{{ $bill->id }}</td>
               <td>{{ $bill->user->name }}</td>
-              <td>{{ str_limit($bill->description, trans('common.limit_string_description')) }}</td>
+              <td>{{ str_limit($bill->description, Config::get('common_constant.LIMIT_STRING_DESCRIPTION')) }}</td>
               <td>{{ $bill->total_cost }}</td>
               <td>{{ $bill->created_at }}</td>
               <td>
