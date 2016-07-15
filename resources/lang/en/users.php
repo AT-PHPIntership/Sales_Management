@@ -13,4 +13,5 @@ return [
     'btn_cancel' => 'Reset',
     'btn_submit' => 'Submit',
     'eg_name' => 'both name(s) e.g Jon Doe',
+    'successfull_message' => 'Create account successfull',
 ];

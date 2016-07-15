@@ -10,16 +10,6 @@ use App\Models\User;
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -41,6 +31,6 @@ class UserController extends Controller
         $user = new User($request->all());
         $user->save();
         return redirect()->route('user.create')
-                         ->withMessage('Create account successfull');
+                         ->withMessage(trans('user.successfull_message'));
     }
 }
