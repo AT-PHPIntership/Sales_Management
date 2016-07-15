@@ -29,6 +29,7 @@ return [
     'item_quarterly' => 'Quarterly Statistic',
     'item_add_account' => 'Add Account',
     'item_list_account' => 'List Staffs',
+<<<<<<< HEAD
     'label_name_product' => 'Name',
     'label_name_category' => 'Category',
     'label_description_product' => 'Description',
@@ -38,4 +39,11 @@ return [
     'label_option_product' => 'Options',
 
 
+=======
+    'field_name_bill' => 'Name',
+    'field_description_bill' => 'Description',
+    'field_cost_bill' => 'Total Cost',
+    'field_time_bill' => 'Created Time',
+    'field_options_bill' => 'Options',
+>>>>>>> 6ed69ed7b7dfd1335de19b5b6e8576494ce5ec9e
 ];

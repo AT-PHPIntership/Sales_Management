@@ -36,7 +36,7 @@
       <li><a><i class="fa fa-users"></i> @lang('common.menu_human_src') <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
           <li><a href="{{ route('user.create') }}">@lang('common.item_add_account')</a></li>
-          <li><a href="{{ route('product.index') }}">@lang('common.item_list_account')</a></li>
+          <li><a href="{{ route('user.index') }}">@lang('common.item_list_account')</a></li>
         </ul>
       </li>
     </ul>
