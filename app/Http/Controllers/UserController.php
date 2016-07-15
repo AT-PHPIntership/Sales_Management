@@ -31,6 +31,6 @@ class UserController extends Controller
         $user = new User($request->all());
         $user->save();
         return redirect()->route('user.create')
-                         ->withMessage(trans('user.successfull_message'));
+                         ->withMessage(trans('users.successfull_message'));
     }
 }
