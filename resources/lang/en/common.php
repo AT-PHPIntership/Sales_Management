@@ -29,4 +29,9 @@ return [
     'item_quarterly' => 'Quarterly Statistic',
     'item_add_account' => 'Add Account',
     'item_list_account' => 'List Staffs',
+    'field_name_bill' => 'Name',
+    'field_description_bill' => 'Description',
+    'field_cost_bill' => 'Total Cost',
+    'field_time_bill' => 'Created Time',
+    'field_options_bill' => 'Options',
 ];
