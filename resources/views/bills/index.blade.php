@@ -17,11 +17,11 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Total Cost</th>
-            <th>Created Time</th>
-            <th>Options</th>
+            <th>@lang('common.field_name_bill')</th>
+            <th>@lang('common.field_description_bill')</th>
+            <th>@lang('common.field_cost_bill')</th>
+            <th>@lang('common.field_time_bill')</th>
+            <th>@lang('common.field_options_bill')</th>
           </tr>
         </thead>
         <tbody>
@@ -29,7 +29,7 @@
             <tr>
               <td>{{ $bill->id }}</td>
               <td>{{ $bill->user->name }}</td>
-              <td>{{ str_limit($bill->description, Config::get('common_constant.LIMIT_STRING_DESCRIPTION')) }}</td>
+              <td>{{ str_limit($bill->description, \Config::get('common.LIMIT_STRING_DESCRIPTION')) }}</td>
               <td>{{ $bill->total_cost }}</td>
               <td>{{ $bill->created_at }}</td>
               <td>
