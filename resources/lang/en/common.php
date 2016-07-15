@@ -29,4 +29,5 @@ return [
     'item_quarterly' => 'Quarterly Statistic',
     'item_add_account' => 'Add Account',
     'item_list_account' => 'List Staffs',
+    'limit_string_description' => '50',
 ];
