@@ -13,7 +13,7 @@
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="clearfix"></div>
-      <table id="datatable-buttons" class="table table-striped table-bordered">
+      <table id="list-bills-table" class="table table-striped table-bordered">
         <thead>
           <tr>
             <th>#</th>
@@ -48,7 +48,7 @@
 @push('end-page-scripts')
   <script type="text/javascript">
     $(document).ready(function(){
-      $('#datatable-buttons').DataTable();
+      $('#list-bills-table').DataTable();
     });
   </script>
   <link rel="stylesheet" href="/bower_resources/gentelella/vendors/datatables.net/css/jquery.dataTables.min.css" media="screen" title="no title" charset="utf-8">
