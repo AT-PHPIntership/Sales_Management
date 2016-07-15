@@ -56,6 +56,8 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+                      @yield('errors-message')
+                      @yield('susscess-message')
                       @yield('page-content')
                   </div>
                 </div>

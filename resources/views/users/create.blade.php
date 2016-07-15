@@ -8,27 +8,16 @@
     @lang('users.section_header')
 @stop
 
+@section('errors-message')
+    @include('common.errors')
+@stop
+
+@section('susscess-message')
+    @include('common.success')
+@stop
+
 @section('page-content')
     <div class="x_content">
-        @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        @if (session()->has('message'))
-            <div class="alert alert-success">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <ul>
-                  <li>{{ session('message') }}</li>
-                </ul>
-            </div>
-        @endif
         <form class="form-horizontal form-label-left" role="form" method="POST" action="{{ route('user.store') }}">
           {{ csrf_field() }}
           <div class="item form-group">
