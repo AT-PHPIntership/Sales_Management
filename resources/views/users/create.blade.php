@@ -24,7 +24,7 @@
             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">@lang('users.label_name') <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="4" data-validate-words="2" name="name" placeholder="@lang('users.eg_name')" required="required" type="text" value="{{ old('name') }}">
+              <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="2" data-validate-words="2" name="name" placeholder="@lang('users.eg_name')" required="required" type="text" value="{{ old('name') }}">
             </div>
           </div>
           <div class="item form-group">
@@ -67,25 +67,19 @@
           </div>
         </form>
     </div>
-    <!-- Hidden message for JS validator -->
-    <div class="hidden">
-        <p id="empty">@lang('errors.field_required')</p>
-        <p id="minimum_passowrd">@lang('errors.at_least_6_chars')</p>
-        <p id="select">@lang('errors.select_option')</p>
-        <p id="__email">@lang('errors.invalid_email')</p>
-        <p id="__password_repeat">@lang('errors.passwords_not_match')</p>
-        <p id="complete_sentence">@lang('errors.2_words_minimum')</p>
-        <p id="invalid_date">@lang('errors.invalid_date')</p>
-    </div>
 @stop
 @push('end-page-scripts')
+    <script>
+        var errorMessages = {!! json_encode(trans('errors')) !!};
+    </script>
+
     <!-- validator -->
     <script src="/js/validator.custom.js"></script>
 
     <!-- Validator submit -->
     <script>
       // initialize the validator function
-      validator.message.date = document.getElementById("invalid_date").innerHTML;
+      validator.message.date = errorMessages.invalid_date;
 
       // validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
       $('form')

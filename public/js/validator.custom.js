@@ -15,20 +15,20 @@ var validator = (function(){
 	*/
 	message = {
 		invalid			: 'invalid input',
-		empty			: document.getElementById("empty").innerHTML,
+		empty			: errorMessages.field_required,
 		min				: 'input is too short',
 		max				: 'input is too long',
 		number_min		: 'too low',
 		number_max		: 'too high',
 		url				: 'invalid URL',
 		number			: 'not a number',
-		email			: document.getElementById("__email").innerHTML,
+		email			: errorMessages.invalid_email,
 		email_repeat	: 'emails do not match',
-		password_repeat	: document.getElementById("__password_repeat").innerHTML,
+		password_repeat	: errorMessages.passwords_not_match,
 		repeat			: 'no match',
-		complete		: document.getElementById("minimum_passowrd").innerHTML,
-		select			: document.getElementById("select").innerHTML,
-        complete_sentence : document.getElementById("complete_sentence").innerHTML,
+		complete		: errorMessages.at_least_6_chars,
+		select			: errorMessages.select_option,
+        complete_sentence : errorMessages.at_least_2_words,
 	};
 
 	// defaults
@@ -75,7 +75,7 @@ var validator = (function(){
 					return true;
 				};
 
-				if( words.length < validateWords || !wordsLength(2) ){
+				if( words.length < validateWords || !wordsLength(1) ){
 					alertTxt = message.complete_sentence;
 					return false;
 				}

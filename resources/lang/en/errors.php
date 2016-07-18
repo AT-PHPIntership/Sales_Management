@@ -9,7 +9,7 @@ return [
     'select_option' => 'Please select an option.',
     'invalid_email' => 'Email address is invalid.',
     'passwords_not_match' => 'Password does not match.',
-    '2_words_minimum' => 'At least 2 words.',
+    'at_least_2_words' => 'At least 2 words.',
     'invalid_date' => 'Not a real date.',
     'invalid_role' => 'Invalid Account Permission.',
 ];
