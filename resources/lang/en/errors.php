@@ -12,4 +12,6 @@ return [
     'at_least_2_words' => 'At least 2 words.',
     'invalid_date' => 'Not a real date.',
     'invalid_role' => 'Invalid Account Permission.',
+    'min_6' => 'At least 6 characters.',
+    'max_32' => '32 characters maximum.'
 ];

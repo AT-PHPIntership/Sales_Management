@@ -74,12 +74,20 @@
     </script>
 
     <!-- validator -->
-    <script src="/js/validator.custom.js"></script>
+    <script src="/bower_resources/gentelella/vendors/validator/validator.min.js"></script>
+
 
     <!-- Validator submit -->
     <script>
-      // initialize the validator function
+      // Override validate message
+      validator.message.min = errorMessages.min_6;
+      validator.message.max = errorMessages.max_32;
       validator.message.date = errorMessages.invalid_date;
+      validator.message.email = errorMessages.invalid_email;
+      validator.message.empty = errorMessages.field_required;
+      validator.message.select = errorMessages.select_option;
+      validator.message.complete = errorMessages.at_least_2_words;
+      validator.message.password_repeat = errorMessages.passwords_not_match;
 
       // validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
       $('form')
