@@ -70,7 +70,7 @@
     <!-- Hidden message for JS validator -->
     <div class="hidden">
         <p id="empty">@lang('errors.field_required')</p>
-        <p id="minimum_passowrd">@lang('errors.6_charactors_minimum')</p>
+        <p id="minimum_passowrd">@lang('errors.at_least_6_chars')</p>
         <p id="select">@lang('errors.select_option')</p>
         <p id="__email">@lang('errors.invalid_email')</p>
         <p id="__password_repeat">@lang('errors.passwords_not_match')</p>

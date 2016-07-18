@@ -28,9 +28,16 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $user = new User($request->all());
-        $user->save();
-        return redirect()->route('user.create')
-                         ->withMessage(trans('users.successfull_message'));
+        try {
+            $user = new User($request->all());
+            $user->save();
+
+            return redirect()->route('user.create')
+                             ->withMessage(trans('users.successfull_message'));
+        } catch (Exception $saveException) {
+            // Catch exceptions when data cannot save.
+            return redirect()->route('user.create')
+                             ->withErrors(trans('users.error_message'));
+        }
     }
 }
