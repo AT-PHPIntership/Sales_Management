@@ -16,13 +16,13 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>@lang('common.label_name_product')</th>
-            <th>@lang('common.label_name_category')</th>
-            <th>@lang('common.label_description_product')</th>
-            <th>@lang('common.label_price_product')</th>
-            <th>@lang('common.label_remaining_amount_product')</th>
-            <th>@lang('common.label_is_on_sale_product')</th>
-            <th>@lang('common.label_option_product')</th>
+            <th>@lang('products.label_name_product')</th>
+            <th>@lang('products.label_name_category')</th>
+            <th>@lang('products.label_description_product')</th>
+            <th>@lang('products.label_price_product')</th>
+            <th>@lang('products.label_remaining_amount_product')</th>
+            <th>@lang('products.label_is_on_sale_product')</th>
+            <th>@lang('products.label_option_product')</th>
           </tr>
         </thead>
         <tbody>
