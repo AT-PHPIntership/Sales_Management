@@ -33,7 +33,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'statistic'], function () {
 
-        Route::get('/weekly', [
+        Route::get('/daily', [
             'uses' => 'StatisticController@daily',
             'as' => 'statistic.daily'
         ]);
