@@ -36,9 +36,10 @@
               <td>{{ $product->remaining_amount }}</td>
               <td>{{ $product->is_on_sale }}</td>
               <td>
-                <a href="{{ route('product.show', [$product->id]) }}" class="btn btn-info btn-xs"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
-                <a class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                <a class="btn btn-danger btn-xs"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                <a href="{{ route('product.show', [$product->id]) }}" title="Show" class="btn btn-info btn-xs"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                <a href="{{ route('product.edit', [$product->id]) }}" title="Edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                <a href="{{ route('product.destroy', [$product->id]) }}" title="Delete"
+                class="btn btn-danger btn-xs"><i class="fa fa-trash" aria-hidden="true"></i></a>
               </td>
             </tr>
           @endforeach
