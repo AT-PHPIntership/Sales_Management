@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Category;
 //use Request;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 use DB;
 
 class ProductController extends Controller
@@ -30,20 +31,19 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
     */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-   
-        $product = new Product;
-        $product->name = $request->name;
-        $product->description = $request->description;
-        $product->price = $request->price;
-        $product->remaining_amount = $request->remaining_amount;
-        $product->is_on_sale = $request->is_on_sale;
-        $product->category_id  = $request->category;
-        $product->save();
-   
-        return redirect()->route('product.create');
+        try {
+            $product = new Product($request->all());
+            $product->save();
+
+            return redirect()->route('product.create')->withMessage(trans('product.successfull_message'));
+        } catch (Exception $saveException) {
+            // Catch exceptions when data cannot save.
+            return redirect()->route('product.create')->withErrors(trans('product.error_message'));
+        }
     }
+        
   /**
   * Display a listing of the resource.
   *

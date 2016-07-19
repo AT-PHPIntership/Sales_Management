@@ -7,21 +7,24 @@
 @section('section-title')
   @lang('product.item_add_product')
 @stop
-@section('page-content') 
-<div class="row">
-  <div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="clearfix"></div>
-    <form class="form-horizontal form-row-seperated" action="{{action('ProductController@store') }}"
-      method="Post">
-      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+@section('errors-message')
+    @include('common.errors')
+@stop
 
-          <div class="item form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">@lang('product.label_name_product')
-              <span class="required">*</span>
+@section('susscess-message')
+    @include('common.success')
+@stop
+@section('page-content')
+  <div class="x_content">
+    <form class="form-horizontal form-label-left" role="form" method="POST" action="{{ route('product.store') }}">
+      {{ csrf_field() }}
+      
+         <div class="item form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">@lang('product.label_name_product') <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Name product" required="required" type="text">
-              </div>
+              <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="2" data-validate-words="1" name="name" placeholder="@lang('product.label_name_product')" required="required" type="text" >
+            </div>
           </div>
 
           <div class="item form-group">
@@ -31,28 +34,10 @@
             <div class="col-md-6 col-sm-6 col-xs-12">
               <select autofocus name="category">
                   @foreach($categories as $category)
-                      <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
                   @endforeach
               </select>
             </div>
-          </div>
-
-          <div class="item form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="descrition">@lang('product.label_descrition_product')
-              <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <input type="text"  name="description" required="required" class="form-control col-md-7 col-xs-12" placeholder="Description">
-            </div>
-          </div>
-
-          <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="price">@lang('product.label_price_product')
-                <span class="required">*</span>
-              </label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text"  name="price" required="required" class="form-control col-md-7 col-xs-12"  placeholder="Price">
-              </div>
           </div>
 
           <div class="item form-group">
@@ -61,38 +46,89 @@
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
               <select autofocus name="is_on_sale">
-                <option value="">---option--</option>
-                <option value="0">0</option>
-                <option value="1">1</option>
+                <option value="0">no</option>
+                <option value="1">yes</option>
               </select>
             </div>
           </div>
 
           <div class="item form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="remaining_amount">@lang('product.label_remaining_amount_product')
-              <span class="required">*</span>
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number"> @lang('product.label_price_product') <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <input type="remaining_amount"  name="remaining_amount" required="required" class="form-control col-md-7 col-xs-12"  placeholder="Remaining_amount">
+              <input type="number" id="number" name="price" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
+            </div>
+          </div>
+
+          <div class="item form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">@lang('product.label_remaining_amount_product') <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="number" id="number" name="remaining_amount" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
             </div>
           </div>
           
+          <div class="item form-group">
+            <label for="descrition" class="control-label col-md-3 col-sm-3 col-xs-12">@lang('product.label_descrition_product')<span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <textarea id="descrition" type="text" name="descrition" data-validate-length-range="6,32" class="form-control col-md-7 col-xs-12" required="required" placeholder="Description"></textarea> 
+            </div>
+          </div>
+
           <div class="form-group">
-            <div class="col-md-6 col-md-offset-3">
-              <button id="send" type="submit" class="btn btn-success">@lang('product.label_submit_add_product')</button>
+            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-4 col-sm-offset-4 col-xs-offset-3">
+              <a class="btn btn-primary" href="{{ route('product.create') }}">Cancel</a>
+              <button id="send" type="submit" class="btn btn-success"> @lang('product.label_submit_add_product')</button>
             </div>
           </div>
     </form>
   </div>
-</div>
 @stop
 @push('end-page-scripts')
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $('#datatable-buttons').DataTable();
-    });
+  <script>
+      var errorMessages = {!! json_encode(trans('errors')) !!};
   </script>
-    <link rel="stylesheet" href="/bower_resources/gentelella/vendors/datatables.net/css/jquery.dataTables.min.css" media="screen" title="no title" charset="utf-8">
-    <script src="/bower_resources/gentelella/vendors/datatables.net/js/jquery.dataTables.min.js">
-  </script>
+  
+   <!-- validator -->
+  <script src="/bower_resources/gentelella/vendors/validator/validator.min.js"></script>
+
+  <!-- Validator submit -->
+  <script>
+    // Override validate message
+    validator.message.min = errorMessages.min_6;
+    validator.message.max = errorMessages.max_32;
+    validator.message.date = errorMessages.invalid_date;
+    validator.message.email = errorMessages.invalid_email;
+    validator.message.empty = errorMessages.field_required;
+    validator.message.select = errorMessages.select_option;
+    validator.message.complete = errorMessages.at_least_2_words;
+    validator.message.password_repeat = errorMessages.passwords_not_match;
+
+    // validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
+      $('form')
+        .on('blur', 'input[required], input.optional, select.required', validator.checkField)
+        .on('change', 'select.required', validator.checkField)
+        .on('keypress', 'input[required][pattern]', validator.keypress);
+
+      $('.multi.required').on('keyup blur', 'input', function() {
+        validator.checkField.apply($(this).siblings().last()[0]);
+      });
+
+      $('form').submit(function(e) {
+        e.preventDefault();
+        var submit = true;
+
+        // evaluate the form using generic validaing
+        if (!validator.checkAll($(this))) {
+          submit = false;
+        }
+
+        if (submit)
+          this.submit();
+
+        return false;
+      });
+    </script>
+    <!-- /validator -->
 @endpush
