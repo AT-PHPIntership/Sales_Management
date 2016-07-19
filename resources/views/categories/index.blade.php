@@ -28,7 +28,7 @@
               <td class="text-center">{{ $category->created_at }}</td>
               <td class="text-center">
                   <a href="{!! action('CategoryController@edit', ['id' => $category->id]) !!}" class="btn btn-warning btn-xs"><i class="fa fa-edit" title="Edit"></i></a>
-                  <button id="category-{{ $category->id }}" class="btn btn-danger btn-xs" value="{{ $category->id }}"><i class="fa fa-trash" title="Delete"></i></button>
+                  <button id="category-{{ $category->id }}" class="btn_delete btn btn-danger btn-xs" value="{{ $category->id }}"><i class="fa fa-trash" title="Delete"></i></button>
               </td>
             </tr>
             @endforeach
@@ -68,53 +68,11 @@
 @push('end-page-scripts')
     <script src="/bower_resources/gentelella/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            var categoryId = 0;
-            var token = '{{csrf_token()}}';
-            var FADEOUT_DURATION  = 1000;
-
-            $('#list-categories-table').DataTable({
-                "columns": [
-                    {"width": "5%"},
-                    {"width": "25%"},
-                    {"width": "30%"},
-                    {"width": "25%"},
-                    {"width": "15%"}
-                ]
-            });
-
-        	$.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': token
-                }
-        	});
-
-            window.deleteCategory = function (id) {
-                categoryId = id;
-                $('#delete-confirm').modal();
-            }
-
-            window.confirmDelete = function (){
-            	var url = "{{ action('CategoryController@destroy') }}/" + categoryId;
-            	$.post(url, {
-            		_method : 'delete'
-            	}, function (response) {
-            		alert(response.message);
-                    if (response.success) {
-                        $('#category-' + categoryId).closest('tr').find('td').fadeOut(FADEOUT_DURATION, function(){
-                            $(this).parents('tr:first').remove();
-                        });
-                    }
-            	}, "json");
-        	    $('#delete-confirm').modal('hide');
-            }
-
-            $('[id^="category-"]').click(function() {
-                var id = $(this).val()
-            	deleteCategory(id);
-            });
-
-            $('#confirm-delete').click(confirmDelete);
-        });
+    var categoryData = {
+        'categoryId' : 0,
+        'token' : '{{csrf_token()}}',
+        'url' : '{{ action('CategoryController@destroy') }}/'
+    };
     </script>
+    <script src="/js/categories/main.js"></script>
 @endpush
