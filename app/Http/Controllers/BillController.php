@@ -36,7 +36,7 @@ class BillController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request hold data from request
+     * @param \Illuminate\Http\BillRequest $request hold data from request
      *
      * @return \Illuminate\Http\Response
      */
@@ -50,16 +50,16 @@ class BillController extends Controller
             $bill->created_at = new DateTime();
             $bill->updated_at = new DateTime();
             $bill->save();
-            $x = Bill::where('created_at', $bill->created_at)->first();
+            $createdBill = Bill::where('created_at', $bill->created_at)->first();
             $size = count($request->product_id);
             for ($i=0; $i < $size; $i++) {
-                $bill_detail = new BillDetail;
-                $bill_detail->bill_id = $x->id;
-                $bill_detail->product_id = $request->product_id[$i];
-                $bill_detail->amount = $request->amount[$i];
-                $bill_detail->created_at = new DateTime();
-                $bill_detail->updated_at = new DateTime();
-                $bill_detail->save();
+                $billDetail = new BillDetail;
+                $billDetail->bill_id = $createdBill->id;
+                $billDetail->product_id = $request->product_id[$i];
+                $billDetail->amount = $request->amount[$i];
+                $billDetail->created_at = new DateTime();
+                $billDetail->updated_at = new DateTime();
+                $billDetail->save();
             }
             return redirect()->route('bill.create')
                              ->withMessage(trans('bills.create.successfull_message'));
