@@ -15,4 +15,8 @@ return [
     'eg_name' => 'both name(s) e.g Jon Doe',
     'successfull_message' => 'Create account successfull',
     'error_message' => 'Oops. Something went wrong! Please try again.',
+
+    'index' => [
+        'title' => 'Staffs List',
+    ],
 ];
