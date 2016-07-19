@@ -24,5 +24,7 @@ return [
         'btn_view_profile' => 'View Profile',
         'btn_edit_info' => 'Edit information',
         'btn_remove_account' => 'Remove this account',
+        'message_no_account' => 'There&#x27;s no account till now',
+        'link_create_account' => 'click here to create new accounts...'
     ],
 ];
