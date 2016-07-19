@@ -5,4 +5,6 @@ return [
     'SUPERADMIN_ROLE_ID' => 1,
     'MANAGER_ROLE_ID' => 2,
     'STAFF_ROLE_ID' => 3,
+    'SUCCESSFUL_FLAG' => true,
+    'UNSUCCESSFUL_FLAG' => false
 ];
