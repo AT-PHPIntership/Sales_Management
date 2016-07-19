@@ -1,5 +1,7 @@
 <?php
 return [
     'LIMIT_STRING_PRODUCT_DESCRIPTION' => 30,
-    'LIMIT_STRING_DESCRIPTION' => 50
+    'LIMIT_STRING_DESCRIPTION' => 50,
+    'SUCCESSFUL_FLAG' => true,
+    'UNSUCCESSFUL_FLAG' => false
 ];
