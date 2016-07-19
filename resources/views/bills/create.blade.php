@@ -69,7 +69,7 @@
           '<div class="col-md-4 col-sm-4 col-xs-12">'+
             '<input type="text" required="required" id="product' + index + '" class="form-control col-md-7 col-xs-12" />'+
             'id<input type="text" name="product_id[]" class="form-control col-md-7 col-xs-12" required="required" value="" id="product_id' + index + '"/>'+
-            'price<input type="text" name="price[]" class="form-control col-md-7 col-xs-12" id="price' + index + '"/>'+
+            'price<input type="text" name="price[]" class="form-control col-md-7 col-xs-12 price-box" id="price' + index + '"/>'+
           '</div>'+
           '<label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">@lang('bills.number_label'): </label>'+
           '<div class="col-md-2 col-sm-2 col-xs-12">'+
@@ -98,12 +98,17 @@
         },
         minLength: 0,
         select: function(event, ui) {
-            items.push({ id: ui.item.value, name: ui.item.label, price: ui.item.price, number: 1});
+            // items.push({ id: ui.item.value, name: ui.item.label, price: ui.item.price, number: 1});
             $(product_id).val(ui.item.label);
             $(value_id).val(ui.item.value);
             $(price_id).val(ui.item.price);
+            // calcTotal({price: ui.item.price, number: ui.item.amount});
+            $('#total_cost').val(ui.item.price);
             return false;
         }
+      });
+      $(document).on('change', '.amount-box', function () {
+        var val = $(this).val();
       });
       $(product_id).autocomplete( "close" );
       $(document).on('click', '.btn_remove', function(){  
