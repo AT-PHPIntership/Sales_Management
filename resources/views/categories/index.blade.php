@@ -9,7 +9,7 @@
 
 @section('page-content')
     <div class="x_content">
-        <table class="table table-striped jambo_table table-bordered">
+        <table id="list-categories-table" class="table table-striped jambo_table table-bordered">
           <thead>
             <tr class="headings">
               <th class="column-title text-center" style="width: 5%">#</th>
@@ -49,14 +49,30 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">@lang('categories.common.btn_cancel')</button>
-            <button type="button" class="btn btn-primary" onclick="confirmDelete()">@lang('categories.common.btn_delete')</button>
+            <button id="confirm-delete" type="button" class="btn btn-primary">@lang('categories.common.btn_delete')</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 @endsection
 
+@push('stylesheet')
+    <!-- Datatables -->
+    <link href="/bower_resources/gentelella/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="/bower_resources/gentelella/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="/bower_resources/gentelella/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="/bower_resources/gentelella/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="/bower_resources/gentelella/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+@endpush
+
 @push('end-page-scripts')
+    <script src="/bower_resources/gentelella/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#list-categories-table').DataTable();
+      });
+    </script>
+
     <script type="text/javascript">
     var categoryId = 0;
     var token = '{{csrf_token()}}';
@@ -86,6 +102,8 @@
         	}, "json");
     	    $('#delete-confirm').modal('hide');
         }
+
+        $('#confirm-delete').click(confirmDelete);
     });
     </script>
 @endpush
