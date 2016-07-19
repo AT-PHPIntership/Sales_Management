@@ -12,11 +12,11 @@
         <table id="list-categories-table" class="table table-striped jambo_table table-bordered">
           <thead>
             <tr class="headings">
-              <th class="column-title text-center" style="width: 5%">#</th>
-              <th class="column-title text-center" style="width: 25%">@lang('categories.common.field_name')</th>
-              <th class="column-title text-center" style="width: 30%">@lang('categories.common.field_description')</th>
-              <th class="column-title text-center" style="width: 25%">@lang('categories.common.field_time')</th>
-              <th class="column-title text-center" style="width: 15%">@lang('categories.common.field_options')</th>
+              <th class="column-title text-center">@lang('categories.common.field_id')</th>
+              <th class="column-title text-center">@lang('categories.common.field_name')</th>
+              <th class="column-title text-center">@lang('categories.common.field_description')</th>
+              <th class="column-title text-center">@lang('categories.common.field_time')</th>
+              <th class="column-title text-center">@lang('categories.common.field_options')</th>
             </tr>
           </thead>
           <tbody>
@@ -28,7 +28,7 @@
               <td class="text-center">{{ $category->created_at }}</td>
               <td class="text-center">
                   <a href="{!! action('CategoryController@edit', ['id' => $category->id]) !!}" class="btn btn-warning btn-xs"><i class="fa fa-edit" title="Edit"></i></a>
-                  <a id="category-{{ $category->id }}" class="btn btn-danger btn-xs"><i class="fa fa-trash" title="Delete"></i></a>
+                  <button id="category-{{ $category->id }}" class="btn btn-danger btn-xs" value="{{ $category->id }}"><i class="fa fa-trash" title="Delete"></i></button>
               </td>
             </tr>
             @endforeach
@@ -68,46 +68,53 @@
 @push('end-page-scripts')
     <script src="/bower_resources/gentelella/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript">
-      $(document).ready(function(){
-        $('#list-categories-table').DataTable();
-      });
-    </script>
+        $(document).ready(function() {
+            var categoryId = 0;
+            var token = '{{csrf_token()}}';
+            var FADEOUT_DURATION  = 1000;
 
-    <script type="text/javascript">
-    var categoryId = 0;
-    var token = '{{csrf_token()}}';
-    var FADEOUT_DURATION  = 1000;
+            $('#list-categories-table').DataTable({
+                "columns": [
+                    {"width": "5%"},
+                    {"width": "25%"},
+                    {"width": "30%"},
+                    {"width": "25%"},
+                    {"width": "15%"}
+                ]
+            });
 
-    $(function(){
-    	$.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': token
-            }
-    	});
-
-        $('[data-toggle="tooltip"]').tooltip()
-
-        window.confirmDelete = function (){
-        	var url = "{{ action('CategoryController@destroy') }}/" + categoryId;
-        	$.post(url, {
-        		_method : 'delete'
-        	}, function (response) {
-        		alert(response.message);
-                if (response.success) {
-                    $('#category-' + categoryId).closest('tr').find('td').fadeOut(FADEOUT_DURATION, function(){
-                        $(this).parents('tr:first').remove();
-                    });
+        	$.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': token
                 }
-        	}, "json");
-    	    $('#delete-confirm').modal('hide');
-        }
+        	});
 
-        $('[id^="category-"]').click(function() {
-            categoryId = $(this).closest('tr').find('td:first').html();
-        	$('#delete-confirm').modal();
+            window.deleteCategory = function (id) {
+                categoryId = id;
+                $('#delete-confirm').modal();
+            }
+
+            window.confirmDelete = function (){
+            	var url = "{{ action('CategoryController@destroy') }}/" + categoryId;
+            	$.post(url, {
+            		_method : 'delete'
+            	}, function (response) {
+            		alert(response.message);
+                    if (response.success) {
+                        $('#category-' + categoryId).closest('tr').find('td').fadeOut(FADEOUT_DURATION, function(){
+                            $(this).parents('tr:first').remove();
+                        });
+                    }
+            	}, "json");
+        	    $('#delete-confirm').modal('hide');
+            }
+
+            $('[id^="category-"]').click(function() {
+                var id = $(this).val()
+            	deleteCategory(id);
+            });
+
+            $('#confirm-delete').click(confirmDelete);
         });
-
-        $('#confirm-delete').click(confirmDelete);
-    });
     </script>
 @endpush

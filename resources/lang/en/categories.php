@@ -3,6 +3,7 @@ return [
     'common' => [
         'btn_cancel' => 'Cancel',
         'btn_delete' => 'Delete',
+        'field_id' => '#',
         'field_name' => 'Name',
         'field_description' => 'Description',
         'field_time' => 'Created At',
