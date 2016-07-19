@@ -18,5 +18,11 @@ return [
 
     'index' => [
         'title' => 'Staffs List',
+        'label_email' => 'Email',
+        'label_address' => 'Address',
+        'label_phone' => 'Phone',
+        'btn_view_profile' => 'View Profile',
+        'btn_edit_info' => 'Edit information',
+        'btn_remove_account' => 'Remove this account',
     ],
 ];

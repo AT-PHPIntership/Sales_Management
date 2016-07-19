@@ -34,4 +34,6 @@ return [
     'field_cost_bill' => 'Total Cost',
     'field_time_bill' => 'Created Time',
     'field_options_bill' => 'Options',
+    'input_search_placeholder' => 'Search for...',
+    'btn_search_title' => 'Search',
 ];
