@@ -30,7 +30,7 @@
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <div id="items_container" class="row">
             <div class="row">
-              <div class="col-md-2 col-sm-2 col-xs-12">
+              <div class="col-md-4 col-sm-4 col-xs-12">
                 <button type="button" name="add" id="addItemBtn" class="btn btn-success">@lang('bills.create.button_add_item_label')</button>
               </div>
             </div>
@@ -40,11 +40,10 @@
         <div class="row">
           <label for="user_id">@lang('bills.create.staff_name_label'): </label>
           <input type="text" class="form-control" required  value="{{ Auth::user()->name }}" disabled/>
-          <input type="hidden" name="user_id" class="form-control" required="required"  value="{{ Auth::user()->id }}"/>
         </div>
         <div class="row">
           <label for="total_cost">@lang('bills.create.total_cost_label'): </label>
-          <input type="text" id='cost_display' name="total_cost" class="form-control" value="0$" required="required"/>
+          <input type="text" id='cost_display' name="total_cost" class="form-control" value="0$" required="required" disabled/>
           <input type="hidden" id='total_cost' name="total_cost" class="form-control" value="0" required="required"/>
         </div>
         <div class="row">
