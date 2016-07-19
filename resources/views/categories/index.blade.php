@@ -28,7 +28,7 @@
               <td class="text-center">{{ $category->created_at }}</td>
               <td class="text-center">
                   <a href="{!! action('CategoryController@edit', ['id' => $category->id]) !!}" class="btn btn-warning btn-xs"><i class="fa fa-edit" title="Edit"></i></a>
-                  <a id="category-{{ $category->id }}" class="btn btn-danger btn-xs" onclick="deleteCategory({{ $category->id }})"><i class="fa fa-trash" title="Delete"></i></a>
+                  <a id="category-{{ $category->id }}" class="btn btn-danger btn-xs"><i class="fa fa-trash" title="Delete"></i></a>
               </td>
             </tr>
             @endforeach
@@ -76,6 +76,8 @@
     <script type="text/javascript">
     var categoryId = 0;
     var token = '{{csrf_token()}}';
+    var FADEOUT_DURATION  = 1000;
+
     $(function(){
     	$.ajaxSetup({
             headers: {
@@ -84,10 +86,7 @@
     	});
 
         $('[data-toggle="tooltip"]').tooltip()
-        window.deleteCategory = function (id) {
-        	categoryId = id;
-        	$('#delete-confirm').modal();
-        }
+
         window.confirmDelete = function (){
         	var url = "{{ action('CategoryController@destroy') }}/" + categoryId;
         	$.post(url, {
@@ -95,13 +94,18 @@
         	}, function (response) {
         		alert(response.message);
                 if (response.success) {
-                    $('#category-' + categoryId).closest('tr').find('td').fadeOut(1000, function(){
+                    $('#category-' + categoryId).closest('tr').find('td').fadeOut(FADEOUT_DURATION, function(){
                         $(this).parents('tr:first').remove();
                     });
                 }
         	}, "json");
     	    $('#delete-confirm').modal('hide');
         }
+
+        $('[id^="category-"]').click(function() {
+            categoryId = $(this).closest('tr').find('td:first').html();
+        	$('#delete-confirm').modal();
+        });
 
         $('#confirm-delete').click(confirmDelete);
     });
