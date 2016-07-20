@@ -36,6 +36,21 @@
                 </button>
               </div>
             </div>
+            <div class="form-group" id="item1">
+              <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name"> @lang('bills.create.product_label') : </label>
+              <div class="col-md-4 col-sm-4 col-xs-12">
+                <input type="text" required="required" class="product form-control col-md-7 col-xs-12" />
+                <input type="hidden" name="product_id[]" class="product_id form-control col-md-7 col-xs-12" required="required"/>
+                <input type="hidden" name="price[]" class="price form-control col-md-7 col-xs-12 price-box"/>
+              </div>
+              <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name"> @lang('bills.create.amount_label') : </label>
+              <div class="col-md-2 col-sm-2 col-xs-12">
+                <input type="number" name="amount[]" min="1" value="1" class="amount form-control col-md-7 col-xs-12 amount-box">
+              </div>
+              <div class="col-md-2 col-sm-2 col-xs-12">
+                <button type="button" name="remove" class="btn btn-danger btn_remove" disabled="disabled">X</button>
+              </div>
+            </div>
           </div>
       </div>
       <div class="col-md-5 col-sm-5 col-xs-12">
@@ -94,8 +109,7 @@
 	<script src="/bower_resources/jScrollPane/script/jquery.jscrollpane.min.js" type="text/javascript"></script>
   <script src="/bower_resources/gentelella/vendors/validator/validator.min.js" type="text/javascript"></script>
   <script type="text/javascript">
-    var product_label = {!! '\''.trans('bills.create.product_label').'\'' !!};
-    var amount_label = {!! '\''.trans('bills.create.amount_label').'\'' !!};
+    var currency_label = {!! '\''.trans('bills.create.currency_label').'\'' !!};
     var url = {!! '\''.url('api/product').'\'' !!};
   </script>
   <script src="/js/bills/main.js" type="text/javascript"></script>

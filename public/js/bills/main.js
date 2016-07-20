@@ -1,70 +1,36 @@
 var products;
 var old_cost = 0;
+var current_cost = 0;
 var index = 1;
-$.getJSON( url, function( data ) {
-  products = data;
+$(document).ready(function(){
+  $.getJSON( url, function( data ) {
+    products = data;
+    setAutocomplete('#item' + index + ' .product', '#item' + index + ' .product_id', '#item' + index + ' .price');
+    index++;
+  });
 });
 $("#addItemBtn").click(function () {
-  var product_id = '#product' + index;
-  var value_id = '#product_id' + index;
-  var price_id = '#price' + index;
-  var newItemDiv = $(document.createElement('div')).attr("id", 'itemDiv' + index);
-  newItemDiv.after().html(
-    '<div class="form-group" id="item'+ index +'">'+
-      '<label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">'+ product_label +': </label>'+
-      '<div class="col-md-4 col-sm-4 col-xs-12">'+
-        '<input type="text" required="required" id="product' + index + '" class="form-control col-md-7 col-xs-12" />'+
-        '<input type="hidden" name="product_id[]" class="form-control col-md-7 col-xs-12" required="required" id="product_id' + index + '"/>'+
-        '<input type="hidden" name="price[]" class="form-control col-md-7 col-xs-12 price-box" id="price' + index + '"/>'+
-      '</div>'+
-      '<label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">'+ amount_label +': </label>'+
-      '<div class="col-md-2 col-sm-2 col-xs-12">'+
-        '<input type="number" name="amount[]" min="1" id="amount' + index + '" value="1" class="form-control col-md-7 col-xs-12 amount-box">'+
-      '</div>'+
-      '<div class="col-md-2 col-sm-2 col-xs-12">'+
-        '<button type="button" name="remove" id="'+ index +'" class="btn btn-danger btn_remove">X</button>'+
-      '</div>'+
-    '</div>'
-  );
-  newItemDiv.appendTo("#items_container");
-  $(product_id).autocomplete({
-    source: $.map(products, function (value, index) {
-      return {
-        label: value.name + " - " + value.price +"$",
-        value: value.id,
-        price: value.price              
-      };
-    }),
-    messages: {
-      noResults: '',
-      results: function() {}
-    },
-    minLength: 0,
-    select: function(event, ui) {
-        $(product_id).val(ui.item.label);
-        $(value_id).val(ui.item.value);
-        $(price_id).val(ui.item.price);
-        $('#cost_display').val(ui.item.price + Number($('#total_cost').val()) + '$');
-        $('#total_cost').val(ui.item.price + Number($('#total_cost').val()));
-        old_cost = Number($('#total_cost').val());
-        return false;
-    }
-  });
-  $(product_id).autocomplete( "close" );
-  $(document).on('click', '.btn_remove', function(){  
-       var selectedItem = $(this).attr("id");   
-       $('#item'+selectedItem+'').remove();  
-  });
+  var product_id = '#item' + index + ' .product';
+  var value_id = '#item' + index + ' .product_id';
+  var price_id = '#item' + index + ' .price';
+  var newItem = $('#item1').clone().attr('id', 'item' + index).appendTo('#items_container');
+  $(newItem).find('input').val('');
+  $(newItem).find('.amount').val('1');
+  $(newItem).find('.btn_remove').removeAttr('disabled');
+  setAutocomplete(product_id, value_id, price_id);
   index++;
 });
+$(document).on('click', '.btn_remove', function(){
+  $(this).parent().parent().remove();  
+});
 $(document).on('keyup click', '.amount-box', function () {
-  var item = $(this).parent().parent().parent();
+  var item = $(this).parent().parent();
   var amount = $(item).find('.amount-box').val();
   var price = $(item).find('.price-box').val();
-  $('#total_cost').val(old_cost+Number(price)*(amount-1));
-  $('#cost_display').val($('#total_cost').val() + '$');
+  current_cost = old_cost+Number(price)*(amount-1);
+  $('#total_cost').val(current_cost);
+  $('#cost_display').val($('#total_cost').val() + currency_label);
 });
-
 $('form').submit(function(e) {
   e.preventDefault();
   if($('#total_cost').val() == 0) {
@@ -79,3 +45,29 @@ $('form').submit(function(e) {
   }
   this.submit();
 });
+function setAutocomplete(product_id, value_id, price_id){
+  $(product_id).autocomplete({
+    source: $.map(products, function (value, index) {
+      return {
+        label: value.name + " - " + value.price + currency_label,
+        value: value.id,
+        price: value.price              
+      };
+    }),
+    messages: {
+      noResults: '',
+      results: function() {}
+    },
+    minLength: 0,
+    select: function(event, ui) {
+        $(product_id).val(ui.item.label);
+        $(value_id).val(ui.item.value);
+        $(price_id).val(ui.item.price);
+        current_cost = ui.item.price + Number($('#total_cost').val());
+        $('#cost_display').val(current_cost + currency_label);
+        $('#total_cost').val(current_cost);
+        old_cost = Number($('#total_cost').val());
+        return false;
+    }
+  });
+}
