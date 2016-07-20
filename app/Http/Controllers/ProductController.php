@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Requestsiuse App\Repositories\ProductRepository as Product;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
-//use Request;
 use App\Http\Requests\ProductRequest;
-
 
 class ProductController extends Controller
 {
