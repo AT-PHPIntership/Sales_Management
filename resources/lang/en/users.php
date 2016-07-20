@@ -43,5 +43,6 @@ return [
         'label_male' => 'Male',
         'label_female' => 'Female',
         'label_role' => 'Role',
+        'title_avatar' => 'User Avatar',
     ],
 ];

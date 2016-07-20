@@ -16,7 +16,7 @@
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="profile_img">
               <!-- Current avatar -->
-              <img class="img-responsive avatar-view" src="/file/avatar/{{ $user->avatar }}" alt="Avatar" title="user avatar">
+              <img class="img-responsive avatar-view" src="/file/avatar/{{ $user->avatar }}" alt="Avatar" title="{{ trans('users.show.title_avatar')}}">
             </div>
             <h3 class="center">{{ $user->name }}</h3>
             <div class="center">
