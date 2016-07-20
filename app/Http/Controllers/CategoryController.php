@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Http\Requests;
 use App\Models\Category;
@@ -49,6 +50,49 @@ class CategoryController extends Controller
         } catch (Exception $ex) {
             return redirect()->action('CategoryController@create')
                              ->withMessage(trans('categories.common.error_message'));
+        }
+    }
+
+    /**
+     * Show the form for editing the specified category.
+     *
+     * @param int $id id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        try {
+            $category = Category::findOrFail($id);
+            return view('categories.edit', [
+                'category' => $category
+            ]);
+        } catch (ModelNotFoundException $ex) {
+            return redirect()->action('CategoryController@index')
+                             ->withErrors(trans('categories.common.error_message'));
+        }
+    }
+    /**
+     * Update the specified category in storage
+     *
+     * @param Request $request request
+     * @param int     $id      id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        try {
+            $category = Category::findOrFail($id);
+            $category->name = $request->name;
+            $category->description = $request->description;
+            $category->update();
+            return redirect()->action('CategoryController@edit', [
+                'category' => $category->id
+            ])->withMessage(trans('categories.edit.successful_msg'));
+        } catch (ModelNotFoundException $ex) {
+            return redirect()->action('CategoryController@index')
+                             ->withErrors(trans('categories.common.error_message'));
         }
     }
 

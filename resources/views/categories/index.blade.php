@@ -7,6 +7,14 @@
     @lang('categories.index.section-title')
 @endsection
 
+@section('errors-message')
+    @include('common.errors')
+@stop
+
+@section('susscess-message')
+    @include('common.success')
+@stop
+
 @section('page-content')
     <div class="x_content">
         <table id="list-categories-table" class="table table-striped jambo_table table-bordered">

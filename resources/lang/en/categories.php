@@ -25,7 +25,9 @@ return [
         'successful_msg' => 'Create category successful!'
     ],
     'edit' => [
-
+        'title' => 'Edit :Category Category',
+        'section-title' => 'Edit :Category Category',
+        'successful_msg' => 'Update category successful!'
     ],
     'delete' => [
         'confirm_title' => 'Confirm Category delete',
