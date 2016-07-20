@@ -24,9 +24,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('bill', 'BillController');
 
     Route::resource('product', 'ProductController');
-    
-    Route::resource('category', 'CategoryController');
-    
+
+    Route::resource('category', 'CategoryController', [
+        'except' => ['destroy']
+    ]);
+
+    Route::delete('category/{category?}', 'CategoryController@destroy');
+
     Route::resource('order', 'OrderController');
     
     Route::resource('user', 'UserController');

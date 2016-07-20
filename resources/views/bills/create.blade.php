@@ -29,9 +29,11 @@
         <div class="clearfix"></div>
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <div id="items_container" class="row">
-            <div class="row">
-              <div class="col-md-4 col-sm-4 col-xs-12">
-                <button type="button" name="add" id="addItemBtn" class="btn btn-success">@lang('bills.create.button_add_item_label')</button>
+            <div class="row margin-bottom-2">
+              <div class="col-md-4 col-sm-4 col-xs-12 col-md-offset-9">
+                <button type="button" name="add" id="addItemBtn" class="btn btn-success">
+                  <i class="fa fa-plus" aria-hidden="true"></i> @lang('bills.create.button_add_item_label')
+                </button>
               </div>
             </div>
           </div>
@@ -54,8 +56,11 @@
         </div>
         <div class="row">
           <div class="form-group">
-            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-5 col-sm-offset-5 col-xs-offset-5">
-              <button type="submit" class="btn btn-success">Submit</button>
+            <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3">
+              <a href="{{ route('bill.create') }}" class="btn btn-danger"><i class="fa fa-refresh"></i> Reset</a>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12">
+              <button type="submit" class="btn btn-success"><i class="fa fa-print" aria-hidden="true"></i> Submit</button>
             </div>
           </div>
         </div>
@@ -87,6 +92,7 @@
   <script src="/bower_resources/flexcomplete/dist/jquery.flexcomplete.min.js"></script>
   <script src="/bower_resources/jquery-mousewheel/jquery.mousewheel.min.js" type="text/javascript"></script>
 	<script src="/bower_resources/jScrollPane/script/jquery.jscrollpane.min.js" type="text/javascript"></script>
+  <script src="/bower_resources/gentelella/vendors/validator/validator.min.js" type="text/javascript"></script>
   <script type="text/javascript">
     var product_label = {!! '\''.trans('bills.create.product_label').'\'' !!};
     var amount_label = {!! '\''.trans('bills.create.amount_label').'\'' !!};

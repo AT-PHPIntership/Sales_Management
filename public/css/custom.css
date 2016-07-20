@@ -18,3 +18,7 @@
   overflow-x: hidden;
   overflow-y: auto;
 }
+
+.margin-bottom-2 {
+  margin-bottom: 2%;
+}
