@@ -65,7 +65,7 @@
                                         <a href="#" class="btn btn-warning btn-xs" title="@lang('users.index.btn_edit_info')"><i class="fa fa-edit"></i></a>
                                     @endif
                                     @if((Auth::user()->role_id == \Config::get('common.SUPERADMIN_ROLE_ID')))
-                                        <a href="#" class="btn btn-danger btn-xs" title="@lang('users.index.btn_remove_account')"><i class="fa fa-trash"></i></a>
+                                        <button data-toggle="modal" data-target="#confirm-deleting" id="user-{{ $user->id }}"  class="btn_delete btn btn-danger btn-xs" value="{{ $user->id }}" title="@lang('users.index.btn_remove_account')"><i class="fa fa-trash"></i></button>
                                     @endif
                                 </div>
                             </div>
@@ -73,12 +73,45 @@
                     </div>
                 @endif
             @endforeach
-            <div class="col-md-12 col-sm-12 col-xs-12 text-right">
                 {{ $users->links() }}
             </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 text-right">
         @endif
     </div>
-@stop
-@push('end-page-scripts')
 
+    <!-- Modal Confirmation -->
+      <div class="modal fade" id="confirm-deleting" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">@lang('users.delete.confirm_title')</h4>
+            </div>
+            <div class="modal-body">
+              <h5>@lang('users.delete.confirm_msg')</h5>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <button id="confirm-delete" class="btn btn-danger">@lang('common.btn_delete')</button>
+                    <button class="btn btn-default" data-dismiss="modal">@lang('common.btn_cancel')</button>
+                </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+@stop
+
+@push('end-page-scripts')
+    <script src="/bower_resources/gentelella/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        var userData = {
+            'userId' : 0,
+            'token' : '{{ csrf_token() }}',
+            'url' : '{{ route('user.destroy') }}/'
+        };
+    </script>
+    <script src="/js/users/main.js"></script>
 @endpush

@@ -33,7 +33,14 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('order', 'OrderController');
 
-    Route::resource('user', 'UserController');
+    Route::resource('user', 'UserController', [
+        'except' => ['destroy']
+    ]);
+
+    Route::delete('user/{user?}', [
+        'uses' => 'UserController@destroy',
+        'as' => 'user.destroy'
+    ]);
 
     Route::group(['prefix' => 'statistic'], function () {
 

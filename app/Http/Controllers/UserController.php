@@ -52,4 +52,16 @@ class UserController extends Controller
         $users = User::paginate(ACCOUNTS_PER_PAGES);
         return view('users.index')->with('users', $users);
     }
+
+    /**
+     * Destroy the specified account from database.
+     *
+     * @param int $id id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        return 'OK, '. $id .' deleted!';
+    }
 }
