@@ -76,7 +76,7 @@ class UserController extends Controller
                 return redirect()->route('user.index')
                                  ->withMessage($userName.trans('users.delete.delete_successful'));
             }
-        } catch (Exception $modelNotFoundException) {
+        } catch (Exception $modelNotFound) {
         }
 
         return redirect()->route('user.index')->withErrors($errors);
