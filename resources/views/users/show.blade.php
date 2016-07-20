@@ -68,6 +68,20 @@
                 @endif
               </div>
             </div>
+            <div class="row margin-bottom-1">
+              <div class="col-md-2">
+                <i class="fa fa-gavel user-profile-icon"></i> @lang('users.show.label_role'):
+              </div>
+              <div class="col-md-10">
+                @if ($user->role_id == \Config::get('common.SUPERADMIN_ROLE_ID'))
+                    <span class="label label-danger">{{ $user->role->name }}</span>
+                @elseif ($user->role_id == \Config::get('common.MANAGER_ROLE_ID'))
+                    <span class="label label-warning">{{ $user->role->name }}</span>
+                @else
+                    <span class="label label-success">{{ $user->role->name }}</span>
+                @endif
+              </div>
+            </div>
           </div>
         </div>
       </div>

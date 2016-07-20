@@ -42,5 +42,6 @@ return [
         'edit_profile' => 'Edit Profile',
         'label_male' => 'Male',
         'label_female' => 'Female',
+        'label_role' => 'Role',
     ],
 ];
