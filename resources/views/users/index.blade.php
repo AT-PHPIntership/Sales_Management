@@ -65,7 +65,8 @@
                                         <a href="#" class="btn btn-warning btn-xs" title="@lang('users.index.btn_edit_info')"><i class="fa fa-edit"></i></a>
                                     @endif
                                     @if((Auth::user()->role_id == \Config::get('common.SUPERADMIN_ROLE_ID')))
-                                        <a href="#" class="btn btn-danger btn-xs" title="@lang('users.index.btn_remove_account')"><i class="fa fa-trash"></i></a>
+                                        <a id='del' data-toggle="modal" data-target="#confirm-deleting" class="btn btn-danger btn-xs btn_delete" title="@lang('users.index.btn_remove_account')"><i class="fa fa-trash"></i></a>
+                                        <input id="user_id" type="hidden" value="{{ $user->id }}">
                                     @endif
                                 </div>
                             </div>
@@ -73,12 +74,48 @@
                     </div>
                 @endif
             @endforeach
-            <div class="col-md-12 col-sm-12 col-xs-12 text-right">
                 {{ $users->links() }}
             </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 text-right">
         @endif
     </div>
-@stop
-@push('end-page-scripts')
 
+    @if (count($users) > 0 )
+    <!-- Modal Confirmation -->
+      <div class="modal fade" id="confirm-deleting" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">@lang('users.delete.confirm_title')</h4>
+            </div>
+            <div class="modal-body">
+              <h5>@lang('users.delete.confirm_msg')</h5>
+            </div>
+            <div class="modal-footer">
+                <form action="{{ url('user/'.$user->id) }}" method="POST">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                    <button type="submit" class="btn btn-danger">@lang('common.btn_delete')</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@lang('common.btn_cancel')</button>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    @endif
+@stop
+
+@push('end-page-scripts')
+    <script>
+        $(document).ready(function() {
+            $(document).on('click',".btn_delete", function() {
+                var id = $(this).next().val();
+                $('form').attr('action','user/'+id);
+                $('#idDel').text(id);
+            });
+        });
+    </script>
 @endpush
