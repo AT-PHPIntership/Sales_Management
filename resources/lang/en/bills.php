@@ -12,6 +12,9 @@ return [
     'error_message' => 'Oops. Something went wrong! Please try again.',
     'error_cost_message' => 'please! there might be some errors! please check again',
     'title_model' => 'Announcement',
-    'currency_label' => '$'
+    'currency_label' => '$',
+    'btn_reset' => 'Reset',
+    'btn_submit' => 'Submit',
+    'btn_close' => 'Close',
   ]
 ];

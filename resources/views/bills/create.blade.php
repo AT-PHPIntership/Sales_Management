@@ -72,10 +72,10 @@
         <div class="row">
           <div class="form-group">
             <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3">
-              <a href="{{ route('bill.create') }}" class="btn btn-danger"><i class="fa fa-refresh"></i> Reset</a>
+              <a href="{{ route('bill.create') }}" class="btn btn-danger"><i class="fa fa-refresh"></i> @lang('bills.create.btn_reset')</a>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-12">
-              <button type="submit" class="btn btn-success"><i class="fa fa-print" aria-hidden="true"></i> Submit</button>
+              <button type="submit" class="btn btn-success"><i class="fa fa-print" aria-hidden="true"></i> @lang('bills.create.btn_submit')</button>
             </div>
           </div>
         </div>
@@ -93,7 +93,7 @@
             <h5>@lang('bills.create.error_cost_message')</h5>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">@lang('bills.create.btn_close')</button>
           </div>
         </div>
       </div>
