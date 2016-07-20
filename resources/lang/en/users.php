@@ -30,7 +30,8 @@ return [
     'delete' => [
         'confirm_title' => 'Confirm deleting',
         'confirm_msg' => 'Are you sure you want to delete this account?',
-        '' => '',
-        '' => '',
+        'delete_unsuccessful' => 'Oops... Please remove all bills and orders that are created by this user first!',
+        'error_message' => 'Oops. Something went wrong! Please try again.',
+        'delete_successful' => ' has been deleted!',
     ],
 ];

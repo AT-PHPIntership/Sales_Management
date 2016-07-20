@@ -65,7 +65,8 @@
                                         <a href="#" class="btn btn-warning btn-xs" title="@lang('users.index.btn_edit_info')"><i class="fa fa-edit"></i></a>
                                     @endif
                                     @if((Auth::user()->role_id == \Config::get('common.SUPERADMIN_ROLE_ID')))
-                                        <button data-toggle="modal" data-target="#confirm-deleting" id="user-{{ $user->id }}"  class="btn_delete btn btn-danger btn-xs" value="{{ $user->id }}" title="@lang('users.index.btn_remove_account')"><i class="fa fa-trash"></i></button>
+                                        <a id='del' data-toggle="modal" data-target="#confirm-deleting" class="btn btn-danger btn-xs btn_delete" title="@lang('users.index.btn_remove_account')"><i class="fa fa-trash"></i></a>
+                                        <input id="user_id" type="hidden" value="{{ $user->id }}">
                                     @endif
                                 </div>
                             </div>
@@ -79,6 +80,7 @@
         @endif
     </div>
 
+    @if (count($users) > 0 )
     <!-- Modal Confirmation -->
       <div class="modal fade" id="confirm-deleting" role="dialog">
         <div class="modal-dialog">
@@ -93,25 +95,27 @@
               <h5>@lang('users.delete.confirm_msg')</h5>
             </div>
             <div class="modal-footer">
-                <div class="row">
-                    <button id="confirm-delete" class="btn btn-danger">@lang('common.btn_delete')</button>
-                    <button class="btn btn-default" data-dismiss="modal">@lang('common.btn_cancel')</button>
-                </div>
+                <form action="{{ url('user/'.$user->id) }}" method="POST">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                    <button type="submit" class="btn btn-danger">@lang('common.btn_delete')</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@lang('common.btn_cancel')</button>
+                </form>
             </div>
           </div>
-
         </div>
       </div>
+    @endif
 @stop
 
 @push('end-page-scripts')
-    <script src="/bower_resources/gentelella/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript">
-        var userData = {
-            'userId' : 0,
-            'token' : '{{ csrf_token() }}',
-            'url' : '{{ route('user.destroy') }}/'
-        };
+    <script>
+        $(document).ready(function() {
+            $(document).on('click',".btn_delete", function() {
+                var id = $(this).next().val();
+                $('form').attr('action','user/'+id);
+                $('#idDel').text(id);
+            });
+        });
     </script>
-    <script src="/js/users/main.js"></script>
 @endpush

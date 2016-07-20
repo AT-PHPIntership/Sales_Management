@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
-use App\Http\Requests;
 use App\Models\User;
 
 class UserController extends Controller
@@ -42,7 +41,7 @@ class UserController extends Controller
     }
 
     /**
-     * Show the application accounts list
+     * Show the application accounts list.
      *
      * @return \Illuminate\Http\Response
      */
@@ -50,6 +49,7 @@ class UserController extends Controller
     {
         define('ACCOUNTS_PER_PAGES', 21);
         $users = User::paginate(ACCOUNTS_PER_PAGES);
+
         return view('users.index')->with('users', $users);
     }
 
@@ -62,6 +62,23 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        return 'OK, '. $id .' deleted!';
+        $errors = trans('users.delete.error_message');
+        try {
+            $user = User::findOrFail($id);
+            $numberOfBills = count($user->bills);
+            $numberOfOrders = count($user->orders);
+            if ($numberOfOrders || $numberOfBills) {
+                $errors = trans('users.delete.delete_unsuccessful');
+            } else {
+                $userName = $user->name;
+                $user->delete();
+
+                return redirect()->route('user.index')
+                                 ->withMessage($userName.trans('users.delete.delete_successful'));
+            }
+        } catch (Exception $modelNotFoundException) {
+        }
+
+        return redirect()->route('user.index')->withErrors($errors);
     }
 }
