@@ -13,5 +13,7 @@ return [
     'invalid_date' => 'Not a real date.',
     'invalid_role' => 'Invalid Account Permission.',
     'min_6' => 'At least 6 characters.',
-    'max_32' => '32 characters maximum.'
+    'max_32' => '32 characters maximum.',
+    'min' => 'At least :min characters.',
+    'max' => ':max characters maximum.'
 ];
