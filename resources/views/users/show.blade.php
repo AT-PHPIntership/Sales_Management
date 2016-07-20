@@ -74,7 +74,3 @@
     </div>
   </div>
 @stop
-
-@push('end-page-scripts')
-
-@endpush
