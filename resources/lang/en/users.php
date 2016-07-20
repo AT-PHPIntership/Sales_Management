@@ -4,6 +4,10 @@ return [
     'title' => 'New Account',
     'section_header' => 'Create New Account',
     'label_name' => 'Name',
+    'label_phone' => 'Phone',
+    'label_address' => 'Address',
+    'label_birthday' => 'Birthday',
+    'label_gender' => 'Gender',
     'label_email' => 'Email',
     'label_password' => 'Password',
     'label_password_confirm' => 'Repeat Password',
@@ -15,4 +19,5 @@ return [
     'eg_name' => 'both name(s) e.g Jon Doe',
     'successfull_message' => 'Create account successfull',
     'error_message' => 'Oops. Something went wrong! Please try again.',
+    'label_change_avatar' => 'Change Avatar',
 ];

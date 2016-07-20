@@ -40,4 +40,17 @@ class UserController extends Controller
                              ->withErrors(trans('users.error_message'));
         }
     }
+    
+    /**
+     * Show the application user profile
+     *
+     * @param integer $id determine specific user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        return view('users.show', compact('user'));
+    }
 }
