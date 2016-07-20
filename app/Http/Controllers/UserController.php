@@ -40,4 +40,16 @@ class UserController extends Controller
                              ->withErrors(trans('users.error_message'));
         }
     }
+
+    /**
+     * Show the application accounts list
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        define('ACCOUNTS_PER_PAGES', 21);
+        $users = User::paginate(ACCOUNTS_PER_PAGES);
+        return view('users.index')->with('users', $users);
+    }
 }
