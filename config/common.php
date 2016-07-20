@@ -6,5 +6,6 @@ return [
     'MANAGER_ROLE_ID' => 2,
     'STAFF_ROLE_ID' => 3,
     'SUCCESSFUL_FLAG' => true,
-    'UNSUCCESSFUL_FLAG' => false
+    'UNSUCCESSFUL_FLAG' => false,
+    'ACCOUNTS_PER_PAGES' => 21,
 ];
