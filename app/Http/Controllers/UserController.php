@@ -48,7 +48,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(21);
+        define('ACCOUNTS_PER_PAGES', 21);
+        $users = User::paginate(ACCOUNTS_PER_PAGES);
         return view('users.index')->with('users', $users);
     }
 }
