@@ -23,6 +23,36 @@ class CategoryController extends Controller
     }
 
     /**
+     * Show the form for creating a new category.
+     *
+     * @return \Illuminate\Http\Responsed
+     */
+    public function create()
+    {
+        return view('categories.create');
+    }
+
+    /**
+     * Store a newly created category in storage.
+     *
+     * @param \Illuminate\Http\Request $request request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store(CategoryRequest $request)
+    {
+        try {
+            $data = $request->all();
+            Category::create($data);
+            return redirect()->action('CategoryController@create')
+                             ->withMessage(trans('categories.create.successful_msg'));
+        } catch (Exception $ex) {
+            return redirect()->action('CategoryController@create')
+                             ->withMessage(trans('categories.common.error_message'));
+        }
+    }
+
+    /**
      * Destroy the specified category from storage.
      *
      * @param int $id id
