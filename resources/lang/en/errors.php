@@ -17,5 +17,6 @@ return [
     'id_user' => 'ID user is invalid',
     'total_cost' => 'Total cost is invalid',
     'min' => 'At least :min characters.',
-    'max' => ':max characters maximum.'
+    'max' => ':max characters maximum.',
+    'max' => ':max characters maximum.',
 ];

@@ -8,7 +8,6 @@ use App\Http\Requests;
 use App\Models\BillDetail;
 use App\Http\Requests\BillRequest;
 use Auth;
-use DateTime;
 
 class BillController extends Controller
 {
@@ -43,22 +42,16 @@ class BillController extends Controller
     public function store(BillRequest $request)
     {
         try {
-            $bill = new Bill;
+            $bill = new Bill($request->all());
             $bill->user_id = Auth::user()->id;
-            $bill->description = $request->description;
-            $bill->total_cost = $request->total_cost;
-            $bill->created_at = new DateTime();
-            $bill->updated_at = new DateTime();
             $bill->save();
-            $createdBill = Bill::where('created_at', $bill->created_at)->first();
             $size = count($request->product_id);
             for ($i=0; $i < $size; $i++) {
                 $billDetail = new BillDetail;
-                $billDetail->bill_id = $createdBill->id;
+                $billDetail->bill_id = $bill->id;
                 $billDetail->product_id = $request->product_id[$i];
                 $billDetail->amount = $request->amount[$i];
-                $billDetail->created_at = new DateTime();
-                $billDetail->updated_at = new DateTime();
+                $billDetail->cost = $request->amount[$i] * $request->price[$i];
                 $billDetail->save();
             }
             return redirect()->route('bill.create')

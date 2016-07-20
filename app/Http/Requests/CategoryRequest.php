@@ -24,6 +24,12 @@ class CategoryRequest extends Request
     public function rules()
     {
         switch ($this->method()) {
+            case 'PUT':
+            case 'PATCH':
+                return [
+                    'name' => 'required|max:50|unique:categories,name,' . $this->category,
+                    'description' => 'max:100'
+                ];
             case 'POST':
                 return [
                     'name' => 'required|max:50|unique:categories',

@@ -29,9 +29,26 @@
         <div class="clearfix"></div>
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <div id="items_container" class="row">
-            <div class="row">
+            <div class="row margin-bottom-2">
+              <div class="col-md-4 col-sm-4 col-xs-12 col-md-offset-9">
+                <button type="button" name="add" id="addItemBtn" class="btn btn-success">
+                  <i class="fa fa-plus" aria-hidden="true"></i> @lang('bills.create.button_add_item_label')
+                </button>
+              </div>
+            </div>
+            <div class="form-group" id="item1">
+              <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name"> @lang('bills.create.product_label') : </label>
               <div class="col-md-4 col-sm-4 col-xs-12">
-                <button type="button" name="add" id="addItemBtn" class="btn btn-success">@lang('bills.create.button_add_item_label')</button>
+                <input type="text" required="required" class="product form-control col-md-7 col-xs-12" />
+                <input type="hidden" name="product_id[]" class="product_id form-control col-md-7 col-xs-12" required="required"/>
+                <input type="hidden" name="price[]" class="price form-control col-md-7 col-xs-12 price-box"/>
+              </div>
+              <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name"> @lang('bills.create.amount_label') : </label>
+              <div class="col-md-2 col-sm-2 col-xs-12">
+                <input type="number" name="amount[]" min="1" value="1" class="amount form-control col-md-7 col-xs-12 amount-box">
+              </div>
+              <div class="col-md-2 col-sm-2 col-xs-12">
+                <button type="button" name="remove" class="btn btn-danger btn_remove" disabled="disabled">X</button>
               </div>
             </div>
           </div>
@@ -54,13 +71,33 @@
         </div>
         <div class="row">
           <div class="form-group">
-            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-5 col-sm-offset-5 col-xs-offset-5">
-              <button type="submit" class="btn btn-success">Submit</button>
+            <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3">
+              <a href="{{ route('bill.create') }}" class="btn btn-danger"><i class="fa fa-refresh"></i> @lang('bills.create.btn_reset')</a>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12">
+              <button type="submit" class="btn btn-success"><i class="fa fa-print" aria-hidden="true"></i> @lang('bills.create.btn_submit')</button>
             </div>
           </div>
         </div>
       </div>
     </form>
+    <!-- Modal -->
+    <div class="modal fade" id="errorMessageModel" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">@lang('bills.create.title_model')</h4>
+          </div>
+          <div class="modal-body">
+            <h5>@lang('bills.create.error_cost_message')</h5>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">@lang('bills.create.btn_close')</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   
 @stop
@@ -70,85 +107,10 @@
   <script src="/bower_resources/flexcomplete/dist/jquery.flexcomplete.min.js"></script>
   <script src="/bower_resources/jquery-mousewheel/jquery.mousewheel.min.js" type="text/javascript"></script>
 	<script src="/bower_resources/jScrollPane/script/jquery.jscrollpane.min.js" type="text/javascript"></script>
-  
+  <script src="/bower_resources/gentelella/vendors/validator/validator.min.js" type="text/javascript"></script>
   <script type="text/javascript">
-    var products;
-    var old_cost = 0;
-    var index = 1;
-    $.getJSON( "{{ url('api/product') }}", function( data ) {
-      products = data;
-    });
-    $("#addItemBtn").click(function () {
-      var product_id = '#product' + index;
-      var value_id = '#product_id' + index;
-      var price_id = '#price' + index;
-      var newItemDiv = $(document.createElement('div')).attr("id", 'itemDiv' + index);
-      newItemDiv.after().html(
-        '<div class="form-group" id="item'+ index +'">'+
-          '<label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">@lang('bills.create.product_label'): </label>'+
-          '<div class="col-md-4 col-sm-4 col-xs-12">'+
-            '<input type="text" required="required" id="product' + index + '" class="form-control col-md-7 col-xs-12" />'+
-            '<input type="hidden" name="product_id[]" class="form-control col-md-7 col-xs-12" required="required" value="" id="product_id' + index + '"/>'+
-            '<input type="hidden" name="price[]" class="form-control col-md-7 col-xs-12 price-box" id="price' + index + '"/>'+
-          '</div>'+
-          '<label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">@lang('bills.create.amount_label'): </label>'+
-          '<div class="col-md-2 col-sm-2 col-xs-12">'+
-            '<input type="number" name="amount[]" min="1" id="amount' + index + '" value="1" class="form-control col-md-7 col-xs-12 amount-box">'+
-          '</div>'+
-          '<div class="col-md-2 col-sm-2 col-xs-12">'+
-            '<button type="button" name="remove" id="'+ index +'" class="btn btn-danger btn_remove">X</button>'+
-          '</div>'+
-        '</div>'
-      );
-      newItemDiv.appendTo("#items_container");
-      $(product_id).autocomplete({
-        source: $.map(products, function (value, index) {
-          return {
-            label: value.name + " - " + value.price +"$",
-            value: value.id,
-            price: value.price              
-          };
-        }),
-        messages: {
-          noResults: '',
-          results: function() {}
-        },
-        minLength: 0,
-        select: function(event, ui) {
-            $(product_id).val(ui.item.label);
-            $(value_id).val(ui.item.value);
-            $(price_id).val(ui.item.price);
-            $('#cost_display').val(ui.item.price + Number($('#total_cost').val()) + '$');
-            $('#total_cost').val(ui.item.price + Number($('#total_cost').val()));
-            old_cost = Number($('#total_cost').val());
-            return false;
-        }
-      });
-      $(product_id).autocomplete( "close" );
-      $(document).on('click', '.btn_remove', function(){  
-           var selectedItem = $(this).attr("id");   
-           $('#item'+selectedItem+'').remove();  
-      });
-      index++;
-    });
-    $(document).on('keyup click', '.amount-box', function () {
-      var item = $(this).parent().parent().parent();
-      var amount = $(item).find('.amount-box').val();
-      var price = $(item).find('.price-box').val();
-      $('#total_cost').val(old_cost+Number(price)*(amount-1));
-      $('#cost_display').val($('#total_cost').val() + '$');
-    });
+    var currency_label = '{{ trans('bills.create.currency_label') }}';
+    var url = '{{ url('api/product') }}';
   </script>
-  
-  <!-- check submit button -->
-  <script type="text/javascript">
-    $('form').submit(function(e) {
-      e.preventDefault();
-      if($('#total_cost').val()=='0') {
-        alert("please! select at least one item");
-        return false;
-      }
-      this.submit();
-    });
-  </script>
+  <script src="/js/bills/main.js" type="text/javascript"></script>
 @endpush
