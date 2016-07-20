@@ -109,8 +109,8 @@
 	<script src="/bower_resources/jScrollPane/script/jquery.jscrollpane.min.js" type="text/javascript"></script>
   <script src="/bower_resources/gentelella/vendors/validator/validator.min.js" type="text/javascript"></script>
   <script type="text/javascript">
-    var currency_label = {!! '\''.trans('bills.create.currency_label').'\'' !!};
-    var url = {!! '\''.url('api/product').'\'' !!};
+    var currency_label = '{{ trans('bills.create.currency_label') }}';
+    var url = '{{ url('api/product') }}';
   </script>
   <script src="/js/bills/main.js" type="text/javascript"></script>
 @endpush

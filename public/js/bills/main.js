@@ -1,7 +1,6 @@
 var products;
 var old_cost = 0;
 var current_cost = 0;
-var display_current_cost = '0';
 var index = 1;
 var product_id = '#item' + index + ' .product';
 var value_id = '#item' + index + ' .product_id';
@@ -25,20 +24,29 @@ $("#addItemBtn").click(function () {
   index++;
 });
 $(document).on('click', '.btn_remove', function(){
-  $(this).parent().parent().remove();  
+  var item = $(this).parent().parent();
+  var removed_cost = $(item).find('.amount').val() * $(item).find('.price').val();
+  var left_cost = Number(current_cost) - Number(removed_cost);
+  $('#total_cost').val(left_cost);
+  display_current_cost = $('#total_cost').val() + currency_label;
+  $('#cost_display').val(display_current_cost);
+  item.remove();  
 });
+
 $(document).on('keyup click', '.amount-box', function () {
   var item = $(this).parent().parent();
   var amount = $(item).find('.amount-box').val();
   var price = $(item).find('.price-box').val();
   current_cost = old_cost + Number(price)*(amount-1);
-  display_current_cost = $('#total_cost').val() + currency_label;
   $('#total_cost').val(current_cost);
+  display_current_cost = $('#total_cost').val() + currency_label;
   $('#cost_display').val(display_current_cost);
 });
+
+
 $('form').submit(function(e) {
   e.preventDefault();
-  if($('#total_cost').val() == 0) {
+  if(current_cost == 0) {
     $('#errorMessageModel').modal('show'); 
     return false;
   }
@@ -50,6 +58,9 @@ $('form').submit(function(e) {
   }
   this.submit();
 });
+
+
+
 function setAutocomplete(product_id, value_id, price_id){
   $(product_id).autocomplete({
     source: $.map(products, function (value, index) {
@@ -69,7 +80,8 @@ function setAutocomplete(product_id, value_id, price_id){
         $(value_id).val(ui.item.value);
         $(price_id).val(ui.item.price);
         current_cost = ui.item.price + Number($('#total_cost').val());
-        $('#cost_display').val(current_cost + currency_label);
+        display_current_cost = current_cost + currency_label;
+        $('#cost_display').val(display_current_cost);
         $('#total_cost').val(current_cost);
         old_cost = Number($('#total_cost').val());
         return false;
