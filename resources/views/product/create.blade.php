@@ -41,21 +41,21 @@
             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number"> @lang('products.label_price_product') <span class="required">@lang('products.required_product')</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <input type="number" id="number" name="price" required="required" data-validate-min="1,200000" class="form-control col-md-7 col-xs-12" placeholder="000.000 vnd">
+              <input type="number" id="number" name="price" required="required" class="form-control col-md-7 col-xs-12" placeholder="@lang('products.label_price_product')">
             </div>
           </div>
           <div class="item form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">@lang('products.label_remaining_amount_product') <span class="required">@lang('products.required_product')</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <input type="number" id="number" name="remaining_amount" required="required" data-validate-minmax="1,800" class="form-control col-md-7 col-xs-12" placeholder="@lang('products.label_remaining_amount_product')">
+              <input type="number" id="number" name="remaining_amount" required="required"  class="form-control col-md-7 col-xs-12" placeholder="@lang('products.label_remaining_amount_product')">
             </div>
           </div>
           <div class="item form-group">
             <label for="descrition" class="control-label col-md-3 col-sm-3 col-xs-12">@lang('products.label_description_product')
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <textarea id="description" type="text" name="description" data-validate-length-range="6,32" class="form-control col-md-7 col-xs-12" placeholder="Description"></textarea> 
+              <textarea id="description" type="text" name="description" class="form-control col-md-7 col-xs-12" placeholder="@lang('products.label_description_product')"></textarea> 
             </div>
           </div>
            <div class="item form-group">

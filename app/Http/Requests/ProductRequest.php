@@ -27,9 +27,9 @@ class ProductRequest extends Request
         
         return [
             'name' => 'required|string|min:3|unique:products',
-            'remaining_amount' => 'required|integer|',
+            'remaining_amount' => 'required|integer|min:1',
             'price' => 'required|integer|min:1',
-            'description' => 'string|max:200',
+            'description' => 'string|min:6|max:200',
             'category_id' => 'required|exists:categories,id',
             'is_on_sale' => 'required|string|between:0,1',
 
