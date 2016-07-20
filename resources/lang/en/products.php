@@ -12,9 +12,11 @@ return [
     'option_sale_No_product'=>'No',
     'menu_products'=> 'Products',
     'required_product'=> '*',
+    'option_sale_n_product'=> '0',
+    'option_sale_y_product'=> '1',
 
     'item_add_product'=> 'Add Product',
-    'successfull_message' => 'Create account successfull',
+    'successfull_message' => 'Create product successfull',
     'error_message' => 'Oops. Something went wrong! Please try again',
 
 

@@ -30,7 +30,7 @@ class ProductRequest extends Request
             'remaining_amount' => 'required|integer|',
             'price' => 'required|integer|min:1',
             'description' => 'string|max:200',
-            'category' => 'required|exists:categories,id',
+            'category_id' => 'required|exists:categories,id',
             'is_on_sale' => 'required|string|between:0,1',
 
         ];

@@ -1,11 +1,11 @@
 @extends('layouts/app')
 
 @section('page-title')
-  @lang('product.menu_products')
+  @lang('products.menu_products')
 @stop
 
 @section('section-title')
-  @lang('product.item_add_product')
+  @lang('products.item_add_product')
 @stop
 @section('errors-message')
     @include('common.errors')
@@ -17,7 +17,7 @@
 @section('page-content')
   <div class="x_content">
     <form class="form-horizontal form-label-left" role="form" method="POST" action="{{ route('product.store') }}">
-      {{ csrf_field() }} 
+        {!! csrf_field() !!} 
          <div class="item form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">@lang('products.label_name_product') <span class="required">@lang('products.required_product')</span>
             </label>
@@ -30,7 +30,7 @@
               <span class="required">@lang('products.required_product')</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <select autofocus name="category">
+              <select autofocus name="category_id">
                   @foreach($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                   @endforeach
@@ -64,8 +64,8 @@
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
               <select autofocus name="is_on_sale">
-                <option value="1">@lang('products.option_sale_Yes_product')</option>
-                <option value="0">@lang('products.option_sale_No_product')</option>
+                <option value="@lang('products.option_sale_y_product')">@lang('products.option_sale_Yes_product')</option>
+                <option value="@lang('products.option_sale_n_product')">@lang('products.option_sale_No_product')</option>
               </select>
             </div>
           </div>
