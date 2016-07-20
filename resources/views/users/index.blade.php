@@ -21,6 +21,16 @@
 @stop
 
 @section('page-content')
+    @if (isset($keyword))
+        <div class="alert alert-info alert-dismissible fade in" role="alert">
+          <a href="{{ route('user.index') }}" type="button" class="close" title="@lang('users.index.btn_close_title')" data-dismiss="alert" aria-label="Close"><i class="fa fa-close"></i></a>
+          @if(0 == count($users))
+              @lang('users.index.mgs_no_result') <strong>{{ $keyword }}</strong>.
+          @else
+              {!! count($users) !!} {{ trans_choice('users.index.mgs_search_successful', count($users)) }} <strong>{{ $keyword }}</strong>.
+          @endif
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12 text-center">
         </div>

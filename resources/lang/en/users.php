@@ -25,7 +25,10 @@ return [
         'btn_edit_info' => 'Edit information',
         'btn_remove_account' => 'Remove this account',
         'message_no_account' => 'There&#x27;s no account till now',
-        'link_create_account' => 'click here to create new accounts...'
+        'link_create_account' => 'click here to create new accounts...',
+        'btn_close_title' => 'Close Search',
+        'mgs_no_result' => 'Cannot find any user matches ',
+        'mgs_search_successful' => '{1} result matches |[2,Inf] results match ',
     ],
     'delete' => [
         'confirm_title' => 'Confirm deleting',
