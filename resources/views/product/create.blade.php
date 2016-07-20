@@ -17,19 +17,17 @@
 @section('page-content')
   <div class="x_content">
     <form class="form-horizontal form-label-left" role="form" method="POST" action="{{ route('product.store') }}">
-      {{ csrf_field() }}
-      
+      {{ csrf_field() }} 
          <div class="item form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">@lang('product.label_name_product') <span class="required">*</span>
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">@lang('products.label_name_product') <span class="required">@lang('products.required_product')</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="2" data-validate-words="1" name="name" placeholder="@lang('product.label_name_product')" required="required" type="text" >
+              <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="2" data-validate-words="1" name="name" placeholder="@lang('products.label_name_product')" required="required" type="text" >
             </div>
           </div>
-
           <div class="item form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categories">@lang('product.label_categories_product')
-              <span class="required">*</span>
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categories">@lang('products.label_categories_product')
+              <span class="required">@lang('products.required_product')</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
               <select autofocus name="category">
@@ -39,47 +37,42 @@
               </select>
             </div>
           </div>
-
           <div class="item form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_on_sale">@lang('product.label_is_on_sale_product')
-              <span class="required">*</span>
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number"> @lang('products.label_price_product') <span class="required">@lang('products.required_product')</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="number" id="number" name="price" required="required" data-validate-min="1,200000" class="form-control col-md-7 col-xs-12" placeholder="000.000 vnd">
+            </div>
+          </div>
+          <div class="item form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">@lang('products.label_remaining_amount_product') <span class="required">@lang('products.required_product')</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="number" id="number" name="remaining_amount" required="required" data-validate-minmax="1,800" class="form-control col-md-7 col-xs-12" placeholder="@lang('products.label_remaining_amount_product')">
+            </div>
+          </div>
+          <div class="item form-group">
+            <label for="descrition" class="control-label col-md-3 col-sm-3 col-xs-12">@lang('products.label_description_product')
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <textarea id="description" type="text" name="description" data-validate-length-range="6,32" class="form-control col-md-7 col-xs-12" placeholder="Description"></textarea> 
+            </div>
+          </div>
+           <div class="item form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_on_sale">@lang('products.label_is_on_sale_product')
+              <span class="required">@lang('products.required_product')</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
               <select autofocus name="is_on_sale">
-                <option value="0">no</option>
-                <option value="1">yes</option>
+                <option value="1">@lang('products.option_sale_Yes_product')</option>
+                <option value="0">@lang('products.option_sale_No_product')</option>
               </select>
             </div>
           </div>
-
-          <div class="item form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number"> @lang('product.label_price_product') <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <input type="number" id="number" name="price" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
-            </div>
-          </div>
-
-          <div class="item form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">@lang('product.label_remaining_amount_product') <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <input type="number" id="number" name="remaining_amount" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
-            </div>
-          </div>
-          
-          <div class="item form-group">
-            <label for="descrition" class="control-label col-md-3 col-sm-3 col-xs-12">@lang('product.label_descrition_product')<span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <textarea id="descrition" type="text" name="descrition" data-validate-length-range="6,32" class="form-control col-md-7 col-xs-12" required="required" placeholder="Description"></textarea> 
-            </div>
-          </div>
-
           <div class="form-group">
             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-4 col-sm-offset-4 col-xs-offset-3">
-              <a class="btn btn-primary" href="{{ route('product.create') }}">Cancel</a>
-              <button id="send" type="submit" class="btn btn-success"> @lang('product.label_submit_add_product')</button>
+              <a class="btn btn-primary" href="{{ route('product.create') }}">@lang('products.btn_cancel')</a>
+              <button id="send" type="submit" class="btn btn-success"> @lang('products.label_submit_add_product')</button>
             </div>
           </div>
     </form>
@@ -99,11 +92,9 @@
     validator.message.min = errorMessages.min_6;
     validator.message.max = errorMessages.max_32;
     validator.message.date = errorMessages.invalid_date;
-    validator.message.email = errorMessages.invalid_email;
     validator.message.empty = errorMessages.field_required;
     validator.message.select = errorMessages.select_option;
     validator.message.complete = errorMessages.at_least_2_words;
-    validator.message.password_repeat = errorMessages.passwords_not_match;
 
     // validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
       $('form')

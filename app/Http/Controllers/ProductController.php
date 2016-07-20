@@ -34,8 +34,14 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         try {
-            $product = new Product($request->all());
-            $product->save();
+             $product = new Product;
+             $product->name = $request->name;
+             $product->price = $request->price;
+             $product->remaining_amount = $request->remaining_amount;
+             $product->is_on_sale = $request->is_on_sale;
+             $product->category_id  = $request->category;
+             $product->description = $request->description;
+             $product->save();
 
             return redirect()->route('product.create')->withMessage(trans('product.successfull_message'));
         } catch (Exception $saveException) {
