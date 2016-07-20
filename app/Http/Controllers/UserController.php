@@ -48,8 +48,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        define('ACCOUNTS_PER_PAGES', 21);
-        $users = User::paginate(ACCOUNTS_PER_PAGES);
+        $users = User::paginate(\Config::get('common.ACCOUNTS_PER_PAGES'));
 
         return view('users.index')->with('users', $users);
     }
