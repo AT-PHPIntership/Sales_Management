@@ -3,19 +3,26 @@ return [
     'common' => [
         'btn_cancel' => 'Cancel',
         'btn_delete' => 'Delete',
+        'btn_submit' => 'Submit',
         'field_id' => '#',
         'field_name' => 'Name',
         'field_description' => 'Description',
         'field_time' => 'Created At',
         'field_options' => 'Options',
-        'not_found' => 'This category does not exist!'
+        'label_name' => 'Name',
+        'label_description' => 'Description',
+        'not_found' => 'This category does not exist!',
+        'category_exists' => 'This category has existed.',
+        'error_message' => 'Oops. Something went wrong! Please try again.',
     ],
     'index' => [
         'title' => 'Categories List',
         'section-title' => 'Categories List'
     ],
     'create' => [
-
+        'title' => 'Create New Category',
+        'section-title' => 'Create New Category',
+        'successful_msg' => 'Create category successful!'
     ],
     'edit' => [
 

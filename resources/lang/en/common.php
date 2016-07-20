@@ -35,5 +35,7 @@ return [
     'field_time_bill' => 'Created Time',
     'field_options_bill' => 'Options',
     'btn_submit' => 'Submit',
-    'btn_cancel' => 'Cancel'
+    'btn_cancel' => 'Cancel',
+    'input_search_placeholder' => 'Search for...',
+    'btn_search_title' => 'Search',
 ];
