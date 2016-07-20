@@ -32,24 +32,28 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('category/{category?}', 'CategoryController@destroy');
 
     Route::resource('order', 'OrderController');
-
+    
     Route::resource('user', 'UserController');
-
+    
     Route::group(['prefix' => 'statistic'], function () {
-
+    
         Route::get('/weekly', [
             'uses' => 'StatisticController@daily',
             'as' => 'statistic.daily'
         ]);
-
+    
         Route::get('/monthly', [
             'uses' => 'StatisticController@monthly',
             'as' => 'statistic.monthly'
         ]);
-
+    
         Route::get('/quarterly', [
             'uses' => 'StatisticController@quarterly',
             'as' => 'statistic.quarterly'
         ]);
+    });
+    
+    Route::get('api/product', function () {
+        return Response::json(\App\Models\Product::all());
     });
 });

@@ -18,7 +18,7 @@ class BillsTableSeeder extends Seeder
             $order = Bill::create([
                 'user_id' => rand(1, 10),
                 'description' => $faker->text,
-                'total_cost' => rand(1, 15) * 100000
+                'total_cost' => rand(1, 15) * 100
             ]);
         }
     }
