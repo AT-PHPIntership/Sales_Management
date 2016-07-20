@@ -1,11 +1,15 @@
 var products;
 var old_cost = 0;
 var current_cost = 0;
+var display_current_cost = '0';
 var index = 1;
+var product_id = '#item' + index + ' .product';
+var value_id = '#item' + index + ' .product_id';
+var price_id = '#item' + index + ' .price';
 $(document).ready(function(){
   $.getJSON( url, function( data ) {
     products = data;
-    setAutocomplete('#item' + index + ' .product', '#item' + index + ' .product_id', '#item' + index + ' .price');
+    setAutocomplete(product_id, value_id, price_id);
     index++;
   });
 });
@@ -27,9 +31,10 @@ $(document).on('keyup click', '.amount-box', function () {
   var item = $(this).parent().parent();
   var amount = $(item).find('.amount-box').val();
   var price = $(item).find('.price-box').val();
-  current_cost = old_cost+Number(price)*(amount-1);
+  current_cost = old_cost + Number(price)*(amount-1);
+  display_current_cost = $('#total_cost').val() + currency_label;
   $('#total_cost').val(current_cost);
-  $('#cost_display').val($('#total_cost').val() + currency_label);
+  $('#cost_display').val(display_current_cost);
 });
 $('form').submit(function(e) {
   e.preventDefault();
