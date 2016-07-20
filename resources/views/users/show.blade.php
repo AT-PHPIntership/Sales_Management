@@ -18,9 +18,9 @@
               <!-- end of image cropping -->
               <div id="crop-avatar">
                 <!-- Current avatar -->
-                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#avatar-modal">
-                  <img class="img-responsive avatar-view" src="/file/avatar/{{ $user->avatar }}" alt="Avatar" title="Change the avatar">
-                </button>
+                  <a class="btn btn-link" data-toggle="modal" data-target="#avatar-modal">
+                    <img class="img-responsive avatar-view" src="/file/avatar/{{ $user->avatar }}" alt="Avatar" title="Change the avatar">
+                  </a>          
                 <!-- Cropping modal -->
                 <div class="modal fade col-md-offset-2" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
                   <div class="modal-dialog modal-lg">
