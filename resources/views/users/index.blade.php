@@ -36,11 +36,13 @@
         </div>
         <div class="clearfix"></div>
         @if(!count($users))
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <h5>
-                    @lang('users.index.message_no_account'), <a href="{{ route('user.create') }}">@lang('users.index.link_create_account')</a>
-                </h5>
-            </div>
+            @if(!isset($keyword))
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h5>
+                        @lang('users.index.message_no_account'), <a href="{{ route('user.create') }}">@lang('users.index.link_create_account')</a>
+                    </h5>
+                </div>
+            @endif
         @else
             @foreach ($users as $user)
                 @if($user->role_id != \Config::get('common.SUPERADMIN_ROLE_ID'))
