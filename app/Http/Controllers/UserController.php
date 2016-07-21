@@ -55,28 +55,6 @@ class UserController extends Controller
     }
     
     /**
-     * Store a newly updated image in storage.
-     *
-     * @param \Illuminate\Http\UserRequest $request User request
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function storeAvatar(UserRequest $request)
-    {
-        try {
-            $user = new User($request->all());
-            $user->save();
-
-            return redirect()->route('user.create')
-                             ->withMessage(trans('users.successfull_message'));
-        } catch (Exception $saveException) {
-            // Catch exceptions when data cannot save.
-            return redirect()->route('user.create')
-                             ->withErrors(trans('users.error_message'));
-        }
-    }
-    
-    /**
      * Show the application accounts list.
      *
      * @return \Illuminate\Http\Response
