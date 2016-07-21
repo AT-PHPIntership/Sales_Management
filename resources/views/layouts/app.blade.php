@@ -44,7 +44,10 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>@yield('page-header')</h3>
+                <h3>@yield('page-header-left')</h3>
+              </div>
+              <div class="title_right">
+                <h3>@yield('page-header-right')</h3>
               </div>
             </div>
             <div class="clearfix"></div>
@@ -56,6 +59,8 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+                      @yield('errors-message')
+                      @yield('susscess-message')
                       @yield('page-content')
                   </div>
                 </div>

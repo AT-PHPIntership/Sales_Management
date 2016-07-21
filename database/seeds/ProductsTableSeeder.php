@@ -20,7 +20,7 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => rand(1, 5),
                 'name' => $faker->word,
                 'description' => $faker->text,
-                'price' => rand(1, 15) * 100000,
+                'price' => rand(1, 100),
                 'remaining_amount' => rand(0, 50),
                 'is_on_sale' => rand(0, 10) > 0 ? 1 : 0,
                 'created_at' => $faker->dateTimeThisYear($max = 'now')

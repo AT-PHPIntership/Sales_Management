@@ -1,5 +1,4 @@
 <?php
-
 return [
     'label_name_product' => 'Name',
     'label_name_category' => 'Category',
@@ -14,5 +13,4 @@ return [
     'value_0' =>'0',
     'option_yes' => "Yes",
     'option_no' => "No",
-
 ];

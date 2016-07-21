@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $table = 'products';
+
     /**
-    * The attributes that are mass assignable.
-    *
-    * @var array
-    */
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+
     protected $fillable = array(
         'id',
         'category_id',
@@ -52,3 +54,4 @@ class Product extends Model
         return $this->hasMany('App\Models\OrderDetail');
     }
 }
+
