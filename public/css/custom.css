@@ -12,3 +12,13 @@
     margin-left: 68px;
     padding-bottom: 32px;
 }
+
+.ui-autocomplete {
+  max-height: 12em;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.margin-bottom-2 {
+  margin-bottom: 2%;
+}
