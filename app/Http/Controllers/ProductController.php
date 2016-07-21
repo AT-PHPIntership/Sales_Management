@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
 use App\Http\Requests\ProductRequest;
-use Session;
+use Redirect;
 
 class ProductController extends Controller
 {
@@ -49,6 +50,9 @@ class ProductController extends Controller
   */
     public function index()
     {
+        $products = Product::all();
+
+        return view('product.index', ['products' => $products]);
     }
     /**
      * Show the form for editing the specified resource.
@@ -59,11 +63,16 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $categories = Category::all();
-        $product = Product::findOrFail($id);
-        return view('product.edit')->with('categories', $categories)
-                                   ->with('product', $product);
+        try {
+            $categories = Category::all();
+            $product = Product::findOrFail($id);
+            return view('product.edit')->with('categories', $categories)
+                                       ->with('product', $product);
+        } catch (ModelNotFoundException $ex) {
+            return redirect()->route('product.index')->withErrors(trans('products.error_message'));
+        }
     }
+
     /**
      * Update the form when click edit button.
      *
@@ -72,16 +81,16 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update( $id ,Request $request)
+    public function update(Request $request, $id)
     {
-        
-        $product = Product::findOrFail($id);
-        $input = $request->all();
-
-        $product->fill($input)->save();
-
-        Session::flash('flash_message', 'Product successfully added!');
-
-        return redirect()->route('product.index');
+    
+        try {
+            $input = $request->all();
+            $product = Product::findOrFail($id);
+            $product->fill($input)->save();
+            return Redirect::back()->withMessage(trans('products.successfull_edit_message'));
+        } catch (ModelNotFoundException $ex) {
+            return Redirect::back()->withInput()->withErrors(trans('products.error_message'));
+        }
     }
 }

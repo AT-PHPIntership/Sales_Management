@@ -8,4 +8,6 @@ return [
     'SUCCESSFUL_FLAG' => true,
     'UNSUCCESSFUL_FLAG' => false,
     'ACCOUNTS_PER_PAGES' => 21,
+    'IS_ON_SALE_YES'=> 1,
+    'IS_ON_SALE_NO'=> 0,
 ];

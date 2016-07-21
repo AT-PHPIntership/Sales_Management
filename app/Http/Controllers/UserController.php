@@ -40,7 +40,20 @@ class UserController extends Controller
                              ->withErrors(trans('users.error_message'));
         }
     }
-
+    
+    /**
+     * Show the application user profile
+     *
+     * @param integer $id determine specific user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        return view('users.show', compact('user'));
+    }
+    
     /**
      * Show the application accounts list.
      *
@@ -80,5 +93,23 @@ class UserController extends Controller
         }
 
         return redirect()->route('user.index')->withErrors($errors);
+    }
+
+    /**
+     * Search user in database
+     *
+     * @param Illuminate\Http\Request $request request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function searchUser(Request $request)
+    {
+        $keyword = $request->q;
+        $result = User::where('role_id', '!=', \Config::get('common.SUPERADMIN_ROLE_ID'))
+                ->where('name', 'like', '%' . $keyword . '%')
+                ->orWhere('id', 'like', $keyword . '%')
+                ->paginate(\Config::get('common.ACCOUNTS_PER_PAGES'));
+
+        return view('users.index')->withKeyword($keyword)->withUsers($result);
     }
 }

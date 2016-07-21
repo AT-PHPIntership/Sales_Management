@@ -17,7 +17,7 @@
           <tr>
             <th>#</th>
             <th>@lang('products.label_name_product')</th>
-            <th>@lang('products.label_name_category')</th>
+            <th>@lang('products.label_categories_product')</th>
             <th>@lang('products.label_description_product')</th>
             <th>@lang('products.label_price_product')</th>
             <th>@lang('products.label_remaining_amount_product')</th>
@@ -34,7 +34,7 @@
               <td>{{ str_limit($product->description, Config::get('common.LIMIT_STRING_PRODUCT_DESCRIPTION')) }}</td>
               <td>{{ $product->price }}</td>
               <td>{{ $product->remaining_amount }}</td>
-              <td>{{ $product->is_on_sale }}</td>
+              <td>{{ $product->is_on_sale ? 'yes' : 'no'}}</td>
               <td>
                 <a href="{{ route('product.show', [$product->id]) }}" title="Show" class="btn btn-info btn-xs"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
                 <a href="{{ route('product.edit', [$product->id]) }}" title="Edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
