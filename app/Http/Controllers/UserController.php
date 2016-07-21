@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Exception;
-use DB;
 
 class UserController extends Controller
 {
@@ -93,11 +92,9 @@ class UserController extends Controller
     public function searchUser(Request $request)
     {
         $keyword = $request->q;
-
-        $result = User::whereRaw('`users`.`role_id` <> '
-                . \Config::get('common.SUPERADMIN_ROLE_ID')
-                . ' AND (`users`.`name` LIKE \'%'. $keyword
-                .'%\' OR `users`.`id` LIKE \''. $keyword .'%\')')
+        $result = User::where('role_id', '!=', \Config::get('common.SUPERADMIN_ROLE_ID'))
+                ->where('name', 'like', '%' . $keyword . '%')
+                ->orWhere('id', 'like', $keyword . '%')
                 ->paginate(\Config::get('common.ACCOUNTS_PER_PAGES'));
 
         return view('users.index')->withKeyword($keyword)->withUsers($result);
