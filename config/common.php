@@ -8,4 +8,6 @@ return [
     'SUCCESSFUL_FLAG' => true,
     'UNSUCCESSFUL_FLAG' => false,
     'ACCOUNTS_PER_PAGES' => 21,
+    'FEMALE_GENDER' => 0,
+    'MALE_GENDER' => 1,
 ];

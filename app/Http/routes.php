@@ -28,12 +28,21 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('category', 'CategoryController', [
         'except' => ['destroy']
     ]);
-
+    
     Route::delete('category/{category?}', 'CategoryController@destroy');
 
     Route::resource('order', 'OrderController');
     
     Route::resource('user', 'UserController');
+    
+    Route::put('user/{id}/avatar', [
+        'uses' => 'UserController@updateAvatar',
+        'as' =>'user.updateAvatar'
+    ]);
+    Route::put('user/{id}/account', [
+        'uses' => 'UserController@updateAccount',
+        'as' =>'user.updateAccount'
+    ]);
     
     Route::group(['prefix' => 'statistic'], function () {
     

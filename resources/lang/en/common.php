@@ -39,5 +39,5 @@ return [
     'input_search_placeholder' => 'Search for...',
     'btn_search_title' => 'Search',
     'btn_delete' => 'Delete',
-    'btn_cancel' => 'Cancel',
+    'btn_reset' => 'Reset',
 ];
