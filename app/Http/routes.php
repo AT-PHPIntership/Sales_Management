@@ -17,10 +17,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/user/search', ['uses' => 'UserController@searchUser', 'as' => 'search.user']);
 
-    Route::post('/', function () {
-        return $request->all();
-    });
-
     Route::get('/', function () {
         return view('layouts.app');
     });
