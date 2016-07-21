@@ -28,12 +28,12 @@ class CategoryRequest extends Request
             case 'PATCH':
                 return [
                     'name' => 'required|max:50|unique:categories,name,' . $this->category,
-                    'description' => 'max:100'
+                    'description' => 'max:255'
                 ];
             case 'POST':
                 return [
                     'name' => 'required|max:50|unique:categories',
-                    'description' => 'max:100'
+                    'description' => 'max:255'
                 ];
             default:
                 return [];
