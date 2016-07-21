@@ -18,4 +18,5 @@ return [
     'total_cost' => 'Total cost is invalid',
     'min' => 'At least :min characters.',
     'max' => ':max characters maximum.',
+    'max' => ':max characters maximum.',
 ];

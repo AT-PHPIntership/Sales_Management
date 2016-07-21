@@ -4,6 +4,10 @@ return [
     'title' => 'New Account',
     'section_header' => 'Create New Account',
     'label_name' => 'Name',
+    'label_phone' => 'Phone',
+    'label_address' => 'Address',
+    'label_birthday' => 'Birthday',
+    'label_gender' => 'Gender',
     'label_email' => 'Email',
     'label_password' => 'Password',
     'label_password_confirm' => 'Repeat Password',
@@ -15,7 +19,7 @@ return [
     'eg_name' => 'both name(s) e.g Jon Doe',
     'successfull_message' => 'Create account successfull',
     'error_message' => 'Oops. Something went wrong! Please try again.',
-
+    'label_change_avatar' => 'Change Avatar',
     'index' => [
         'title' => 'Staffs List',
         'label_email' => 'Email',
@@ -36,5 +40,12 @@ return [
         'delete_unsuccessful' => 'Oops... Please remove all bills and orders that have been created by this user first!',
         'error_message' => 'Oops. Something went wrong! Please try again.',
         'delete_successful' => ' has been deleted!',
+    ],
+    'show' => [
+        'edit_profile' => 'Edit Profile',
+        'label_male' => 'Male',
+        'label_female' => 'Female',
+        'label_role' => 'Role',
+        'title_avatar' => 'User Avatar',
     ],
 ];
