@@ -6,6 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    protected $table = 'products';
+    /**
+    * The attributes that are mass assignable.
+    *
+    * @var array
+    */
+    protected $fillable = array(
+        'id',
+        'category_id',
+        'name',
+        'description',
+        'price',
+        'remaining_amount',
+        'is_on_sale',
+        'create_at',
+        'updated_at',
+    );
+
     /**
      * Product belongs to Category
      *
