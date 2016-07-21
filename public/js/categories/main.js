@@ -27,7 +27,7 @@ $(document).ready(function() {
             _method : 'delete'
         }, function (response) {
             alert(response.message);
-            if (response.success) {
+            if (response.isSuccess) {
                 $('#category-' + categoryData.categoryId).closest('tr').find('td').fadeOut(FADEOUT_DURATION, function(){
                     $(this).parents('tr:first').remove();
                 });

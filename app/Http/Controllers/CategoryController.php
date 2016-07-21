@@ -108,19 +108,19 @@ class CategoryController extends Controller
         try {
             $category = Category::findOrFail($id);
             if (count($category->product) > 0) {
-                $response['success'] = \Config::get('common.UNSUCCESSFUL_FLAG');
+                $response['isSuccess'] = \Config::get('common.UNSUCCESSFUL_FLAG');
                 $response['message'] = trans('categories.delete.unsuccessful_msg', [
                     'category' => $category->name
                 ]);
             } else {
-                $response['success'] = \Config::get('common.SUCCESSFUL_FLAG');
+                $response['isSuccess'] = \Config::get('common.SUCCESSFUL_FLAG');
                 $response['message'] = trans('categories.delete.successful_msg', [
                     'category' => $category->name
                 ]);
                 $category->delete();
             }
         } catch (ModelNotFoundException $ex) {
-            $response['success'] = \Config::get('common.UNSUCCESSFUL_FLAG');
+            $response['isSuccess'] = \Config::get('common.UNSUCCESSFUL_FLAG');
             $response['message'] = trans('categories.common.not_found');
         }
         return \Response::json($response);
