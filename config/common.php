@@ -8,4 +8,8 @@ return [
     'SUCCESSFUL_FLAG' => true,
     'UNSUCCESSFUL_FLAG' => false,
     'ACCOUNTS_PER_PAGES' => 21,
+    'MALE_GENDER' => 1,
+    'FEMALE_GENDER' => 0,
+    'LIMIT_STRING_DESCRIPTION_75' => 75,
+    'TEN_RECORDS' => '10',
 ];

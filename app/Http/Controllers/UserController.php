@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use App\Models\Bill;
+use App\Models\Order;
 use Exception;
 
 class UserController extends Controller
@@ -40,7 +42,7 @@ class UserController extends Controller
                              ->withErrors(trans('users.error_message'));
         }
     }
-    
+
     /**
      * Show the application user profile
      *
@@ -51,9 +53,17 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('users.show', compact('user'));
+        $bills = Bill::where('user_id', $id)
+                ->orderBy('created_at', 'desc')
+                ->paginate(\Config::get('common.TEN_RECORDS'));
+        $orders = Order::where('user_id', $id)
+                ->orderBy('created_at', 'desc')
+                ->paginate(\Config::get('common.TEN_RECORDS'));
+        return view('users.show')->withUser($user)
+                                 ->withBills($bills)
+                                 ->withOrders($orders);
     }
-    
+
     /**
      * Show the application accounts list.
      *

@@ -47,5 +47,10 @@ return [
         'label_female' => 'Female',
         'label_role' => 'Role',
         'title_avatar' => 'User Avatar',
+        'label_public_profile' => 'Public Profile',
+        'label_all_bills' => 'All Bills Created By ',
+        'label_all_orders' => 'All Orders Created By ',
+        'title_update_info' => 'Update Profile',
+        'label_id' => 'ID',
     ],
 ];
