@@ -1,13 +1,13 @@
 $(document).ready(function() {
     var FADEOUT_DURATION  = 1000;
 
-    $('#list-categories-table').DataTable({
+    var listCategoriesTable = $('#list-categories-table').DataTable({
         "columns": [
             {"width": "5%"},
-            {"width": "25%"},
-            {"width": "30%"},
-            {"width": "25%"},
-            {"width": "15%"}
+            {"width": "15%"},
+            {"width": "60%"},
+            {"width": "15%"},
+            {"width": "5%"}
         ]
     });
 
@@ -36,7 +36,7 @@ $(document).ready(function() {
         $('#delete-confirm').modal('hide');
     }
 
-    $('button.btn_delete').on('click', function() {
+    $('#list-categories-table').on('click', '.btn_delete', function() {
         var id = $(this).val();
         deleteCategory(id);
     });
