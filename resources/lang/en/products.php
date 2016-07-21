@@ -14,6 +14,7 @@ return [
     'required_product'=> '*',
     'option_sale_n_product'=> '0',
     'option_sale_y_product'=> '1',
+    'label_option_product' => 'Option',
 
     'item_add_product'=> 'Add Product',
     'successfull_message' => 'Create product successfull',

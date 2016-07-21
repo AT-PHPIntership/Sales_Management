@@ -17,7 +17,7 @@
           <tr>
             <th>#</th>
             <th>@lang('products.label_name_product')</th>
-            <th>@lang('products.label_name_category')</th>
+            <th>@lang('products.label_categories_product')</th>
             <th>@lang('products.label_description_product')</th>
             <th>@lang('products.label_price_product')</th>
             <th>@lang('products.label_remaining_amount_product')</th>

@@ -40,4 +40,5 @@ return [
     'btn_search_title' => 'Search',
     'btn_delete' => 'Delete',
     'btn_reset' => 'Reset',
+    'btn_print' => 'Print',
 ];

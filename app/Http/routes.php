@@ -15,9 +15,9 @@ Route::auth();
 
 Route::group(['middleware' => ['auth']], function () {
 
-    Route::get('/', function () {
-        return view('layouts.app');
-    });
+    Route::get('/user/search', ['uses' => 'UserController@searchUser', 'as' => 'search.user']);
+
+    Route::get('/', ['uses' => 'BillController@create', 'as' => 'home']);
 
     Route::get('/home', ['uses' => 'BillController@create', 'as' => 'home']);
 
@@ -32,7 +32,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('category/{category?}', 'CategoryController@destroy');
 
     Route::resource('order', 'OrderController');
-    
+
     Route::resource('user', 'UserController');
     
     Route::put('user/{id}/avatar', [
@@ -45,23 +45,23 @@ Route::group(['middleware' => ['auth']], function () {
     ]);
     
     Route::group(['prefix' => 'statistic'], function () {
-    
+
         Route::get('/weekly', [
             'uses' => 'StatisticController@daily',
             'as' => 'statistic.daily'
         ]);
-    
+
         Route::get('/monthly', [
             'uses' => 'StatisticController@monthly',
             'as' => 'statistic.monthly'
         ]);
-    
+
         Route::get('/quarterly', [
             'uses' => 'StatisticController@quarterly',
             'as' => 'statistic.quarterly'
         ]);
     });
-    
+
     Route::get('api/product', function () {
         return Response::json(\App\Models\Product::all());
     });
