@@ -39,8 +39,8 @@
     @lang('products.label_categories_product')
     <span class="required">*</span>
     </label>
-    <div class="col-md-6 col-sm-6 col-xs-12">
-      <select autofocus name="category_id">
+    <div class="col-md-6 col-sm-7 col-xs-12">
+      <select  class="form-control" name="category_id">
         @foreach($categories as $category)
         <option value="{{ $category->id }}" {{ $category->id == $product->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
         @endforeach
@@ -54,13 +54,6 @@
     <div class="col-md-6 col-sm-6 col-xs-12">
       <input type="number" id="number" name="price" required="required" 
       class="form-control col-md-7 col-xs-12" value="{{ $product->price }}" >
-    </div>
-  </div>
-  <div class="item form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">@lang('products.label_remaining_amount_product') <span class="required">*</span>
-    </label>
-    <div class="col-md-6 col-sm-6 col-xs-12">
-      <input type="number" id="number" name="remaining_amount" required="required" class="form-control col-md-7 col-xs-12" value="{{ $product->remaining_amount }}">
     </div>
   </div>
     <div class="item form-group">
@@ -77,9 +70,9 @@
       </label>
       <div class="col-md-6 col-sm-6 col-xs-12">
         <label class="control-label"> @lang('products.option_sale_no_product'): </label>
-        <input type="radio" name="is_on_sale" value="{{ \Config::get('common.IS_ON_SALE_NO') }}" {{ $product->is_on_sale == \Config::get('common.IS_ON_SALE_NO') ? 'checked':''}} />
+        <input type="radio" name="is_on_sale" value="{{ \Config::get('common.IS_OFF_SALE') }}" {{ $product->is_on_sale == \Config::get('common.IS_OFF_SALE') ? 'checked':''}} />
         <label class="control-label">@lang('products.option_sale_yes_product'): </label>
-        <input type="radio" name="is_on_sale" value="{{ \Config::get('common.IS_ON_SALE_YES') }}" {{ $product->is_on_sale == \Config::get('common.IS_ON_SALE_YES') ? 'checked':''}} />
+        <input type="radio" name="is_on_sale" value="{{ \Config::get('common.IS_ON_SALE') }}" {{ $product->is_on_sale == \Config::get('common.IS_ON_SALE') ? 'checked':''}} />
       </div>
     </div>
   <div class="form-group">
