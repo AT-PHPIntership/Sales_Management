@@ -25,6 +25,7 @@ $("#addItemBtn").click(function () {
 });
 $(document).on('click', '.btn_remove', function(){
   var item = $(this).parent().parent();
+  var current_cost = $('#total_cost').val();
   var removed_cost = $(item).find('.amount').val() * $(item).find('.price').val();
   var left_cost = Number(current_cost) - Number(removed_cost);
   $('#total_cost').val(left_cost);
