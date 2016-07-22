@@ -12,4 +12,6 @@ return [
     'MALE_GENDER' => 1,
     'IMAGE_WIDTH' => 200,
     'IMAGE_HEIGHT' => 200,
+    'IS_ON_SALE_YES'=> 1,
+    'IS_ON_SALE_NO'=> 0,
 ];
