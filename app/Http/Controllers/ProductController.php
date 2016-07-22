@@ -9,7 +9,6 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Http\Requests\ProductRequest;
 use Exception;
-use Hash;
 use Redirect;
 
 class ProductController extends Controller
@@ -35,7 +34,6 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
 
-             $errors = trans('products.delete.products.successfull_message');
         try {
              $product = $request->all();
              Product::create($product);
