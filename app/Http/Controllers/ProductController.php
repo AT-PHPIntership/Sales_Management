@@ -93,4 +93,18 @@ class ProductController extends Controller
             return Redirect::back()->withInput()->withErrors(trans('products.error_message'));
         }
     }
+    /**
+     * Show the application user profile
+     *
+     * @param integer $id determine specific user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $product = Product::findOrFail($id);
+        $categories = Category::all();
+        return view('product.show')->with('categories', $categories)
+                                   ->with('product', $product);
+    }
 }
