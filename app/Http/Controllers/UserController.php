@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpdateAccountRequest;
 use App\Models\User;
+use App\Models\Bill;
+use App\Models\Order;
 use Exception;
 use Redirect;
 use Hash;
@@ -40,7 +42,7 @@ class UserController extends Controller
             return redirect()->route('user.create')->withErrors(trans('users.error_message'));
         }
     }
-    
+
     /**
      * Show the application user profile
      *
@@ -52,12 +54,24 @@ class UserController extends Controller
     {
         try {
             $user = User::findOrFail($id);
-            return view('users.show', compact('user'));
+
+            $bills = Bill::where('user_id', $id)
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(\Config::get('common.TEN_RECORDS'), ['*'], 'bill_page');
+
+            $orders = Order::where('user_id', $id)
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(\Config::get('common.TEN_RECORDS'), ['*'], 'order_page');
+
+            return view('users.show')->withUser($user)
+                                     ->withBills($bills)
+                                     ->withOrders($orders);
         } catch (ModelNotFoundException $ex) {
-            return redirect()->route('user.index')->withErrors(trans('users.error_message'));
+            return redirect()->route('user.index')
+                             ->withErrors(trans('users.error_message'));
         }
     }
-    
+
     /**
      * Show the application accounts list.
      *
@@ -96,7 +110,7 @@ class UserController extends Controller
         }
         return redirect()->route('user.index')->withErrors($errors);
     }
-    
+
     /**
      * Update user infomation
      *
@@ -119,7 +133,7 @@ class UserController extends Controller
             return Redirect::back()->withErrors(trans('users.error_message'));
         }
     }
-    
+
     /**
      * Update user account
      *
@@ -142,7 +156,7 @@ class UserController extends Controller
             return Redirect::back()->withErrors(trans('users.error_message'));
         }
     }
-    
+
     /**
      * Show the application edit form
      *
@@ -159,7 +173,7 @@ class UserController extends Controller
             return redirect()->route('user.index')->withErrors(trans('users.error_message'));
         }
     }
-    
+
     /**
      * Search user in database
      *

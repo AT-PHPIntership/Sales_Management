@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     protected $dates = ['birthday'];
-    
+
     /**
      * The attributes that are mass assignable.
      *
