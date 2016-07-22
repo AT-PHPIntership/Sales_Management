@@ -86,7 +86,7 @@
                           <div class="col-md-3">
                           </div>
                           <div class="col-md-9 col-sm-12 col-xs-12">
-                              <a href="{{ route('user.edit', [$user->id]) }}" class="btn btn-primary btn-sm" title="@lang('users.show.title_update_info')"><i class="fa fa-cogs"></i> Update</a>
+                              <a href="{{ route('user.edit', [$user->id]) }}" class="btn btn-primary btn-sm" title="@lang('users.show.title_update_info')"><i class="fa fa-cogs"></i> @lang('users.show.btn_update')</a>
                           </div>
                       </div>
                   </div>

@@ -56,5 +56,6 @@ return [
         'page_name_order' => 'order_page',
         'mgs_no_bill' => 'There is no bill to show.',
         'mgs_no_order' => 'There is no order to show.',
+        'btn_update' => 'Update',
     ],
 ];
