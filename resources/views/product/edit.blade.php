@@ -76,9 +76,9 @@
       @lang('products.label_is_on_sale_product') <span class="required">*</span>
       </label>
       <div class="col-md-6 col-sm-6 col-xs-12">
-        <label class="control-label"> @lang('products.option_sale_n_product'): </label>
+        <label class="control-label"> @lang('products.option_sale_no_product'): </label>
         <input type="radio" name="is_on_sale" value="{{ \Config::get('common.IS_ON_SALE_NO') }}" {{ $product->is_on_sale == \Config::get('common.IS_ON_SALE_NO') ? 'checked':''}} />
-        <label class="control-label">@lang('products.option_sale_y_product'): </label>
+        <label class="control-label">@lang('products.option_sale_yes_product'): </label>
         <input type="radio" name="is_on_sale" value="{{ \Config::get('common.IS_ON_SALE_YES') }}" {{ $product->is_on_sale == \Config::get('common.IS_ON_SALE_YES') ? 'checked':''}} />
       </div>
     </div>

@@ -14,13 +14,17 @@ return [
     'option_sale_No_product'=>'No',
     'menu_products'=> 'Products',
     'required_product'=> '*',
-    'option_sale_n_product'=> 'No',
-    'option_sale_y_product'=> 'Yes',
+    'option_sale_no_product'=> 'No',
+    'option_sale_yes_product'=> 'Yes',
     'label_option_product' => 'Option',
 
     'item_add_product'=> 'Add Product',
     'successfull_message' => 'Create product successfull',
     'error_message' => 'Oops. Something went wrong! Please try again',
     'successfull_edit_message' => 'Edit product successfull',
+    'title_show_product' => 'show',
+    'title_edit_produtc' => 'edit',
+    'title_delete_produtc' => 'delete',
+    
 
 ];

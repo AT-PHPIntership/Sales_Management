@@ -34,11 +34,11 @@
               <td>{{ str_limit($product->description, Config::get('common.LIMIT_STRING_PRODUCT_DESCRIPTION')) }}</td>
               <td>{{ $product->price }}</td>
               <td>{{ $product->remaining_amount }}</td>
-              <td>{{ $product->is_on_sale ? 'yes' : 'no'}}</td>
+              <td>{{ $product->is_on_sale ? \Config::get('common.IS_ON_SALE_YES') : \Config::get('common.IS_ON_SALE_NO') }}</td>
               <td>
-                <a href="{{ route('product.show', [$product->id]) }}" title="Show" class="btn btn-info btn-xs"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
-                <a href="{{ route('product.edit', [$product->id]) }}" title="Edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                <a href="{{ route('product.destroy', [$product->id]) }}" title="Delete"
+                <a href="{{ route('product.show', [$product->id]) }}" title="@lang('products.title_show_product')" class="btn btn-info btn-xs"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                <a href="{{ route('product.edit', [$product->id]) }}" title="@lang('products.title_edit_product')" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                <a href="{{ route('product.destroy', [$product->id]) }}" title="@lang('products.title_delete_product')"
                 class="btn btn-danger btn-xs"><i class="fa fa-trash" aria-hidden="true"></i></a>
               </td>
             </tr>
