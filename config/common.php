@@ -19,4 +19,6 @@ return [
     'DATE_YMD_FORMAT' => 'Y-m-d',
     'IS_ON_SALE_YES'=> 'Yes',
     'IS_ON_SALE_NO'=> 'No',
+    'IS_ON_SALE' => 1,
+    'IS_OFF_SALE' => 0,
 ];
