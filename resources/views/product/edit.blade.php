@@ -26,12 +26,12 @@
   {{ method_field('PUT') }}
   <div class="item form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" 
-    for="name">@lang('products.label_name_product') <span class="required">*</span>
+    for="name">@lang('products.label_name_product') <span class="required">
+    *</span>
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-      <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="2"
-       data-validate-words="1" name="name" required="required" type="text" 
-       value="{{ $product->name }}" >
+      <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="2" data-validate-words="1" name="name" 
+      required="required" type="text" value="{{ $product->name }}" >
     </div>
   </div>
   <div class="item form-group">
@@ -63,7 +63,6 @@
         <textarea id="textarea" required="required" name="description" class="form-control col-md-7 col-xs-12">{{ $product->description }}</textarea>
       </div>
     </div>
-
     <div class="item form-group">
       <label class="control-label col-md-3 col-sm-3 col-xs-12">
       @lang('products.label_is_on_sale_product') <span class="required">*</span>
