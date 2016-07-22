@@ -1,7 +1,8 @@
 <?php
 return [
     'item_edit_product' => 'Edit Product',
-    'label_name_product'=>'Name',
+    'label_name_product'=>'Product',
+    'label_date_product'=>'Date',
     'label_description_product'=>'Description',
     'label_price_product'=> 'Price',
     'label_is_on_sale_product'=> 'Sale',
