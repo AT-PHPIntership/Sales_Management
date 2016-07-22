@@ -30,6 +30,8 @@
             <th class="column-title text-center">
             @lang('products.label_is_on_sale_product')</th>
             <th class="column-title text-center">
+            @lang('products.label_date_product')</th>
+            <th class="column-title text-center">
             @lang('products.label_option_product')</th>
           </tr>
         </thead>
@@ -43,6 +45,7 @@
               <td class="text-right">{{ $product->price }}</td>
               <td class="text-right">{{ $product->remaining_amount }}</td>
               <td class="text-center">{{ $product->is_on_sale ? \Config::get('common.IS_ON_SALE_YES') : \Config::get('common.IS_ON_SALE_NO') }}</td>
+              <td class="text-center">{{ $product->created_at }}</td>
               <td class="text-center">
                 <a href="{{ route('product.edit', [$product->id]) }}" title="@lang('products.title_edit_product')" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                 <a href="{{ route('product.destroy', [$product->id]) }}" title="@lang('products.title_delete_product')"
