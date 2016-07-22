@@ -41,4 +41,5 @@ return [
     'btn_delete' => 'Delete',
     'btn_cancel' => 'Cancel',
     'btn_print' => 'Print',
+    'currency' => '$',
 ];

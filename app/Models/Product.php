@@ -36,16 +36,16 @@ class Product extends Model
         return $this->belongsTo('App\Models\Category');
     }
     /**
-     * Product belongs to many BillDetail
+     * Product has many BillDetail
      *
-     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return Illuminate\Database\Eloquent\Relations\hasMany
      */
     public function billDetail()
     {
-        return $this->belongsToMany('App\Models\BillDetail');
+        return $this->hasMany('App\Models\BillDetail');
     }
     /**
-     * Product belongs to many OrderDetail
+     * Product has many OrderDetail
      *
      * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
