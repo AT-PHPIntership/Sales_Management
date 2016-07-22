@@ -13,7 +13,6 @@ $(function() {
   $('#birthday').daterangepicker({
     singleDatePicker: true,
     showDropdowns: true,
-    endDate: '+0d',
     locale: {
       format : dateFormat
     }
