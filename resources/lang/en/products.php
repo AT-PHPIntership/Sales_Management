@@ -8,7 +8,7 @@ return [
     'label_remaining_amount_product'=> 'Amount',
     'label_categories_product'=> 'Categories',
     'label_submit_add_product'=> 'Add product',
-    'btn_cancel' => 'Reset',
+    'btn_cancel' => 'Cancel',
     'btn_edit' => 'Edit',
     'option_sale_Yes_product'=>'yes',
     'option_sale_No_product'=>'No',
