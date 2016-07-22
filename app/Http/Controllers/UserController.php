@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpdateAccountRequest;
-use App\Http\Requests\UserUpdateInfoRequest;
 use App\Models\User;
 use Exception;
 use Redirect;
 use Hash;
-use Crypt;
-use Validator;
 
 class UserController extends Controller
 {
@@ -37,7 +35,6 @@ class UserController extends Controller
         try {
             $user = new User($request->all());
             $user->save();
-
             return redirect()->route('user.create')->withMessage(trans('users.successfull_message'));
         } catch (Exception $saveException) {
             return redirect()->route('user.create')->withErrors(trans('users.error_message'));
@@ -53,8 +50,12 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
-        return view('users.show', compact('user'));
+        try {
+            $user = User::findOrFail($id);
+            return view('users.show', compact('user'));
+        } catch (ModelNotFoundException $ex) {
+            return redirect()->route('user.index')->withErrors(trans('users.error_message'));
+        }
     }
     
     /**
@@ -65,7 +66,6 @@ class UserController extends Controller
     public function index()
     {
         $users = User::paginate(\Config::get('common.ACCOUNTS_PER_PAGES'));
-
         return view('users.index')->with('users', $users);
     }
 
@@ -92,8 +92,8 @@ class UserController extends Controller
                                  ->withMessage($userName.trans('users.delete.delete_successful'));
             }
         } catch (Exception $modelNotFound) {
+            return redirect()->route('user.index')->withErrors(trans('users.error_message'));
         }
-
         return redirect()->route('user.index')->withErrors($errors);
     }
     
@@ -105,7 +105,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(UserUpdateInfoRequest $request, $id)
+    public function update(UserRequest $request, $id)
     {
         try {
             $input = $request->all();
@@ -152,8 +152,12 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        return view('users.edit', compact('user'));
+        try {
+            $user = User::findOrFail($id);
+            return view('users.edit', compact('user'));
+        } catch (ModelNotFoundException $ex) {
+            return redirect()->route('user.index')->withErrors(trans('users.error_message'));
+        }
     }
     
     /**
