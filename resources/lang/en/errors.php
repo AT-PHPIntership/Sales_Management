@@ -3,7 +3,7 @@
 return [
     '404_title' => '404 Page Not Found',
     '404_error_message' => 'Sorry but this page you are looking for does not exist.',
-
+    'email_has_existed' => 'Your email has been used',
     'field_required' => 'This field is required.',
     'at_least_6_chars' => 'At least 6 characters.',
     'select_option' => 'Please select an option.',
@@ -13,5 +13,10 @@ return [
     'invalid_date' => 'Not a real date.',
     'invalid_role' => 'Invalid Account Permission.',
     'min_6' => 'At least 6 characters.',
-    'max_32' => '32 characters maximum.'
+    'max_32' => '32 characters maximum.',
+    'id_user' => 'ID user is invalid',
+    'total_cost' => 'Total cost is invalid',
+    'min' => 'At least :min characters.',
+    'max' => ':max characters maximum.',
+    'max' => ':max characters maximum.',
 ];

@@ -12,3 +12,48 @@
     margin-left: 68px;
     padding-bottom: 32px;
 }
+
+.ui-autocomplete {
+  max-height: 12em;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.center {
+  text-align: center;
+}
+
+.text-size-16 {
+  font-size: 16px;
+}
+
+.margin-bottom-1 {
+  margin-bottom: 1%;
+}
+
+.margin-bottom-2 {
+  margin-bottom: 2%;
+}
+
+.margin-top-2 {
+    margin-top: 2%;
+}
+
+.padding-top-5 {
+  padding-top: 5%;
+}
+
+.avatar-preview {
+  position:relative;
+  overflow:hidden;
+}
+
+.my-avatar-preview {
+  position:absolute;
+  top:50%;
+  min-height:100%;
+  display:block;
+  left:50%;
+  -webkit-transform: translate(-50%, -50%);
+  min-width:100%;
+}
