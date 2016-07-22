@@ -12,7 +12,6 @@ use Exception;
 use Hash;
 use Redirect;
 
-
 class ProductController extends Controller
 {
     /**
@@ -21,8 +20,9 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    { 
+    {
         $categories = Category::all();
+
         return view('product.create', compact('categories'));
     }
     /**
@@ -73,15 +73,15 @@ class ProductController extends Controller
         $errors = trans('products.delete.error_message');
         try {
             $product = Product::findOrFail($id);
-            dd($id);
+            $numberOfOrders = count($product->orderDetail);
             $numberOfBills = count($product->billDetail);
-            if ($numberOfBills) {
+            if ($numberOfBills ||  $numberOfOrders) {
                 $errors = trans('products.delete.delete_unsuccessful');
             } else {
                 $productName = $product->name;
                 $product->delete();
                 return redirect()->route('product.index')
-                                 ->withMessage($userName.trans('products.delete.delete_successful'));
+                                 ->withMessage($productName.'  '.trans('products.delete.delete_successful'));
             }
         } catch (Exception $modelNotFound) {
             return redirect()->route('product.index')->withErrors(trans('products.error_message'));
@@ -139,8 +139,8 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $categories = Category::all();
+
         return view('product.show')->with('categories', $categories)
                                    ->with('product', $product);
-
     }
 }
