@@ -15,10 +15,19 @@ return [
     'option_sale_n_product'=> '0',
     'option_sale_y_product'=> '1',
     'label_option_product' => 'Option',
-
+    
+    'btn_remove_product' => 'Remove this product',
     'item_add_product'=> 'Add Product',
     'successfull_message' => 'Create product successfull',
     'error_message' => 'Oops. Something went wrong! Please try again',
-
+     
+    'delete' => [
+        'confirm_title' => 'Confirm deleting',
+        'confirm_msg' => 'Are you sure you want to delete this product?',
+        'delete_unsuccessful' => 'Oops... Please remove all bills and orders that have been created by this product first!',
+        'error_message' => 'Oops. Something went wrong! Please try again.',
+        'delete_successful' => ' has been deleted!',
+    ],
+    
 
 ];
