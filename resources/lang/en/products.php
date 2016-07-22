@@ -23,8 +23,8 @@ return [
     'error_message' => 'Oops. Something went wrong! Please try again',
     'successfull_edit_message' => 'Edit product successfull',
     'title_show_product' => 'show',
-    'title_edit_produtc' => 'edit',
-    'title_delete_produtc' => 'delete',
+    'title_edit_product' => 'edit',
+    'title_delete_product' => 'delete',
     
 
 ];
