@@ -15,7 +15,7 @@ $(function() {
     showDropdowns: true,
     endDate: '+0d',
     locale: {
-      format : 'DD/MM/YYYY'
+      format : dateFormat
     }
   }, 
   function(start, end, label) {

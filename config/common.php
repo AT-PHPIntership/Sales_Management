@@ -10,4 +10,7 @@ return [
     'ACCOUNTS_PER_PAGES' => 21,
     'FEMALE_GENDER' => 0,
     'MALE_GENDER' => 1,
+    'DATE_DMY_FORMAT' => 'd/m/Y',
+    'DATE_DMY_FORMAT_DATE_PICKER' => 'DD/MM/YYYY',
+    'DATE_YMD_FORMAT' => 'Y-m-d',
 ];

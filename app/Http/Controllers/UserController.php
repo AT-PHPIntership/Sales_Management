@@ -112,7 +112,7 @@ class UserController extends Controller
             $user = User::findOrFail($id);
             unset($input['birthday']);
             $user->fill($input);
-            $user->birthday = date('Y-m-d', strtotime($request->birthday));
+            $user->birthday = date(\Config::get('common.DATE_YMD_FORMAT'), strtotime($request->birthday));
             $user->save();
             return Redirect::back()->withMessage(trans('users.edit.edit_successful_message'))->withInput();
         } catch (Exception $saveException) {

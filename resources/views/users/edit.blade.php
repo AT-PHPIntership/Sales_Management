@@ -153,7 +153,7 @@
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input name="birthday" id="birthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text"
-                  value="{{ $user->birthday->format('d/m/Y') }}">
+                  value="{{ $user->birthday->format(\Config::get('common.DATE_DMY_FORMAT')) }}">
               </div>
             </div>
             <!-- end profile -->
@@ -229,6 +229,7 @@
   <script src="/bower_resources/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.js" charset="utf-8"></script>
   <script type="text/javascript">
     var errorMessages = {!! json_encode(trans('errors')) !!};
+    var dateFormat = '{{ \Config::get('common.DATE_DMY_FORMAT_DATE_PICKER') }}';
   </script>
   <script src="/js/users/edit.js" charset="utf-8"></script>
   <script src="/js/common/validator.js" charset="utf-8"></script>
