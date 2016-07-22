@@ -19,6 +19,7 @@ return [
     'label_option_product' => 'Option',
 
     'item_add_product'=> 'Add Product',
+    'item_show_product' => 'Show product',
     'successfull_message' => 'Create product successfull',
     'error_message' => 'Oops. Something went wrong! Please try again',
     'successfull_edit_message' => 'Edit product successfull',
