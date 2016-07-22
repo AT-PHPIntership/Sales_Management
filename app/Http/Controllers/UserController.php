@@ -53,12 +53,15 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
+
         $bills = Bill::where('user_id', $id)
                 ->orderBy('created_at', 'desc')
-                ->paginate(\Config::get('common.TEN_RECORDS'));
+                ->paginate(\Config::get('common.TEN_RECORDS'), ['*'], 'bill_page');
+
         $orders = Order::where('user_id', $id)
                 ->orderBy('created_at', 'desc')
-                ->paginate(\Config::get('common.TEN_RECORDS'));
+                ->paginate(\Config::get('common.TEN_RECORDS'), ['*'], 'order_page');
+
         return view('users.show')->withUser($user)
                                  ->withBills($bills)
                                  ->withOrders($orders);

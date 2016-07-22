@@ -5,7 +5,7 @@
 @stop
 
 @section('section-title')
-  {{ $user->name }}
+  <a href="{{ route('user.show', $user->id) }}">{{ $user->name }}</a>
 @stop
 
 @section('page-content')
@@ -19,7 +19,9 @@
             <div class="x_content">
                 <div class="row">
                   <div class="col-xs-6 col-sm-3 col-md-3 ">
-                      <img class="img-responsive avatar-view" src="/file/avatar/{{ $user->avatar }}" alt="Avatar" title="{{ $user->name }}">
+                      <a href="{{ route('user.show', $user->id) }}">
+                          <img class="img-responsive avatar-view" src="/file/avatar/{{ $user->avatar }}" alt="Avatar" title="{{ $user->name }}">
+                      </a>
                   </div>
                   <div class="col-xs-12 col-sm-9 col-md-9 text-size-16">
                       <div class="row margin-bottom-1">
@@ -91,7 +93,7 @@
                 </div>
             </div>
         </div>
-
+        <!-- All bills section -->
         <div class="x_panel">
           <div class="x_title">
             <h2><i class="fa fa-file-text-o"></i> @lang('users.show.label_all_bills') {{ $user->name }}</h2>
@@ -101,10 +103,10 @@
               <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <div class="clearfix"></div>
-                  @if(!count($bills))
+                  @if(!count($orders))
                       <div class="col-md-12 col-sm-12 col-xs-12">
                           <h5>
-                              @lang('users.index.message_no_account'), <a href="{{ route('user.create') }}">@lang('users.index.link_create_account')</a>
+                              @lang('users.show.mgs_no_order')
                           </h5>
                       </div>
                   @else
@@ -121,7 +123,7 @@
                         <tbody>
                           @foreach ($bills as $bill)
                             <tr>
-                              <td>{{ $bill->id }}</td>
+                              <td><a href="{{ route('bill.show', [$bill->id]) }}">{{ $bill->id }}</a></td>
                               <td>{{ $bill->user->name }}</td>
                               <td>{{ str_limit($bill->description, \Config::get('common.LIMIT_STRING_DESCRIPTION_75')) }}</td>
                               <td class="text-right">{{ $bill->total_cost }}</td>
@@ -131,23 +133,73 @@
                         </tbody>
                       </table>
                   <div class="col-md-12 col-sm-12 col-xs-12 text-right">
-                      {{ $bills->links() }}
+                      @if (isset(request()->order_page))
+                          {{ $bills->appends(['order_page' => request()->order_page])->links() }}
+                      @else
+                          {{ $bills->links() }}
+                      @endif
                   </div>
                 @endif
                 </div>
               </div>
           </div>
         </div>
+        <!--/All bills section -->
 
+        <!-- All orders section -->
         <div class="x_panel">
           <div class="x_title">
             <h2><i class="fa fa-file-text-o"></i> @lang('users.show.label_all_orders') {{ $user->name }} </h2>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-
+              <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="clearfix"></div>
+                  @if(!count($orders))
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                          <h5>
+                              @lang('users.show.mgs_no_bill')
+                          </h5>
+                      </div>
+                  @else
+                      <table id="list-bills-table" class="table table-striped table-bordered">
+                        <thead>
+                          <tr>
+                            <th class="text-center">@lang('users.show.label_id')</th>
+                            <th class="text-center">@lang('common.field_name_bill')</th>
+                            <th class="text-center">@lang('common.field_name_bill')</th>
+                            <th class="text-center">@lang('common.field_description_bill')</th>
+                            <th class="text-center">@lang('common.field_cost_bill')</th>
+                            <th class="text-center">@lang('common.field_time_bill')</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach ($orders as $order)
+                            <tr>
+                              <td><a href="{{ route('order.show', [$order->id]) }}">{{ $order->id }}</a></td>
+                              <td>{{ $order->user->name }}</td>
+                              <td>{{ $order->supplier->name }}</td>
+                              <td>{{ str_limit($order->description, \Config::get('common.LIMIT_STRING_DESCRIPTION_75')) }}</td>
+                              <td class="text-right">{{ $order->total_cost }}</td>
+                              <td class="text-right">{{ $order->created_at }}</td>
+                            </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                  <div class="col-md-12 col-sm-12 col-xs-12 text-right">
+                      @if (isset(request()->bill_page))
+                          {{ $orders->appends(['bill_page' => request()->bill_page])->links() }}
+                      @else
+                          {{ $orders->links() }}
+                      @endif
+                  </div>
+                @endif
+                </div>
+              </div>
           </div>
         </div>
+        <!-- /All orders section -->
     </div>
   </div>
 @stop

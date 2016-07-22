@@ -52,5 +52,9 @@ return [
         'label_all_orders' => 'All Orders Created By ',
         'title_update_info' => 'Update Profile',
         'label_id' => 'ID',
+        'page_name_bill' => 'bill_page',
+        'page_name_order' => 'order_page',
+        'mgs_no_bill' => 'There is no bill to show.',
+        'mgs_no_order' => 'There is no order to show.',
     ],
 ];
