@@ -60,6 +60,7 @@ return [
         'label_page' => 'Staff Profile',
         'edit_successful_message' => 'Profile updated!',
         'edit_account_successful_message' => 'Account updated!',
+        'edit_avatar_successful_message' => 'Avatar updated!',
         'label_account' => 'Account Info',
         'label_profile' => 'Profile Info',
         'error_password_incorrect' => 'Your password is incorrect, please try again',

@@ -10,4 +10,6 @@ return [
     'ACCOUNTS_PER_PAGES' => 21,
     'FEMALE_GENDER' => 0,
     'MALE_GENDER' => 1,
+    'IMAGE_WIDTH' => 200,
+    'IMAGE_HEIGHT' => 200,
 ];
