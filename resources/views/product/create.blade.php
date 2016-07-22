@@ -17,7 +17,7 @@
 @section('page-content')
   <div class="x_content">
     <form class="form-horizontal form-label-left" role="form" method="POST" action="{{ route('product.store') }}">
-        {!! csrf_field() !!} 
+        {!! csrf_field() !!}
          <div class="item form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">@lang('products.label_name_product') <span class="required">@lang('products.required_product')</span>
             </label>
@@ -55,7 +55,7 @@
             <label for="descrition" class="control-label col-md-3 col-sm-3 col-xs-12">@lang('products.label_description_product')
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <textarea id="description" type="text" name="description" class="form-control col-md-7 col-xs-12" placeholder="@lang('products.label_description_product')"></textarea> 
+              <textarea id="description" type="text" name="description" class="form-control col-md-7 col-xs-12" placeholder="@lang('products.label_description_product')"></textarea>
             </div>
           </div>
            <div class="item form-group">
@@ -82,7 +82,7 @@
   <script>
       var errorMessages = {!! json_encode(trans('errors')) !!};
   </script>
-  
+
    <!-- validator -->
   <script src="/bower_resources/gentelella/vendors/validator/validator.min.js"></script>
 

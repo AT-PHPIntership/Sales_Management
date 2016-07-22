@@ -51,6 +51,6 @@ class Product extends Model
      */
     public function orderDetail()
     {
-        return $this->hasMany('App\Models\OrderDetail');
+        return $this->belongsToMany('App\Models\OrderDetail');
     }
 }

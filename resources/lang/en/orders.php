@@ -15,6 +15,18 @@ return [
         'label_total' => 'Total:',
     ],
     'index' => [
+        'label_id' => 'ID',
+        'label_staff_id' => 'Staff ID',
+        'label_staff_name' => 'Staff Name',
+        'label_description' => 'Description',
+        'label_supplier' => 'Supplier',
+        'label_total_cost' => 'Total Cost',
+        'label_date' => 'Date',
+        'label_option' => 'Options',
+        'title' => 'List Orders',
+        'title_btn_detail' => 'Click for more details',
+        'title_btn_edit' => 'Click to edit',
+        'title_btn_delete' => 'Remove this order',
     ],
     'show' => [
         'title' => 'Order #:id Details',

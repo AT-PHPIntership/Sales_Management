@@ -31,4 +31,15 @@ class OrderController extends Controller
                              ->withErrors(trans('orders.common.error_message'));
         }
     }
+
+    /**
+     * Display a list of the orders.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $orders = Order::all();
+        return view('orders.index')->with('orders', $orders);
+    }
 }
