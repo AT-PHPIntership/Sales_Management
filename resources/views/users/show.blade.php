@@ -1,5 +1,9 @@
 @extends('layouts/app')
 
+@push('stylesheet')
+    <link rel="stylesheet" href="/css/custom.css">
+@endpush
+
 @section('page-title')
   @lang('users.option_staff')
 @stop
@@ -203,7 +207,3 @@
     </div>
   </div>
 @stop
-
-@push('stylesheet')
-    <link rel="stylesheet" href="/css/custom.css">
-@endpush

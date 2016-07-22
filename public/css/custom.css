@@ -38,3 +38,22 @@
 .margin-top-2 {
     margin-top: 2%;
 }
+
+.padding-top-5 {
+  padding-top: 5%;
+}
+
+.avatar-preview {
+  position:relative;
+  overflow:hidden;
+}
+
+.my-avatar-preview {
+  position:absolute;
+  top:50%;
+  min-height:100%;
+  display:block;
+  left:50%;
+  -webkit-transform: translate(-50%, -50%);
+  min-width:100%;
+}
