@@ -41,7 +41,7 @@
               <div class="col-md-4 col-sm-4 col-xs-12">
                 <input type="text" required="required" class="product form-control col-md-7 col-xs-12" />
                 <input type="hidden" name="product_id[]" class="product_id form-control col-md-7 col-xs-12" required="required"/>
-                <input type="hidden" name="price[]" class="price form-control col-md-7 col-xs-12 price-box"/>
+                <input type="hidden" name="price[]" value="0" class="price form-control col-md-7 col-xs-12 price-box"/>
               </div>
               <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name"> @lang('bills.create.amount_label') : </label>
               <div class="col-md-2 col-sm-2 col-xs-12">
