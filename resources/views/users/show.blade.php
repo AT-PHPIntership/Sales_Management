@@ -53,7 +53,7 @@
                           <i class="fa fa-calendar user-profile-icon"></i> @lang('users.label_birthday'):
                         </div>
                         <div class="col-md-9">
-                          {{ $user->birthday }}
+                          {{ $user->birthday->format(\Config::get('common.DATE_DMY_FORMAT')) }}
                         </div>
                       </div>
                       <div class="row margin-bottom-1">
