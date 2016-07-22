@@ -24,7 +24,7 @@ return [
     'delete' => [
         'confirm_title' => 'Confirm deleting',
         'confirm_msg' => 'Are you sure you want to delete this product?',
-        'delete_unsuccessful' => 'Oops... Please remove all bills and orders that have been created by this product first!',
+        'delete_unsuccessful' => 'Oops... Please remove all bills and orders that have been created by this user first!',
         'error_message' => 'Oops. Something went wrong! Please try again.',
         'delete_successful' => ' has been deleted!',
     ],

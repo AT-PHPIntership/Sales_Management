@@ -54,10 +54,10 @@ class ProductController extends Controller
 
         return view('product.index', ['products' => $products]);
     }
+
     
-   
-   /**
-     * Destroy the specified product from storage.
+    /**
+     * Destroy the specified product from database.
      *
      * @param int $id id
      *
@@ -65,25 +65,22 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-            $errors = trans('products.delete.error_message');
-         try {
-            $products= Product::findOrFail($id);
-            $numberofOrder_details = count($products->order_details);
-            $numberofBills_details = count($products->bills_details);
-            if($numberofOrder_details || $numberofBills_details)
-              $errors = trans('prodcuts.delete.delete_unsuccessful');
-
-            else {
-                $productName = $products->name;
-                $products->delete();
-
+        $errors = trans('products.delete.error_message');
+        try {
+            $product = Product::findOrFail($id);
+            $numberOfBills = count($user->billDetail);
+            $numberOfOrders = count($user->orderDetail);
+            if ($numberOfOrders || $numberOfBills) {
+                $errors = trans('products.delete.delete_unsuccessful');
+            } else {
+                $productName = $user->name;
+                $product->delete();
                 return redirect()->route('product.index')
-                                 ->withMessage($productName.trans('prodcuts.delete.delete_successful'));
-                }
-            } catch (Exception $modelNotFound) {
+                                 ->withMessage($productName.trans('products.delete.delete_successful'));
+            }
+        } catch (Exception $modelNotFound) {
+            return redirect()->route('product.index')->withErrors(trans('products.error_message'));
         }
-
         return redirect()->route('product.index')->withErrors($errors);
     }
- 
 }
