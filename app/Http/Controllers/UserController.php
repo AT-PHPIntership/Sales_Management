@@ -174,7 +174,7 @@ class UserController extends Controller
             $file = $request->file('image');
             if ($file) {
                 $filename = $user->id . '.' .$file->getClientOriginalExtension();
-                $path = base_path() . '/public/file/avatar';
+                $path = base_path() . \Config::get('common.IMAGE_FOLDER');
                 Image::make($file)->fit(\Config::get('common.IMAGE_WIDTH'), \Config::get('common.IMAGE_HEIGHT'))->save($path. '/' .$filename);
                 $user->avatar = $filename;
                 $user->update();
