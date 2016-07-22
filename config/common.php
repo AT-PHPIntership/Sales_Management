@@ -15,4 +15,6 @@ return [
     'DATE_DMY_FORMAT' => 'd/m/Y',
     'DATE_DMY_FORMAT_DATE_PICKER' => 'DD/MM/YYYY',
     'DATE_YMD_FORMAT' => 'Y-m-d',
+    'IS_ON_SALE_YES'=> 1,
+    'IS_ON_SALE_NO'=> 0,
 ];
