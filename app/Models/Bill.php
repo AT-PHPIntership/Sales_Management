@@ -32,4 +32,14 @@ class Bill extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+    
+    /**
+     * Bill has many BillDetail
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function billDetails()
+    {
+        return $this->hasMany('App\Models\BillDetail');
+    }
 }
