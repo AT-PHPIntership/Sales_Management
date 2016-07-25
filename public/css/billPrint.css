@@ -1,0 +1,11 @@
+td {
+  text-align: center;
+}
+
+.well, .print-hidden {
+  display: none;
+}
+
+#print-visible {
+  display: block;
+}
