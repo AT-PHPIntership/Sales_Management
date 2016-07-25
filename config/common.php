@@ -14,6 +14,8 @@ return [
     'TEN_RECORDS' => 10,
     'FEMALE_GENDER' => 0,
     'MALE_GENDER' => 1,
+    'IMAGE_WIDTH' => 200,
+    'IMAGE_HEIGHT' => 200,
     'DATE_DMY_FORMAT' => 'd/m/Y',
     'DATE_DMY_FORMAT_DATE_PICKER' => 'DD/MM/YYYY',
     'DATE_YMD_FORMAT' => 'Y-m-d',
@@ -21,4 +23,5 @@ return [
     'IS_ON_SALE_NO'=> 'No',
     'IS_ON_SALE' => 1,
     'IS_OFF_SALE' => 0,
+    'IMAGE_FOLDER' => '/public/file/avatar',
 ];

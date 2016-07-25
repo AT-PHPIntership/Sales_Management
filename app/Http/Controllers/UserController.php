@@ -12,6 +12,7 @@ use App\Models\Order;
 use Exception;
 use Redirect;
 use Hash;
+use Image;
 
 class UserController extends Controller
 {
@@ -158,6 +159,33 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Update user avatar
+     *
+     * @param Request $request hold all data from request
+     * @param integer $id      determine specific user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function updateAvatar(Request $request, $id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            $file = $request->file('image');
+            if ($file) {
+                $filename = $user->id . '.' .$file->getClientOriginalExtension();
+                $path = base_path() . \Config::get('common.IMAGE_FOLDER');
+                Image::make($file)->fit(\Config::get('common.IMAGE_WIDTH'), \Config::get('common.IMAGE_HEIGHT'))->save($path. '/' .$filename);
+                $user->avatar = $filename;
+                $user->update();
+                return Redirect::back()->withMessage(trans('users.edit.edit_avatar_successful_message'));
+            }
+            return Redirect::back()->withErrors(trans('users.edit.error_password_incorrect'));
+        } catch (Exception $saveException) {
+            return Redirect::back()->withErrors(trans('users.error_message'));
+        }
+    }
+    
     /**
      * Show the application edit form
      *
