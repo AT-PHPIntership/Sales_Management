@@ -61,4 +61,26 @@ class BillController extends Controller
                              ->withErrors(trans('bills.create.error_message'));
         }
     }
+    
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id bill id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        try {
+            $bill = Bill::findOrFail($id);
+            $billDetails = $bill->billDetails;
+            return view('bills.show', [
+                'bill' => $bill,
+                'billDetails' => $billDetails
+            ]);
+        } catch (ModelNotFoundException $ex) {
+            return redirect()->route('bill.index')
+                           ->withErrors(trans('bills.common.error_message'));
+        }
+    }
 }

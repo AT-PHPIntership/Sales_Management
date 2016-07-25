@@ -16,5 +16,24 @@ return [
     'btn_reset' => 'Reset',
     'btn_submit' => 'Submit',
     'btn_close' => 'Close',
-  ]
+  ],
+  'show' => [
+      'title' => 'Bill #:id Details',
+      'section-title' => 'Bill #:id Details',
+      'items_title' => 'Items',
+      'information_title' => 'Information',
+  ],
+  'common' => [
+      'label_bill_id' => 'Bill ID:',
+      'label_staff_id' => 'Staff ID:',
+      'label_staff' => 'Staff:',
+      'label_date' => 'Date:',
+      'label_total_cost' => 'Total Cost:',
+      'field_id' => '#',
+      'field_product_id' => 'Product ID',
+      'field_product' => 'Product',
+      'field_amount' => 'Amount',
+      'label_total' => 'Total:',
+      'error_message' => 'Oops. Something went wrong! Please try again.',
+  ],
 ];
