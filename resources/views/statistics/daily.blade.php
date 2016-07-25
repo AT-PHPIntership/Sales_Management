@@ -41,7 +41,7 @@
                           </h5>
                       </div>
                   @else
-                      <h4><b>@lang('statistics.label_total'): </b> @lang('common.currency'){{ $bills->sum('total_cost') }}</h4>
+                      <h4><b>@lang('statistics.label_total'): </b> @lang('common.currency') {{ number_format($bills->sum('total_cost')) }}</h4>
                       <table id="bills-datatable-buttons" class="table table-striped jambo_table table-bordered">
                         <thead>
                           <tr>
@@ -93,7 +93,7 @@
                           </h5>
                       </div>
                   @else
-                      <h4><b>@lang('statistics.label_total'): </b> @lang('common.currency'){{ $orders->sum('total_cost') }}</h4>
+                      <h4><b>@lang('statistics.label_total'): </b> @lang('common.currency') {{ number_format($orders->sum('total_cost')) }}</h4>
                       <table id="orders-datatable-buttons" class="table table-striped jambo_table table-bordered">
                         <thead>
                           <tr>
@@ -106,7 +106,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          @foreach ($orders as $order)
+                          @foreach ($orders->get() as $order)
                             <tr>
                               <td><a href="{{ route('order.show', [$order->id]) }}">{{ $order->id }}</a></td>
                               <td>{{ $order->user->name }}</td>
@@ -129,10 +129,10 @@
 
     <!-- Charts -->
     <div class="col-md-6 col-sm-6 col-xs-12">
-        <!-- Percentage -->
+        <!-- Percentage of Categories -->
         <div class="x_panel">
             <div class="x_title">
-              <h2><i class="glyphicon glyphicon-calendar fa fa-calendar"></i> @lang('statistics.label_orders')</h2>
+              <h2><i class="glyphicon glyphicon-calendar fa fa-pie-chart"></i> @lang('statistics.per_cate')</h2>
               <ul class="nav navbar-right panel_toolbox">
                 <li class="pull-right">
                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -142,18 +142,15 @@
             </div>
             <div class="x_content">
               <div id="graph_donut" style="width:100%; height:300px;"></div>
-              <div class="">
-
-              </div>
             </div>
         </div>
         <!-- /Percentage -->
     </div>
     <div class="col-md-6 col-sm-6 col-xs-12">
-        <!-- Percentage -->
+        <!-- Peak time -->
         <div class="x_panel">
             <div class="x_title">
-              <h2><i class="glyphicon glyphicon-calendar fa fa-calendar"></i> @lang('statistics.label_orders')</h2>
+              <h2><i class="glyphicon glyphicon-calendar fa fa-clock-o"></i> @lang('statistics.peak_time')</h2>
               <ul class="nav navbar-right panel_toolbox">
                 <li class="pull-right">
                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -162,13 +159,12 @@
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
-              <div id="graph_donut" style="width:100%; height:300px;"></div>
-              <div class="">
-
-              </div>
+                <div class="demo-container" style="height:250px">
+                  <div id="placeholder3xx3" class="demo-placeholder" style="width: 100%; height:250px;"></div>
+                </div>
             </div>
         </div>
-        <!-- /Percentage -->
+        <!-- /Peak time -->
     </div>
     <!-- /Charts -->
 
@@ -180,28 +176,14 @@
     <script src="/bower_resources/gentelella/vendors/morris.js/morris.min.js"></script>
 
     <!-- morris.js -->
-    {{-- <script>
-      $(document).ready(function() {
-        Morris.Donut({
-          element: 'graph_donut',
-          data: [
-            @foreach($data as $categorySum)
-                {label: {!! '\''.$categorySum->name.'\'' !!}, value: {!! $categorySum->sum !!} },
+    <script>
+        var categoryData = [
+            @foreach($data as $categoriesRatio)
+                {label: {!! '\'' . $categoriesRatio->name . '\'' !!}, value: {!! $categoriesRatio->total !!} },
             @endforeach
-          ],
-          colors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
-          formatter: function (y) {
-            return y + "%";
-          },
-          resize: true
-        });
-
-        $MENU_TOGGLE.on('click', function() {
-          $(window).resize();
-        });
-      });
-    </script> --}}
-    <!-- /morris.js -->
+        ];
+    </script>
+    <script src="/js/statistics/daily.categories.js"></script>
 
     <!-- Datatables -->
     <script src="/bower_resources/gentelella/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
