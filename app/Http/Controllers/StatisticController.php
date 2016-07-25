@@ -39,7 +39,7 @@ class StatisticController extends Controller
                 ->where('bills_details.created_at', '>=', DB::raw('concat(CURDATE(), \' 00:00:00\')'))
                 ->groupBy('categories.name')
                 ->get();
-                
+
         return view('statistics.daily')->with($data);
     }
 }

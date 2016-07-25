@@ -60,10 +60,10 @@
               <table class="table table-striped">
                   <thead>
                       <tr>
-                          <th style="width:10%">@lang('orders.common.field_id')</th>
-                          <th style="width:20%">@lang('orders.common.field_product_id')</th>
-                          <th style="width:50%">@lang('orders.common.field_product')</th>
-                          <th class="text-right" style="width:20%">@lang('orders.common.field_amount')</th>
+                          <th class="width-10">@lang('orders.common.field_id')</th>
+                          <th class="width-20">@lang('orders.common.field_product_id')</th>
+                          <th class="width-50">@lang('orders.common.field_product')</th>
+                          <th class="text-right width-20">@lang('orders.common.field_amount')</th>
                       </tr>
                   </thead>
                   <tbody>

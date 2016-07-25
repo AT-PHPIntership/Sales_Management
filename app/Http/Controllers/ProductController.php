@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
 use App\Http\Requests\ProductRequest;
+use Exception;
 use Redirect;
 
 class ProductController extends Controller
@@ -20,6 +21,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
+
         return view('product.create', compact('categories'));
     }
     /**
@@ -42,7 +44,7 @@ class ProductController extends Controller
             return redirect()->route('product.create')->withErrors(trans('products.error_message'));
         }
     }
-        
+
   /**
   * Display a listing of the resource.
   *
@@ -54,6 +56,37 @@ class ProductController extends Controller
 
         return view('product.index', ['products' => $products]);
     }
+
+
+    
+    /**
+     * Destroy the specified product from database.
+     *
+     * @param int $id id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $errors = trans('products.delete.error_message');
+        try {
+            $product = Product::findOrFail($id);
+            $numberOfOrders = count($product->orderDetail);
+            $numberOfBills = count($product->billDetail);
+            if ($numberOfBills ||  $numberOfOrders) {
+                $errors = trans('products.delete.delete_unsuccessful');
+            } else {
+                $productName = $product->name;
+                $product->delete();
+                return redirect()->route('product.index')
+                                 ->withMessage($productName.'  '.trans('products.delete.delete_successful'));
+            }
+        } catch (Exception $modelNotFound) {
+            return redirect()->route('product.index')->withErrors(trans('products.error_message'));
+        }
+        return redirect()->route('product.index')->withErrors($errors);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -104,6 +137,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $categories = Category::all();
+
         return view('product.show')->with('categories', $categories)
                                    ->with('product', $product);
     }

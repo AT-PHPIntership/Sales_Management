@@ -28,9 +28,14 @@
         <div class="col-md-3 col-sm-3 col-xs-12 profile_left my-text-align padding-top-5">
           <div class="profile_img">
             <!-- end of image cropping -->
-            <div id="crop-avatar">
+            <div id="crop-avatar" class="pdf-thumb-box">
               <!-- Current avatar -->
               <a data-toggle="modal" data-target="#avatar-modal">
+                <div class="pdf-thumb-box-overlay">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-camera"></i>
+                  </span>
+                </div>
                 <img class="img-responsive avatar-view" src="/file/avatar/{{ $user->avatar }}" alt="Avatar" title="Change the avatar">
               </a>
               <!-- Cropping modal -->
@@ -88,6 +93,8 @@
           </div>
         <h3 class="center">{{ $user->name }}</h3>
         </div>
+        
+        
         <div class="col-md-9 col-sm-9 col-xs-12">
           <form action="{{ route('user.update', [$user->id]) }}" novalidate data-parsley-validate class="form-horizontal form-label-left form-validate" method="POST">
             <input type="hidden" name="_method" value="PUT">
@@ -122,8 +129,12 @@
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <select class="form-control" name="role_id" class="form-control col-md-7 col-xs-12">
-                  <option value="{{ \Config::get('common.MANAGER_ROLE_ID') }}"> @lang('users.option_manager') </option>
-                  <option value="{{ \Config::get('common.STAFF_ROLE_ID') }}"> @lang('users.option_staff') </option>
+                  <option value="{{ \Config::get('common.MANAGER_ROLE_ID') }}" {{ $user->role_id == \Config::get('common.MANAGER_ROLE_ID') ? 'selected' : '' }}>
+                    @lang('users.option_manager') 
+                  </option>
+                  <option value="{{ \Config::get('common.STAFF_ROLE_ID') }}" {{ $user->role_id == \Config::get('common.STAFF_ROLE_ID') ? 'selected' : '' }}>
+                    @lang('users.option_staff') 
+                  </option>
                 </select>
               </div>
             </div>
