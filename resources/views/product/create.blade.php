@@ -30,7 +30,7 @@
               <span class="required">@lang('products.required_product')</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <select autofocus name="category_id">
+              <select class="form-control" name="category_id">
                   @foreach($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                   @endforeach
@@ -45,28 +45,21 @@
             </div>
           </div>
           <div class="item form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">@lang('products.label_remaining_amount_product') <span class="required">@lang('products.required_product')</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <input type="number" id="number" name="remaining_amount" required="required"  class="form-control col-md-7 col-xs-12" placeholder="@lang('products.label_remaining_amount_product')">
-            </div>
-          </div>
-          <div class="item form-group">
             <label for="descrition" class="control-label col-md-3 col-sm-3 col-xs-12">@lang('products.label_description_product')
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
               <textarea id="description" type="text" name="description" class="form-control col-md-7 col-xs-12" placeholder="@lang('products.label_description_product')"></textarea>
             </div>
           </div>
-           <div class="item form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_on_sale">@lang('products.label_is_on_sale_product')
-              <span class="required">@lang('products.required_product')</span>
+          <div class="item form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+            @lang('products.label_is_on_sale_product') <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <select autofocus name="is_on_sale">
-                <option value="@lang('products.option_sale_y_product')">@lang('products.option_sale_Yes_product')</option>
-                <option value="@lang('products.option_sale_n_product')">@lang('products.option_sale_No_product')</option>
-              </select>
+              <label class="control-label"> @lang('products.option_sale_no_product'): </label>
+              <input type="radio" name="is_on_sale" value="@lang('products.option_sale_n_product')"/>
+              <label class="control-label">@lang('products.option_sale_yes_product'): </label>
+              <input type="radio" name="is_on_sale" value="@lang('products.option_sale_y_product')"/>
             </div>
           </div>
           <div class="form-group">
