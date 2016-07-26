@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Order extends Model
 {
@@ -34,5 +35,16 @@ class Order extends Model
     public function orderDetails()
     {
         return $this->hasMany('App\Models\OrderDetail');
+    }
+
+    /**
+     * Get all today's orders
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public static function getTodays()
+    {
+        return Order::where('orders.created_at', '>=', DB::raw("concat(CURDATE(), ' 00:00:00')"))
+                    ->orderBy('created_at', 'asc');
     }
 }

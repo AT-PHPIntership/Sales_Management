@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class BillDetail extends Model
 {
@@ -42,5 +43,30 @@ class BillDetail extends Model
     public function product()
     {
         return $this->belongsTo('App\Models\Product');
+    }
+
+    /**
+     * Get total daily amount
+     *
+     * @return int
+     */
+    public static function dailyTotalAmount()
+    {
+        return BillDetail::where('bills_details.created_at', '>=', DB::raw("concat(CURDATE(), ' 00:00:00')"))
+                         ->sum('bills_details.amount');
+    }
+
+    /**
+     * Get daily percentage of categories
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function getTodays()
+    {
+        return BillDetail::join('products', 'bills_details.product_id', '=', 'products.id')
+                        ->join('categories', 'products.category_id', '=', 'categories.id')
+                        ->select('categories.id', 'categories.name', DB::raw('round(sum(bills_details.amount) / ' . BillDetail::dailyTotalAmount() . ' * 100, 2) as total'))
+                        ->where('bills_details.created_at', '>=', DB::raw("concat(CURDATE(), ' 00:00:00')"))
+                        ->groupBy('categories.name');
     }
 }

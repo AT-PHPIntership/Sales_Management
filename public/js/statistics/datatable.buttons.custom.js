@@ -6,27 +6,28 @@
           dom: "Bfrtip",
           buttons: [
             {
-              extend: "copy",
+              extend: language.btn_copy,
               className: "btn-sm"
             },
             {
-              extend: "csv",
+              extend: language.btn_csv,
               className: "btn-sm"
             },
             {
-              extend: "excel",
+              extend: language.btn_excel,
               className: "btn-sm"
             },
             {
-              extend: "pdfHtml5",
+              extend: language.btn_pdf,
               className: "btn-sm"
             },
             {
-              extend: "print",
+              extend: language.btn_print,
               className: "btn-sm"
             },
           ],
-          responsive: true
+          responsive: true,
+          "order": [[ 4, "desc" ]]
         });
       }
     };
@@ -48,27 +49,28 @@
           dom: "Bfrtip",
           buttons: [
             {
-              extend: "copy",
+              extend: language.btn_copy,
               className: "btn-sm"
             },
             {
-              extend: "csv",
+              extend: language.btn_csv,
               className: "btn-sm"
             },
             {
-              extend: "excel",
+              extend: language.btn_excel,
               className: "btn-sm"
             },
             {
-              extend: "pdfHtml5",
+              extend: language.btn_pdf,
               className: "btn-sm"
             },
             {
-              extend: "print",
+              extend: language.btn_print,
               className: "btn-sm"
             },
           ],
-          responsive: true
+          responsive: true,
+          "order": [[ 5, "desc" ]]
         });
       }
     };

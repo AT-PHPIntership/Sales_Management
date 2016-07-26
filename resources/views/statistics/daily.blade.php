@@ -168,6 +168,9 @@
 @stop
 
 @push('end-page-scripts')
+    <script>
+        var language = {!! json_encode(trans('statistics')) !!};
+    </script>
     <!-- morris.js -->
     <script src="/bower_resources/gentelella/vendors/raphael/raphael.min.js"></script>
     <script src="/bower_resources/gentelella/vendors/morris.js/morris.min.js"></script>
@@ -176,7 +179,7 @@
     <script>
         var categoryData = [
             @foreach($categories->get() as $categoriesRatio)
-                {label: {!! '\'' . $categoriesRatio->name . '\'' !!}, value: {!! $categoriesRatio->total !!} },
+                {label: '{{ $categoriesRatio->name }}', value: {{ $categoriesRatio->total }}},
             @endforeach
         ];
 

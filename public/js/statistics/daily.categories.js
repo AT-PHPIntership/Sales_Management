@@ -1,4 +1,3 @@
-//Grid.prototype.gridDefaults.gridTextSize = 5;
 $(document).ready(function() {
     Morris.Bar({
       element: 'graph_bar',

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Product extends Model
 {
@@ -52,5 +53,19 @@ class Product extends Model
     public function orderDetail()
     {
         return $this->hasMany('App\Models\OrderDetail');
+    }
+
+    /**
+     * Get all today's products
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public static function getTodays()
+    {
+        return Product::join('bills_details', 'bills_details.product_id', '=', 'products.id')
+                      ->select('products.id', 'products.name', DB::raw('sum(bills_details.amount) as total'))
+                      ->where('bills_details.created_at', '>=', DB::raw("concat(CURDATE(), ' 00:00:00')"))
+                      ->groupBy('products.id')
+                      ->orderBy('total', 'desc');
     }
 }
