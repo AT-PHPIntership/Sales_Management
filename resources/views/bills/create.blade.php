@@ -65,7 +65,7 @@
           <thead>
             <tr>
               <th>@lang('bills.create.index_label')</th>
-              <th>@lang('bills.create.product_label')</th> 
+              <th>@lang('bills.create.product_label')</th>
               <th>@lang('bills.create.amount_label')</th>
               <th>@lang('bills.create.cost_label') (@lang('bills.create.currency_label'))</th>
               <th class="print-hidden">@lang('bills.create.option_label')</th>
@@ -77,7 +77,7 @@
               <td>
                 <span class="product-label"></span>
                 <input type="hidden" name="product_id[]" class="product-input" value="">
-              </td> 
+              </td>
               <td class="center">
                 <span class="amount-label"></span>
                 <input type="hidden" name="amount[]" class="amount-input" value="">
@@ -114,7 +114,7 @@
           <textarea class="form-control col-md-7 col-xs-12" name="description"></textarea>
         </div>
       </div>
-      
+
       <div class="ln_solid"></div>
       <div class="form-group print-hidden">
         <div class="col-md-9 col-sm-12 col-xs-12 col-md-offset-2 col-xs-offset-2">
@@ -142,6 +142,7 @@
       </div>
     </div>
   </div>
+
 @stop
 
 @push('end-page-scripts')
@@ -156,7 +157,7 @@
     var url = '{{ url('api/product') }}';
   </script>
   <script src="/js/bills/main.js" type="text/javascript"></script>
-  
+
   <script src="/js/printThis.js"></script>
   <script type="text/javascript">
       $('#btn-print').on('click', function() {

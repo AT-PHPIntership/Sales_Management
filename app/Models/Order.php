@@ -6,6 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    protected $table = 'orders';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+
+    protected $fillable = array(
+        'id',
+        'user_id',
+        'description',
+        'supplier_id',
+        'total_cost',
+        'created_at',
+        'updated_at'
+    );
+
     /**
      * Order belongs to user
      *

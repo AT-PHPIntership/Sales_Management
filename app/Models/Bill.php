@@ -32,7 +32,7 @@ class Bill extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
-    
+
     /**
      * Bill has many BillDetail
      *

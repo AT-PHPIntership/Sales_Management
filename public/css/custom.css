@@ -43,6 +43,11 @@ th {
   margin-bottom: 2%;
 }
 
+.margin-button-add {
+    margin-bottom: 3%;
+    margin-top: 4%;
+}
+
 .margin-top-2 {
     margin-top: 2%;
 }
@@ -69,7 +74,7 @@ th {
 .pdf-thumb-box
 {
   display:inline-block !important;
-  position:relative !important; 
+  position:relative !important;
   overflow: hidden;
 }
 
@@ -94,7 +99,7 @@ th {
   width:100%;
   height:100%;
   text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
-    
+
 }
 .pdf-thumb-box-overlay span {
   margin: auto;
