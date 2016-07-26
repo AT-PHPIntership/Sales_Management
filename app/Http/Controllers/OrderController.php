@@ -37,35 +37,26 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request)
     {
-        try {
-            $totalProduct = count($request->product_id);
+        $order = new Order($request->all());
+        $order->user_id = Auth::user()->id;
+        $order->save();
 
-            $products = array();
-            for ($i = 0; $i < $totalProduct; $i++) {
-                $products[$i] = Product::findOrFail($request->product_id[$i]);
-            }
+        $orderID = $order->id;
+        collect($request->product_id)->combine($request->amount)->each(function ($amount, $productID) use ($orderID) {
+            OrderDetail::create([
+                'order_id' => $orderID,
+                'product_id' => $productID,
+                'amount' => $amount
+            ]);
 
-            $order = new Order($request->all());
-            $order->user_id = Auth::user()->id;
-            $order->save();
+            $product = Product::find($productID);
+            $product->remaining_amount += $amount;
+            $product->save();
+        });
 
-            for ($i = 0; $i < $totalProduct; $i++) {
-                $orderDetail = new OrderDetail;
-                $orderDetail->order_id = $order->id;
-                $orderDetail->product_id = $products[$i]->id;
-                $orderDetail->amount = $request->amount[$i];
-                $orderDetail->save();
-
-                $products[$i]->remaining_amount += $orderDetail->amount;
-                $products[$i]->save();
-            }
-            return redirect()->action('OrderController@show', [
-                'order' => $order->id
-            ])->withMessage(trans('orders.create.successful_msg'));
-        } catch (ModelNotFoundException $ex) {
-            return redirect()->action('OrderController@create')
-                             ->withErrors(trans('orders.common.error_message'));
-        }
+        return redirect()->action('OrderController@show', [
+            'order' => $orderID
+        ])->withMessage(trans('orders.create.successful_msg'));
     }
 
     /**

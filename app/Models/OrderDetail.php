@@ -18,6 +18,7 @@ class OrderDetail extends Model
         'id',
         'order_id',
         'product_id',
+        'amount',
         'created_at',
         'updated_at'
     );
