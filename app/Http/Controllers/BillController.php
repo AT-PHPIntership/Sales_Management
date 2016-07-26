@@ -94,4 +94,30 @@ class BillController extends Controller
                            ->withErrors(trans('bills.common.error_message'));
         }
     }
+    /**
+     * Destroy the specified account from database.
+     *
+     * @param int $id id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $errors = trans('bills.delete.error_message');
+        try {
+            $bill = Bill::findOrFail($id);
+            $numberOfBillDetails = count($bill->billDetails);
+            if ($numberOfBillDetails) {
+                $errors = trans('bills.delete.delete_unsuccessful');
+            } else {
+                $billId = $bill->id;
+                $bill->delete();
+                return redirect()->route('bill.index')
+                                 ->withMessage($billId.trans('bills.delete.delete_successful'));
+            }
+        } catch (Exception $modelNotFound) {
+            return redirect()->route('bill.index')->withErrors(trans('bills.error_message'));
+        }
+        return redirect()->route('bill.index')->withErrors($errors);
+    }
 }
