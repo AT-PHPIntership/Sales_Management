@@ -45,8 +45,7 @@ class OrderRequest extends Request
     {
         return [
             'product_id.*.exists' => trans('orders.common.invalid_product'),
-            'amount.*.numeric' => trans('validation.numeric',
-                                        ['attribute' => 'amount']),
+            'amount.*.numeric' => trans('validation.numeric', ['attribute' => 'amount']),
         ];
     }
 }
