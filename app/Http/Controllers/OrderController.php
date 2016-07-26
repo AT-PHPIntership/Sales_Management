@@ -51,7 +51,6 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-         // dd("aaaa");
         $errors = trans('orders.common.error_message');
 
         try {
