@@ -6,7 +6,7 @@ return [
     'label_orders' => 'Orders',
     'label_total' => 'Total',
     'per_cate' => 'Percentage Of Categories',
-    'peak_time' => 'Peak Time',
+    'top_ten' => '10 Hot Products',
     '' => '',
     '' => '',
     '' => '',

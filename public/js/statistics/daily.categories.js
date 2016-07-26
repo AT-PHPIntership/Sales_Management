@@ -1,15 +1,30 @@
+//Grid.prototype.gridDefaults.gridTextSize = 5;
 $(document).ready(function() {
-  Morris.Donut({
-    element: 'graph_donut',
-    data: categoryData,
-    colors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
-    formatter: function (y) {
-      return y + "%";
-    },
-    resize: true
-  });
+    Morris.Bar({
+      element: 'graph_bar',
+      data: topTenData,
+      xkey: 'product',
+      ykeys: ['total'],
+      labels: ['Total'],
+      barRatio: 0.4,
+      barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+      xLabelAngle: 35,
+      hideHover: 'auto',
+      resize: true,
+      gridTextSize: 10
+    });
 
-  $MENU_TOGGLE.on('click', function() {
-    $(window).resize();
-  });
+    Morris.Donut({
+        element: 'graph_donut',
+        data: categoryData,
+        colors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+        formatter: function(y) {
+            return y + "%";
+        },
+        resize: true
+    });
+
+    $MENU_TOGGLE.on('click', function() {
+        $(window).resize();
+    });
 });

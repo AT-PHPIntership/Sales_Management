@@ -69,7 +69,7 @@ th {
 .pdf-thumb-box
 {
   display:inline-block !important;
-  position:relative !important; 
+  position:relative !important;
   overflow: hidden;
 }
 
@@ -94,7 +94,7 @@ th {
   width:100%;
   height:100%;
   text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
-    
+
 }
 .pdf-thumb-box-overlay span {
   margin: auto;
@@ -116,4 +116,14 @@ th {
 
 #itemRow0, #print-visible {
   display:none;
+}
+
+#graph_donut {
+    width:100%;
+    height:300px;
+}
+
+#graph_bar {
+    width:100%;
+    height:280px;
 }
