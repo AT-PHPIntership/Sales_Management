@@ -62,7 +62,7 @@ class Order extends Model
      */
     public static function getTodays()
     {
-        return Order::where('orders.created_at', '>=', DB::raw("concat(CURDATE(), ' 00:00:00')"))
+        return Order::where('orders.created_at', '>=', DB::raw('concat(CURDATE(), \'' . \Config::get('common.INITAL_TIME') . '\')'))
                     ->orderBy('created_at', 'asc');
     }
 }

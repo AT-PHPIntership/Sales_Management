@@ -64,7 +64,7 @@ class Product extends Model
     {
         return Product::join('bills_details', 'bills_details.product_id', '=', 'products.id')
                       ->select('products.id', 'products.name', DB::raw('sum(bills_details.amount) as total'))
-                      ->where('bills_details.created_at', '>=', DB::raw("concat(CURDATE(), ' 00:00:00')"))
+                      ->where('bills_details.created_at', '>=', DB::raw('concat(CURDATE(), \'' . \Config::get('common.INITAL_TIME') . '\')'))
                       ->groupBy('products.id')
                       ->orderBy('total', 'desc');
     }
