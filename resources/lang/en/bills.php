@@ -40,4 +40,12 @@ return [
       'label_total' => 'Total:',
       'error_message' => 'Oops. Something went wrong! Please try again.',
   ],
+   'delete' => [
+        'btn_remove_account' => 'Remove this bill',
+        'confirm_title' => 'Confirm deleting',
+        'confirm_msg' => 'Are you sure you want to delete this bill?',
+        'delete_unsuccessful' => 'Oops... You can not delete bill',
+        'error_message' => 'Oops. Something went wrong! Please try again.',
+        'delete_successful' => ' has been deleted!',
+        ],
 ];
