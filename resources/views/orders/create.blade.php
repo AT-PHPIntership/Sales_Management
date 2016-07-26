@@ -77,7 +77,7 @@
             <label for="total_cost">@lang('orders.common.label_total_cost'): </label>
             <div class="input-group col-md-12 col-sm-12 col-xs-12">
                 <input type="number" name="total_cost" class="form-control">
-                <span class="input-group-addon">@lang('common.currency')</span>
+                <span class="input-group-addon">@lang('common.usa_currency_label')</span>
             </div>
         </div>
         <div class="form-group">

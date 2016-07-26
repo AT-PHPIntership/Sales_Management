@@ -3,7 +3,7 @@
 return [
     '404_title' => '404 Page Not Found',
     '404_error_message' => 'Sorry but this page you are looking for does not exist.',
-
+    'email_has_existed' => 'Your email has been used',
     'field_required' => 'This field is required.',
     'at_least_6_chars' => 'At least 6 characters.',
     'select_option' => 'Please select an option.',

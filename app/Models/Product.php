@@ -38,7 +38,7 @@ class Product extends Model
     /**
      * Product has many BillDetail
      *
-     * @return Illuminate\Database\Eloquent\Relations\hasMany
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function billDetail()
     {
