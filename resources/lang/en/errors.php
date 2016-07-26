@@ -15,8 +15,10 @@ return [
     'min_6' => 'At least 6 characters.',
     'max_32' => '32 characters maximum.',
     'id_user' => 'ID user is invalid',
+    'id_product' => 'ID product is invalid',
     'total_cost' => 'Total cost is invalid',
     'min' => 'At least :min characters.',
     'max' => ':max characters maximum.',
-    'max' => ':max characters maximum.',
+    'number' => 'Need to be numeric',
+    'beyond_remaining_amount' => 'Number product is beyond remaining amount',
 ];

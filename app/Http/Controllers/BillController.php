@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Bill;
+use App\Models\Product;
 use App\Http\Requests;
 use App\Models\BillDetail;
 use App\Http\Requests\BillRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Auth;
 
 class BillController extends Controller
@@ -42,23 +44,33 @@ class BillController extends Controller
     public function store(BillRequest $request)
     {
         try {
+            $size = count($request->product_id);
             $bill = new Bill($request->all());
             $bill->user_id = Auth::user()->id;
             $bill->save();
-            $size = count($request->product_id);
             $index = 1;
+            $product;
             while ($index < $size && $request->product_id[$index] != null) {
                 $billDetail = new BillDetail;
                 $billDetail->bill_id = $bill->id;
                 $billDetail->product_id = $request->product_id[$index];
                 $billDetail->amount = $request->amount[$index];
-                $billDetail->cost = $request->amount[$index] * $request->price[$index];
-                $billDetail->save();
-                $index++;
+                $product = Product::findOrFail($request->product_id[$index]);
+                if ($request->amount[$index] <= $product->remaining_amount) {
+                    $product->remaining_amount = $product->remaining_amount - $request->amount[$index];
+                    $product->save();
+                    $billDetail->cost = $request->amount[$index] * $product->price;
+                    $billDetail->save();
+                    $index++;
+                } else {
+                    $bill->delete();
+                    return redirect()->route('bill.create')
+                    ->withErrors(trans('errors.beyond_remaining_amount'));
+                }
             }
             return redirect()->route('bill.create')
                              ->withMessage(trans('bills.create.successfull_message'));
-        } catch (Exception $saveException) {
+        } catch (ModelNotFoundException $saveException) {
             return redirect()->route('bill.create')
                              ->withErrors(trans('bills.create.error_message'));
         }

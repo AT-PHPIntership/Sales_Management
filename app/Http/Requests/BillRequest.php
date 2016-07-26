@@ -24,7 +24,9 @@ class BillRequest extends Request
     public function rules()
     {
         return [
-            'total_cost' => 'required|numeric',
+            'total_cost' => 'required|numeric|min:1',
+            'product_id.*' => 'required|exists:products,id',
+            'amount.*' => 'required|numeric|min:1',
         ];
     }
 
@@ -37,6 +39,8 @@ class BillRequest extends Request
     {
         return [
             'total_cost.required' => trans('errors.total_cost'),
+            'product_id.required' => trans('errors.field_required'),
+            'product_id.exists' => trans('errors.id_product'),
         ];
     }
 }

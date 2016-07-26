@@ -76,15 +76,15 @@
               <td class="center"> <span class="index"></span> </td>
               <td>
                 <span class="product-label"></span>
-                <input type="hidden" name="product_id[]" class="product-input" value="">
-              </td>
+                <input type="hidden" name="product_id[]" class="product-input" value="1">
+              </td> 
               <td class="center">
                 <span class="amount-label"></span>
-                <input type="hidden" name="amount[]" class="amount-input" value="">
+                <input type="hidden" name="amount[]" class="amount-input" value="1">
               </td>
               <td class="center">
                 <span class="price-label"></span>
-                <input type="hidden" name="price[]" class="price-input" value="">
+                <input type="hidden" name="price[]" class="price-input" value="1">
               </td>
               <td class="center print-hidden">
                 <a name="remove" class="btn btn-danger btn-xs btn_remove"><i class="fa fa-trash" aria-hidden="true"></i></a>
