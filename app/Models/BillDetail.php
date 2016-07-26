@@ -65,7 +65,7 @@ class BillDetail extends Model
     {
         return BillDetail::join('products', 'bills_details.product_id', '=', 'products.id')
                         ->join('categories', 'products.category_id', '=', 'categories.id')
-                        ->select('categories.id', 'categories.name', DB::raw('round(sum(bills_details.amount) / ' . BillDetail::dailyTotalAmount() . ' * 100, 2) as total'))
+                        ->select('categories.id', 'categories.name', DB::raw('round(sum(bills_details.amount) / ' . BillDetail::dailyTotalAmount() . ' * 100) as percentage'))
                         ->where('bills_details.created_at', '>=', DB::raw("concat(CURDATE(), ' 00:00:00')"))
                         ->groupBy('categories.name');
     }

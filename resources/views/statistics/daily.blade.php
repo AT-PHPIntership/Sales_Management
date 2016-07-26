@@ -178,8 +178,8 @@
     <!-- morris.js -->
     <script>
         var categoryData = [
-            @foreach($categories->get() as $categoriesRatio)
-                {label: '{{ $categoriesRatio->name }}', value: {{ $categoriesRatio->total }}},
+            @foreach($categories->get() as $category)
+                {label: '{{ $category->name }}', value: {{ $category->percentage }}},
             @endforeach
         ];
 

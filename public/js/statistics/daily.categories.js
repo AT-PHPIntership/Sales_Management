@@ -4,7 +4,7 @@ $(document).ready(function() {
       data: topTenData,
       xkey: 'product',
       ykeys: ['total'],
-      labels: ['Total'],
+      labels: [language.label_total],
       barRatio: 0.4,
       barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
       xLabelAngle: 35,
