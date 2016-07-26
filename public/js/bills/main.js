@@ -35,6 +35,8 @@ function setAutocomplete(id){
         $('#total-cost').val(getCurrentCost() + ui.item.price);
         $('#print-cost').html(getCurrentCost() + currency_label);
         $('#total-cost-display').val(getCurrentCost() + currency_label);
+        
+        
         var itemRow = newRow.children();
         newRow.children().find('.index').html(index);
         newRow.children().find('.product-label').html(ui.item.label);
@@ -121,5 +123,6 @@ $('form').submit(function(e) {
     $('#errorMessageModel').modal('show'); 
     return false;
   }
+  $('#itemRow0').remove();
   this.submit();
 });
