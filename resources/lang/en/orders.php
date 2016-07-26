@@ -41,6 +41,7 @@ return [
         'title_btn_detail' => 'Click for more details',
         'title_btn_edit' => 'Click to edit',
         'title_btn_delete' => 'Remove this order',
+        'not_found' => 'This order does not exist!',
     ],
     'show' => [
         'title' => 'Order #:id Details',

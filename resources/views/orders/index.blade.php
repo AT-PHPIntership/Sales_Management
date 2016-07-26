@@ -51,7 +51,7 @@
           </tbody>
         </table>
     </div>
-    @if (count($orders) > 0 )
+        @if (count($orders) > 0 )
     <!-- Modal Confirmation -->
       <div class="modal fade" id="confirm-deleting" role="dialog">
         <div class="modal-dialog">
@@ -66,7 +66,7 @@
               <h5>@lang('orders.delete.confirm_msg')</h5>
             </div>
             <div class="modal-footer">
-                <form action="{{ url('$product->id') }}" method="POST">
+                <form action="{{ url('$order->id') }}" method="POST">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
                     <button type="submit" class="btn btn-danger">@lang('common.btn_delete')</button>
@@ -98,7 +98,7 @@
       });
     </script>
 
-    <script>
+      <script>
         $(document).ready(function() {
             $(document).on('click',".btn_delete", function() {
                 var id = $(this).next().val();
