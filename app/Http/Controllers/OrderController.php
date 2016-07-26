@@ -91,12 +91,8 @@ class OrderController extends Controller
         $orders = Order::all();
         return view('orders.index')->with('orders', $orders);
     }
-        /**
-<<<<<<< HEAD
+    /**
      * Destroy the specified account from database.
-=======
-     * Destroy the specified category from storage.
->>>>>>> 7b32781d667c57b47a68ea2327284595fea38473
      *
      * @param int $id id
      *
