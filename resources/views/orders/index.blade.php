@@ -43,13 +43,40 @@
               <td class="text-center">
                   <a href="{{ route('order.show', [$order->id]) }}" title="@lang('orders.index.title_btn_detail')" class="btn btn-info btn-xs"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
                   <a href="{{ route('order.edit', [$order->id]) }}" class="btn btn-warning btn-xs"><i class="fa fa-edit" title="@lang('orders.index.title_btn_edit')"></i></a>
-                  <button class="btn_delete btn btn-danger btn-xs"><i class="fa fa-trash" title="@lang('orders.index.title_btn_delete')"></i></button>
+                  <a id='del' data-toggle="modal" data-target="#confirm-deleting" class="btn btn-danger btn-xs btn_delete" title="@lang('orders.common.btn_remove_order')"><i class="fa fa-trash"></i></a>
+                 <input id="order_id" type="hidden" value="{{ $order->id }}">
               </td>
             </tr>
             @endforeach
           </tbody>
         </table>
     </div>
+    @if (count($orders) > 0 )
+    <!-- Modal Confirmation -->
+      <div class="modal fade" id="confirm-deleting" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">@lang('orders.delete.confirm_title')</h4>
+            </div>
+            <div class="modal-body">
+              <h5>@lang('orders.delete.confirm_msg')</h5>
+            </div>
+            <div class="modal-footer">
+                <form action="{{ url('$product->id') }}" method="POST">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                    <button type="submit" class="btn btn-danger">@lang('common.btn_delete')</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@lang('common.btn_cancel')</button>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    @endif
   </div>
 @endsection
 
@@ -69,5 +96,15 @@
       $(document).ready(function(){
         $('#list-orders-table').DataTable();
       });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $(document).on('click',".btn_delete", function() {
+                var id = $(this).next().val();
+                $('form').attr('action','order/'+id);
+                $('#idDel').text(id);
+            });
+        });
     </script>
 @endpush

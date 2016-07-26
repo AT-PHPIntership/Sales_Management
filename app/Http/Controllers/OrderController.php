@@ -91,4 +91,29 @@ class OrderController extends Controller
         $orders = Order::all();
         return view('orders.index')->with('orders', $orders);
     }
+        /**
+     * Destroy the specified account from database.
+     *
+     * @param int $id id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $errors = trans('orders.delete.error_message');
+        try {
+            $order = Order::findOrFail($id);
+            $orderDetails = $order->orderDetails;
+
+            foreach ($orderDetails as $orderDetail) {
+                $orderDetail->delete();
+            }
+            $order->delete();
+            return redirect()->route('order.index')
+                             ->withMessage(trans('orders.delete.delete_successful'));
+        } catch (Exception $modelNotFound) {
+            return redirect()->route('order.index')->withErrors(trans('orders.error_message'));
+        }
+        return redirect()->route('order.index')->withErrors($errors);
+    }
 }
