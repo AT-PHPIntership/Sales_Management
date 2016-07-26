@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Bill extends Model
 {
@@ -41,5 +42,16 @@ class Bill extends Model
     public function billDetails()
     {
         return $this->hasMany('App\Models\BillDetail');
+    }
+
+    /**
+     * Get all today's bills
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public static function getTodays()
+    {
+        return Bill::where('bills.created_at', '>=', DB::raw('concat(CURDATE(), \'' . \Config::get('common.INITAL_TIME') . '\')'))
+                   ->orderBy('created_at', 'asc');
     }
 }
