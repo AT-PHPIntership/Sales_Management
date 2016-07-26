@@ -48,23 +48,21 @@ class BillController extends Controller
             $bill = new Bill($request->all());
             $bill->user_id = Auth::user()->id;
             $bill->save();
-            $product;
             for ($i=0; $i < $size; $i++) {
-                $billDetail = new BillDetail;
-                $billDetail->bill_id = $bill->id;
-                $billDetail->product_id = $request->product_id[$i];
-                $billDetail->amount = $request->amount[$i];
                 $product = Product::findOrFail($request->product_id[$i]);
                 if ($request->amount[$i] <= $product->remaining_amount) {
+                    BillDetail::create([
+                        'bill_id' => $bill->id,
+                        'product_id' => $request->product_id[$i],
+                        'amount' => $request->amount[$i],
+                        'cost' => $request->amount[$i] * $product->price
+                    ]);
                     $product->remaining_amount = $product->remaining_amount - $request->amount[$i];
                     $product->save();
-                    $billDetail->cost = $request->amount[$i] * $product->price;
-                    $billDetail->save();
                     $i++;
                 } else {
                     $bill->delete();
-                    return redirect()->route('bill.create')
-                    ->withErrors(trans('errors.beyond_remaining_amount'));
+                    return redirect()->route('bill.create')->withErrors(trans('errors.beyond_remaining_amount'));
                 }
             }
             return redirect()->route('bill.create')
