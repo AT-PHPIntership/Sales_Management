@@ -63,6 +63,6 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::get('api/product', function () {
-        return Response::json(\App\Models\Product::all());
+        return Response::json(\App\Models\Product::where('remaining_amount', '!=', 0)->get());
     });
 });

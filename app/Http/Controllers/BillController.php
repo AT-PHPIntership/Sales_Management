@@ -46,13 +46,15 @@ class BillController extends Controller
             $bill->user_id = Auth::user()->id;
             $bill->save();
             $size = count($request->product_id);
-            for ($i=0; $i < $size; $i++) {
+            $index = 1;
+            while ($index < $size && $request->product_id[$index] != null) {
                 $billDetail = new BillDetail;
                 $billDetail->bill_id = $bill->id;
-                $billDetail->product_id = $request->product_id[$i];
-                $billDetail->amount = $request->amount[$i];
-                $billDetail->cost = $request->amount[$i] * $request->price[$i];
+                $billDetail->product_id = $request->product_id[$index];
+                $billDetail->amount = $request->amount[$index];
+                $billDetail->cost = $request->amount[$index] * $request->price[$index];
                 $billDetail->save();
+                $index++;
             }
             return redirect()->route('bill.create')
                              ->withMessage(trans('bills.create.successfull_message'));
