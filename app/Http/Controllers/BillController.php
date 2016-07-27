@@ -95,7 +95,7 @@ class BillController extends Controller
         }
     }
     /**
-     * Destroy the specified account from database.
+     * Destroy the specified bill from database.
      *
      * @param int $id id
      *
@@ -106,15 +106,13 @@ class BillController extends Controller
         $errors = trans('bills.delete.error_message');
         try {
             $bill = Bill::findOrFail($id);
-            $numberOfBillDetails = count($bill->billDetails);
-            if ($numberOfBillDetails) {
-                $errors = trans('bills.delete.delete_unsuccessful');
-            } else {
-                $billId = $bill->id;
-                $bill->delete();
-                return redirect()->route('bill.index')
-                                 ->withMessage($billId.trans('bills.delete.delete_successful'));
+            $billDetails = $bill->billDetails;
+            foreach ($billDetails as $billDetail) {
+                $billDetail->delete();
             }
+            $bill->delete();
+            return redirect()->route('bill.index')
+                             ->withMessage(trans('bills.delete.delete_successful'));
         } catch (Exception $modelNotFound) {
             return redirect()->route('bill.index')->withErrors(trans('bills.error_message'));
         }
