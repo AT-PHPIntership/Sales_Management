@@ -26,4 +26,16 @@ class StatisticController extends Controller
 
         return view('statistics.daily')->with($data);
     }
+
+    /**
+     * Quarterly statistics counting
+     *
+     * @return Illuminate\Http\Response
+     */
+    public function quarterly()
+    {
+        $data = [];
+
+        return view('statistics.quarterly')->with($data);
+    }
 }

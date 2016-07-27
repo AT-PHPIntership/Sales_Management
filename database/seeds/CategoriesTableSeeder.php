@@ -15,7 +15,7 @@ class CategoriesTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i=0; $i < 5; $i++) {
+        for ($i=0; $i < 15; $i++) {
             $category = Category::create([
                 'name' => $faker->word,
                 'description' => $faker->realText(255, 2),

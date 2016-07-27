@@ -22,7 +22,8 @@ class OrderDetailsTableSeeder extends Seeder
                 OrderDetail::create([
                     'order_id' => $order->id,
                     'product_id' => rand(1, 200),
-                    'amount' => rand(20, 100)
+                    'amount' => rand(20, 100),
+                    'created_at' => $order->created_at,
                 ]);
             }
         }
