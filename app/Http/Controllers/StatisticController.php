@@ -26,5 +26,4 @@ class StatisticController extends Controller
 
         return view('statistics.daily')->with($data);
     }
-    
 }
