@@ -100,20 +100,13 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        $errors = trans('orders.delete.error_message');
         try {
             $order = Order::findOrFail($id);
-            $orderDetails = $order->orderDetails;
-
-            foreach ($orderDetails as $orderDetail) {
-                $orderDetail->delete();
-            }
             $order->delete();
             return redirect()->route('order.index')
                              ->withMessage(trans('orders.delete.delete_successful'));
         } catch (Exception $modelNotFound) {
             return redirect()->route('order.index')->withErrors(trans('orders.error_message'));
         }
-        return redirect()->route('order.index')->withErrors($errors);
     }
 }
