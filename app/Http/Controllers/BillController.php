@@ -106,10 +106,6 @@ class BillController extends Controller
         $errors = trans('bills.delete.error_message');
         try {
             $bill = Bill::findOrFail($id);
-            $billDetails = $bill->billDetails;
-            foreach ($billDetails as $billDetail) {
-                $billDetail->delete();
-            }
             $bill->delete();
             return redirect()->route('bill.index')
                              ->withMessage(trans('bills.delete.delete_successful'));
