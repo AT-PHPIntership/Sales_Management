@@ -59,7 +59,6 @@ class BillController extends Controller
                     ]);
                     $product->remaining_amount = $product->remaining_amount - $request->amount[$i];
                     $product->save();
-                    $i++;
                 } else {
                     $bill->delete();
                     return redirect()->route('bill.create')->withErrors(trans('errors.beyond_remaining_amount'));
@@ -92,6 +91,63 @@ class BillController extends Controller
         } catch (ModelNotFoundException $ex) {
             return redirect()->route('bill.index')
                            ->withErrors(trans('bills.common.error_message'));
+        }
+    }
+    
+    /**
+     * Show the application edit form
+     *
+     * @param integer $id determine specific bill
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        try {
+            $bill = Bill::findOrFail($id);
+            return view('bills.edit', compact('bill'));
+        } catch (ModelNotFoundException $ex) {
+            return redirect()->route('bill.index')->withErrors(trans('bills.error_message'));
+        }
+    }
+    
+    /**
+     * Update bill infomation
+     *
+     * @param Request $request hold all data from request
+     * @param integer $id      determine specific bill
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(BillRequest $request, $id)
+    {
+        try {
+            $size = count($request->product_id);
+            $bill = Bill::findOrFail($id);
+            $bill->fill($request->except('total_cost'));
+            $bill->user_id = Auth::user()->id;
+            for ($i=0; $i < $size; $i++) {
+                $product = Product::findOrFail($request->product_id[$i]);
+                if ($request->amount[$i] <= $product->remaining_amount) {
+                    BillDetail::create([
+                        'bill_id' => $bill->id,
+                        'product_id' => $request->product_id[$i],
+                        'amount' => $request->amount[$i],
+                        'cost' => $request->amount[$i] * $product->price
+                    ]);
+                    $bill->total_cost += $request->amount[$i] * $product->price;
+                    $product->remaining_amount = $product->remaining_amount - $request->amount[$i];
+                    $product->save();
+                } else {
+                    return redirect()->route('bill.edit', [$id])->withErrors(trans('errors.beyond_remaining_amount'));
+                }
+            }
+            $bill->save();
+            return redirect()->route('bill.show', [$id])
+                             ->withMessage(trans('bills.edit.successfull_message'));
+        } catch (ModelNotFoundException $saveException) {
+            return redirect()->route('bill.edit', [$id])
+                             ->withErrors(trans('bills.common.error_message'));
         }
     }
 }

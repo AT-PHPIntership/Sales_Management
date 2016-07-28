@@ -34,7 +34,7 @@
               <td>{{ $bill->created_at }}</td>
               <td class="center">
                 <a href="{{ route('bill.show', [$bill->id]) }}" class="btn btn-info btn-xs"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
-                <a class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                <a href="{{ route('bill.edit', [$bill->id]) }}" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                 <a class="btn btn-danger btn-xs"><i class="fa fa-trash" aria-hidden="true"></i></a>
               </td>
             </tr>

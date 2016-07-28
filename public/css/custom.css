@@ -127,3 +127,13 @@ th {
     width:100%;
     height:300px;
 }
+
+#selected-product-datatable td{
+  vertical-align: middle;
+}
+
+
+.table-container {
+  overflow-y: scroll;
+  height: 300px;
+}

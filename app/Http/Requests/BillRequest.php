@@ -23,11 +23,22 @@ class BillRequest extends Request
      */
     public function rules()
     {
-        return [
-            'total_cost' => 'required|numeric|min:1',
-            'product_id.*' => 'required|exists:products,id',
-            'amount.*' => 'required|numeric|min:1',
-        ];
+        switch ($this->method()) {
+            case 'POST':
+                return [
+                    'total_cost' => 'required|numeric|min:1',
+                    'product_id.*' => 'required|exists:products,id',
+                    'amount.*' => 'required|numeric|min:1',
+                ];
+            case 'PUT':
+                return [
+                    'total_cost' => 'required|numeric|min:1',
+                    'product_id.*' => 'required|exists:products,id',
+                    'amount.*' => 'required|numeric|min:1',
+                ];
+            default:
+                return [];
+        }
     }
 
     /**
