@@ -56,6 +56,19 @@ class Order extends Model
     }
 
     /**
+    * The "booting" method of the model.
+    *
+    * @return void
+    */
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($order) {
+            $order->orderDetails()->delete();
+        });
+    }
+
+    /**
      * Get all today's orders
      *
      * @return Illuminate\Database\Eloquent\Collection
@@ -69,8 +82,6 @@ class Order extends Model
     /**
      * Description
      *
-     * @param Data type $parameter Description
-     *
      * @return Return type
      */
     public static function getQuarterList()
@@ -80,5 +91,4 @@ class Order extends Model
                     ->orderByRaw('`year` desc, `QUARTER` desc')
                     ->get();
     }
-
 }
