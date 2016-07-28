@@ -26,6 +26,7 @@ return [
         'btn_close' => 'Close',
         'error_cost_message' => 'There might be some errors! please check again!',
         'invalid_product' => 'Invalid product.',
+        'btn_remove_order' => 'Remove this order',
     ],
     'index' => [
         'label_id' => 'ID',
@@ -40,6 +41,7 @@ return [
         'title_btn_detail' => 'Click for more details',
         'title_btn_edit' => 'Click to edit',
         'title_btn_delete' => 'Remove this order',
+        'not_found' => 'This order does not exist!',
     ],
     'show' => [
         'title' => 'Order #:id Details',
@@ -56,5 +58,10 @@ return [
     'edit' => [
     ],
     'delete' => [
+        'confirm_title' => 'Confirm deleting',
+        'confirm_msg' => 'Are you sure you want to delete this order?',
+        'error_message' => 'Oops. Something went wrong! Please try again.',
+        'delete_unsuccessful' => 'Oops... Please remove all orderDetails and that have been created by this order first!',
+        'delete_successful' => ' has been deleted!',
     ]
 ];

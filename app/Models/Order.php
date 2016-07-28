@@ -65,4 +65,16 @@ class Order extends Model
         return Order::where('orders.created_at', '>=', DB::raw('concat(CURDATE(), \'' . \Config::get('common.INITAL_TIME') . '\')'))
                     ->orderBy('created_at', 'asc');
     }
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($order) {
+            $order->orderDetails()->delete();
+        });
+    }
 }

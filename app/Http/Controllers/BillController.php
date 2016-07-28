@@ -149,5 +149,26 @@ class BillController extends Controller
             return redirect()->route('bill.edit', [$id])
                              ->withErrors(trans('bills.common.error_message'));
         }
+    }    
+    
+    /**
+     * Destroy the specified bill from database.
+     *
+     * @param int $id id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $errors = trans('bills.delete.error_message');
+        try {
+            $bill = Bill::findOrFail($id);
+            $bill->delete();
+            return redirect()->route('bill.index')
+                             ->withMessage(trans('bills.delete.delete_successful'));
+        } catch (Exception $modelNotFound) {
+            return redirect()->route('bill.index')->withErrors(trans('bills.error_message'));
+        }
+        return redirect()->route('bill.index')->withErrors($errors);
     }
 }

@@ -11,7 +11,6 @@
 {{-- @section('errors-message')
     @include('common.errors')
 @stop
-
 @section('susscess-message')
     @include('common.success')
 @stop --}}
@@ -182,13 +181,11 @@
                 {label: '{{ $category->name }}', value: {{ $category->percentage }}},
             @endforeach
         ];
-
         var topTenData = [
             @foreach($topTen->paginate(10) as $product)
                 {product: '{{ $product->name }}', total: {{ $product->total }}},
             @endforeach
         ];
-
     </script>
     <script src="/js/statistics/daily.categories.js"></script>
 
