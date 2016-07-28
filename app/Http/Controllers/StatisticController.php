@@ -35,7 +35,7 @@ class StatisticController extends Controller
     public function quarterly()
     {
         $data = [];
-
+        $data['quarterList'] = Order::getQuarterList();
         return view('statistics.quarterly')->with($data);
     }
 }

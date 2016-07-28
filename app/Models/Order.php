@@ -65,4 +65,20 @@ class Order extends Model
         return Order::where('orders.created_at', '>=', DB::raw('concat(CURDATE(), \'' . \Config::get('common.INITAL_TIME') . '\')'))
                     ->orderBy('created_at', 'asc');
     }
+
+    /**
+     * Description
+     *
+     * @param Data type $parameter Description
+     *
+     * @return Return type
+     */
+    public static function getQuarterList()
+    {
+        return Order::selectRaw('year(created_at) as `Year`, QUARTER(created_at) as `Quarter`')
+                    ->groupBy('Year', 'Quarter')
+                    ->orderByRaw('`year` desc, `QUARTER` desc')
+                    ->get();
+    }
+
 }
