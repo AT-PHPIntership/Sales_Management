@@ -149,7 +149,7 @@ class BillController extends Controller
             return redirect()->route('bill.edit', [$id])
                              ->withErrors(trans('bills.common.error_message'));
         }
-    }    
+    }
     
     /**
      * Destroy the specified bill from database.
