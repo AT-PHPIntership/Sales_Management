@@ -8,7 +8,7 @@ use DB;
 class Bill extends Model
 {
     protected $table = 'bills';
-
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -54,6 +54,7 @@ class Bill extends Model
         return Bill::where('bills.created_at', '>=', DB::raw('concat(CURDATE(), \'' . \Config::get('common.INITAL_TIME') . '\')'))
                    ->orderBy('created_at', 'asc');
     }
+    
      /**
      * The "booting" method of the model.
      *
@@ -62,6 +63,7 @@ class Bill extends Model
     protected static function boot()
     {
         parent::boot();
+
         static::deleting(function ($bill) {
             $bill->billDetails()->delete();
         });

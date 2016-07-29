@@ -71,7 +71,7 @@
                       </td>
                       <td class="center">
                         <span class="price-label">{{ $billDetail->cost }}</span>
-                        <input type="hidden" class="price-input" value="{{ $billDetail->product->price }}">
+                        <input type="hidden" name="price[]" class="price-input" value="{{ $billDetail->product->price }}">
                       </td>
                       <td class="center print-hidden">
                         <a name="remove" class="btn btn-danger btn-xs btn_remove" disabled><i class="fa fa-trash" aria-hidden="true"></i></a>

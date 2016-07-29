@@ -10,6 +10,8 @@ use App\Models\BillDetail;
 use App\Http\Requests\BillRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Auth;
+use Event;
+use App\Events\BillWasCreatedEvent;
 
 class BillController extends Controller
 {
@@ -47,23 +49,18 @@ class BillController extends Controller
             $size = count($request->product_id);
             $bill = new Bill($request->all());
             $bill->user_id = Auth::user()->id;
+            $billsDetail = array();
             $bill->save();
             for ($i=0; $i < $size; $i++) {
-                $product = Product::findOrFail($request->product_id[$i]);
-                if ($request->amount[$i] <= $product->remaining_amount) {
-                    BillDetail::create([
-                        'bill_id' => $bill->id,
-                        'product_id' => $request->product_id[$i],
-                        'amount' => $request->amount[$i],
-                        'cost' => $request->amount[$i] * $product->price
-                    ]);
-                    $product->remaining_amount = $product->remaining_amount - $request->amount[$i];
-                    $product->save();
-                } else {
-                    $bill->delete();
-                    return redirect()->route('bill.create')->withErrors(trans('errors.beyond_remaining_amount'));
-                }
+                array_push($billsDetail, [
+                    'bill_id' => $bill->id,
+                    'product_id' => $request->input('product_id.'.$i),
+                    'amount' => $request->input('amount.'.$i),
+                    'cost' => $request->input('amount.'. $i) * $request->input('price.'. $i)
+                ]);
             }
+            BillDetail::insert($billsDetail);
+            Event::fire(new BillWasCreatedEvent($request->product_id, $request->amount));
             return redirect()->route('bill.create')
                              ->withMessage(trans('bills.create.successfull_message'));
         } catch (ModelNotFoundException $saveException) {
@@ -107,7 +104,7 @@ class BillController extends Controller
             $bill = Bill::findOrFail($id);
             return view('bills.edit', compact('bill'));
         } catch (ModelNotFoundException $ex) {
-            return redirect()->route('bill.index')->withErrors(trans('bills.error_message'));
+            return redirect()->route('bill.index')->withErrors(trans('bills.show.error_message'));
         }
     }
     
@@ -124,25 +121,20 @@ class BillController extends Controller
         try {
             $size = count($request->product_id);
             $bill = Bill::findOrFail($id);
-            $bill->fill($request->except('total_cost'));
+            $bill->fill($request->all());
             $bill->user_id = Auth::user()->id;
-            for ($i=0; $i < $size; $i++) {
-                $product = Product::findOrFail($request->product_id[$i]);
-                if ($request->amount[$i] <= $product->remaining_amount) {
-                    BillDetail::create([
-                        'bill_id' => $bill->id,
-                        'product_id' => $request->product_id[$i],
-                        'amount' => $request->amount[$i],
-                        'cost' => $request->amount[$i] * $product->price
-                    ]);
-                    $bill->total_cost += $request->amount[$i] * $product->price;
-                    $product->remaining_amount = $product->remaining_amount - $request->amount[$i];
-                    $product->save();
-                } else {
-                    return redirect()->route('bill.edit', [$id])->withErrors(trans('errors.beyond_remaining_amount'));
-                }
-            }
             $bill->save();
+            $billsDetail = array();
+            for ($i=0; $i < $size; $i++) {
+                array_push($billsDetail, [
+                    'bill_id' => $bill->id,
+                    'product_id' => $request->input('product_id.'.$i),
+                    'amount' => $request->input('amount.'.$i),
+                    'cost' => $request->input('amount.'. $i) * $request->input('price.'. $i)
+                ]);
+            }
+            BillDetail::insert($billsDetail);
+            Event::fire(new BillWasCreatedEvent($request->product_id, $request->amount));
             return redirect()->route('bill.show', [$id])
                              ->withMessage(trans('bills.edit.successfull_message'));
         } catch (ModelNotFoundException $saveException) {

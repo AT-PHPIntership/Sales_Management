@@ -26,6 +26,7 @@ return [
       'section-title' => 'Bill #:id Details',
       'items_title' => 'Items',
       'information_title' => 'Information',
+      'error_message' => 'Oops. Something went wrong! Please try again.',
   ],
   'common' => [
       'label_product' => 'Product',
