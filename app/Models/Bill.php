@@ -45,6 +45,19 @@ class Bill extends Model
     }
 
     /**
+    * The "booting" method of the model.
+    *
+    * @return void
+    */
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($bill) {
+            $bill->billDetails()->delete();
+        });
+    }
+
+    /**
      * Get all today's bills
      *
      * @return Illuminate\Database\Eloquent\Collection
@@ -54,16 +67,32 @@ class Bill extends Model
         return Bill::where('bills.created_at', '>=', DB::raw('concat(CURDATE(), \'' . \Config::get('common.INITAL_TIME') . '\')'))
                    ->orderBy('created_at', 'asc');
     }
-     /**
-     * The "booting" method of the model.
+
+    /**
+     * Get all order amount by quarter
      *
-     * @return void
+     * @return Illuminate\Database\Eloquent\Collection
      */
-    protected static function boot()
+    public static function getQuartersList()
     {
-        parent::boot();
-        static::deleting(function ($bill) {
-            $bill->billDetails()->delete();
-        });
+        return Bill::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`')
+                    ->groupBy('year', 'quarter')
+                    ->orderByRaw('`year` desc, `quarter` desc');
     }
+
+    /**
+     * Description
+     *
+     * @param Data type $parameter Description
+     *
+     * @return Return type
+     */
+    public static function quarterTotal($year, $quarter)
+    {
+        return Bill::selectRaw('year(created_at) as `year`, month(created_at) as `month`, sum(total_cost) as total')
+                   ->whereRaw('QUARTER(created_at) = ' . $quarter . ' and year(created_at) = ' . $year)
+                   ->groupBy('year', 'month')
+                   ->orderByRaw('`year` desc, `month` asc');
+    }
+
 }

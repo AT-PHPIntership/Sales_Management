@@ -80,15 +80,29 @@ class Order extends Model
     }
 
     /**
-     * Description
+     * Get all order amount by quarter
      *
-     * @return Return type
+     * @return Illuminate\Database\Eloquent\Collection
      */
     public static function getQuarterList()
     {
-        return Order::selectRaw('year(created_at) as `Year`, QUARTER(created_at) as `Quarter`')
-                    ->groupBy('Year', 'Quarter')
-                    ->orderByRaw('`year` desc, `QUARTER` desc')
-                    ->get();
+        return Order::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`')
+                    ->groupBy('year', 'quarter')
+                    ->orderByRaw('`year` desc, `quarter` desc');
+    }
+
+    /**
+     * Description
+     *
+     * @param Data type $parameter Description
+     *
+     * @return Return type
+     */
+    public static function quarterTotal($year, $quarter)
+    {
+        return Order::selectRaw('year(created_at) as `year`, month(created_at) as `month`, sum(total_cost) as total')
+                   ->whereRaw('QUARTER(created_at) = ' . $quarter . ' and year(created_at) = ' . $year)
+                   ->groupBy('year', 'month')
+                   ->orderByRaw('`year` desc, `month` asc');
     }
 }

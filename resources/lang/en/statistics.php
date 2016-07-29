@@ -13,4 +13,12 @@ return [
     'btn_pdf' => 'pdfHtml5',
     'btn_print' => 'print',
     'label_total' => 'Total',
+    'quarterly' => [
+        'title' => 'Quarterly Statistics',
+        'label_totals' => 'Totals',
+        'pi' => 'Profitability Index',
+        'per_cate' => 'Percentage Of Categories',
+        '' => '',
+        '' => '',
+    ],
 ];
