@@ -22,8 +22,9 @@ class BillsDetailsTableSeeder extends Seeder
                 BillDetail::create([
                     'bill_id' => $bill->id,
                     'product_id' => rand(1, 200),
-                    'amount' => rand(1, 5),
-                    'cost' => 0
+                    'amount' => rand(1, 10),
+                    'cost' => 0,
+                    'created_at' => $bill->created_at
                 ]);
             }
         }

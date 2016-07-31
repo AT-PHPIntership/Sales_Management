@@ -17,12 +17,13 @@ class OrderDetailsTableSeeder extends Seeder
 
         $orders = Order::all();
         foreach ($orders as $order) {
-            $amount = rand(1, 10);
+            $amount = rand(5, 30);
             for ($j = 0; $j < $amount; $j++) {
                 OrderDetail::create([
                     'order_id' => $order->id,
                     'product_id' => rand(1, 200),
-                    'amount' => rand(20, 100)
+                    'amount' => rand(20, 100),
+                    'created_at' => $order->created_at,
                 ]);
             }
         }
