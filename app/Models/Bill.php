@@ -66,7 +66,7 @@ class Bill extends Model
      */
     public function scopeJoinOrders($query)
     {
-        return $query->join('orders', function($join) {
+        return $query->join('orders', function ($join) {
             $join->on(DB::raw('year(orders.created_at) = year(bills.created_at)'), DB::raw(''), DB::raw(''));
             $join->on(DB::raw('QUARTER(orders.created_at) = QUARTER(bills.created_at)'), DB::raw(''), DB::raw(''));
         });
@@ -131,7 +131,7 @@ class Bill extends Model
     }
 
     /**
-     * get Profitability Index
+     * Get Profitability Index
      *
      * @return Return type
      */
@@ -142,5 +142,4 @@ class Bill extends Model
                    ->groupBy('year', 'quarter')
                    ->orderByRaw('`year` desc, `quarter` desc');
     }
-
 }

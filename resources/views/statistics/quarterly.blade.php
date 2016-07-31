@@ -196,8 +196,9 @@
     <script src="/bower_resources/gentelella/production/js/flot/date.js"></script>
     <script src="/bower_resources/gentelella/production/js/flot/jquery.flot.spline.js"></script>
     <script src="/bower_resources/gentelella/production/js/flot/curvedLines.js"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="/bower_resources/gentelella/build/js/custom.min.js"></script>
+    <!-- morris.js -->
+    <script src="/bower_resources/gentelella/vendors/raphael/raphael.min.js"></script>
+    <script src="/bower_resources/gentelella/vendors/morris.js/morris.min.js"></script>
 
     <script>
         var language = {!! json_encode(trans('statistics')) !!};
@@ -205,103 +206,51 @@
 
     <!-- Chart.js -->
     <script>
-    var quartersLabel = [
-      @for ($i = 0; $i < 8; $i++)
-        "{{ $billIndex[$i]->year }}-Q{{ $billIndex[$i]->quarter }}",
-      @endfor
-    ].reverse();
-    var billsData = [
-      @for ($i = 0; $i < 8; $i++)
-        {{ $billIndex[$i]->index }},
-      @endfor
-    ].reverse();
-    var ordersData = [
-      @for ($i = 0; $i < 8; $i++)
-        {{ $orderIndex[$i]->index }},
-      @endfor
-    ].reverse();
+        var ONE_HUNDRED_PERCENT = 100;
+        // Line chart
+        var quartersLabel = [
+        @for ($i = 0; $i < $MAX_QUARTER = 8; $i++)
+            "{{ $billIndex[$i]->year }}-Q{{ $billIndex[$i]->quarter }}",
+        @endfor
+        ].reverse();
 
-    Chart.defaults.global.legend = {
-      enabled: false
-    };
+        var billsData = [
+        @for ($i = 0; $i < $MAX_QUARTER; $i++)
+            {{ $billIndex[$i]->index }},
+        @endfor
+        ].reverse();
 
-      // Line chart
-      var ctx = document.getElementById("lineChart");
-      var lineChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: quartersLabel,
-          datasets: [{
-            label: language.quarterly.label_bill_gi,
-            backgroundColor: "rgba(38, 185, 154, 0.31)",
-            borderColor: "rgba(38, 185, 154, 0.7)",
-            pointBorderColor: "rgba(38, 185, 154, 0.7)",
-            pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
-            pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
-            pointBorderWidth: 1,
-            data: billsData
-          }, {
-            label: language.quarterly.label_order_gi,
-            backgroundColor: "rgba(3, 88, 106, 0.3)",
-            borderColor: "rgba(3, 88, 106, 0.70)",
-            pointBorderColor: "rgba(3, 88, 106, 0.70)",
-            pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
-            pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "rgba(151,187,205,1)",
-            pointBorderWidth: 1,
-            data: ordersData
-          }]
-        },
-      });
+        var ordersData = [
+        @for ($i = 0; $i < $MAX_QUARTER; $i++)
+            {{ $orderIndex[$i]->index }},
+        @endfor
+        ].reverse();
 
-      // Bar chart
-     var months = [
-         @foreach($quaterlyTotalOrder as $totalOrder)
-             "{{ $totalOrder->month }}",
-         @endforeach
-     ];
-     var totalOrder = [
-         @foreach($quaterlyTotalOrder as $totalOrder)
-             "{{ $totalOrder->total }}",
-         @endforeach
-     ];
-     var totalBill = [
-         @foreach($quaterlyTotalBill as $totalBill)
-             "{{ $totalBill->total }}",
-         @endforeach
-     ];
+        // Bar chart
+        var months = [
+        @foreach($quaterlyTotalOrder as $totalOrder)
+            "{{ $totalOrder->month }}",
+        @endforeach
+        ];
 
-     var ctx = document.getElementById("quater-bar-chart");
-     var mybarChart = new Chart(ctx, {
-       type: 'bar',
-       data: {
-         labels: months,
-         datasets: [{
-           label: language.quarterly.label_of_orders,
-           backgroundColor: "#26B99A",
-           data: totalOrder
-         }, {
-           label: language.quarterly.label_of_orders,
-           backgroundColor: "#03586A",
-           data: totalBill
-         }]
-       },
-     });
-    </script>
-    <!-- /Chart.js -->
+        var totalOrder = [
+        @foreach($quaterlyTotalOrder as $totalOrder)
+            "{{ $totalOrder->total }}",
+        @endforeach
+        ];
 
-    <!-- morris.js -->
-    <script src="/bower_resources/gentelella/vendors/raphael/raphael.min.js"></script>
-    <script src="/bower_resources/gentelella/vendors/morris.js/morris.min.js"></script>
+        var totalBill = [
+        @foreach($quaterlyTotalBill as $totalBill)
+            "{{ $totalBill->total }}",
+        @endforeach
+        ];
 
-    <!-- morris.js -->
-    <script>
+        //morris.js
         var categoryData = [
         @foreach($categories as $category)
             {label: '{{ $category->name }}', value: {{ $category->percentage }}},
         @endforeach
-            {label: language.quarterly.label_others, value: 100 - {{ $categories->sum('percentage') }}}
+            {label: language.quarterly.label_others, value: ONE_HUNDRED_PERCENT - {{ $categories->sum('percentage') }}}
         ];
 
         var topTenData = [
@@ -310,37 +259,7 @@
             @endforeach
         ];
     </script>
-    <script>
-    $(document).ready(function() {
-        Morris.Bar({
-          element: 'graph_bar',
-          data: topTenData,
-          xkey: 'product',
-          ykeys: ['total'],
-          labels: [language.label_total],
-          barRatio: 0.4,
-          barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
-          xLabelAngle: 35,
-          hideHover: 'auto',
-          resize: true,
-          gridTextSize: 10
-        });
-
-        Morris.Donut({
-            element: 'graph_donut',
-            data: categoryData,
-            colors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
-            formatter: function(y) {
-                return y + "%";
-            },
-            resize: true
-        });
-
-        $MENU_TOGGLE.on('click', function() {
-            $(window).resize();
-        });
-    });
-    </script>
+    <!-- Custom Chart Scripts -->
     <script src="/js/statistics/quarterly.custom.js"></script>
 @endpush
 
