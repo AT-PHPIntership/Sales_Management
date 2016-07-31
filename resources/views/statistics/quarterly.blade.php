@@ -5,7 +5,7 @@
 @stop
 
 @section('section-title')
-    {{ $year }} - Quarter {{ $quarter }} Statistics
+    {{ $year }} - @lang('statistics.quarterly.msg_quarter') {{ $quarter }} @lang('statistics.quarterly.msg_statistics')
 @stop
 
 @section('page-content')
@@ -19,7 +19,7 @@
                                 <div class="input-prepend input-group">
                                     <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
                                     <select name="quarter" id="quarter" class="form-control pull-right">
-                                            <option>Select a Quarter</option>
+                                            <option>@lang('statistics.quarterly.msg_select')</option>
                                         @foreach($quatersList as $index => $quarter)
                                             @if($index == 0)
                                                 @continue
@@ -61,7 +61,7 @@
         <!-- Top ten -->
         <div class="x_panel">
             <div class="x_title">
-              <h2><i class="glyphicon glyphicon-calendar fa fa-list-ol"></i> @lang('statistics.quarterly.pi')</h2>
+              <h2><i class="glyphicon glyphicon-calendar fa fa-sort"></i> @lang('statistics.quarterly.pi')</h2>
               <ul class="nav navbar-right panel_toolbox">
                 <li class="pull-right">
                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -73,7 +73,7 @@
               <div class="x_title">
                 <div class="row tile_count">
                   <div class="col-md-12 col-sm-12 col-xs-12 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-calendar"></i><b> Current {{ $pi[0]->year }}-Q{{ $pi[0]->quarter }}</b></span>
+                    <span class="count_top"><i class="fa fa-calendar"></i><b> @lang('statistics.quarterly.label_current') {{ $pi[0]->year }}-Q{{ $pi[0]->quarter }}</b></span>
                     <div class="count green">{{ $pi[0]->PI }}%</div>
                     <span class="count_bottom">
                     @if(($diffrence = $pi[0]->PI - $pi[1]->PI) > 0)
@@ -83,7 +83,7 @@
                       <i class="red">
                             <i class="fa fa-sort-desc"></i>{{ $diffrence }}%
                     @endif
-                      </i> From last Quarter
+                </i> @lang('statistics.quarterly.label_from_last_quarter')
                     </span>
                   </div>
                 </div>
@@ -138,7 +138,7 @@
     <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2><i class="glyphicon glyphicon-calendar fa fa-pie-chart"></i> @lang('statistics.per_cate')</h2>
+                <h2><i class="glyphicon glyphicon-calendar fa fa-list-ol"></i> @lang('statistics.quarterly.label_top_products')</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li class="pull-right">
                         <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -156,7 +156,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2><i class="glyphicon glyphicon-calendar fa fa-calendar"></i> Growth Chart <small>From first Quarter</small></h2>
+            <h2><i class="glyphicon glyphicon-calendar fa fa-line-chart"></i> @lang('statistics.quarterly.label_growth_chart') <small>@lang('statistics.quarterly.label_cmp_to_first')</small></h2>
             <ul class="nav navbar-right panel_toolbox">
               <li class="pull-right">
                   <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -221,9 +221,9 @@
       @endfor
     ].reverse();
 
-      Chart.defaults.global.legend = {
-        enabled: false
-      };
+    Chart.defaults.global.legend = {
+      enabled: false
+    };
 
       // Line chart
       var ctx = document.getElementById("lineChart");
@@ -232,7 +232,7 @@
         data: {
           labels: quartersLabel,
           datasets: [{
-            label: "My First dataset",
+            label: language.quarterly.label_bill_gi,
             backgroundColor: "rgba(38, 185, 154, 0.31)",
             borderColor: "rgba(38, 185, 154, 0.7)",
             pointBorderColor: "rgba(38, 185, 154, 0.7)",
@@ -242,7 +242,7 @@
             pointBorderWidth: 1,
             data: billsData
           }, {
-            label: "My Second dataset",
+            label: language.quarterly.label_order_gi,
             backgroundColor: "rgba(3, 88, 106, 0.3)",
             borderColor: "rgba(3, 88, 106, 0.70)",
             pointBorderColor: "rgba(3, 88, 106, 0.70)",
@@ -278,25 +278,15 @@
        data: {
          labels: months,
          datasets: [{
-           label: '# of orders',
+           label: language.quarterly.label_of_orders,
            backgroundColor: "#26B99A",
            data: totalOrder
          }, {
-           label: '# of bills',
+           label: language.quarterly.label_of_orders,
            backgroundColor: "#03586A",
            data: totalBill
          }]
        },
-
-       options: {
-         scales: {
-           yAxes: [{
-             ticks: {
-               beginAtZero: true
-             }
-           }]
-         }
-       }
      });
     </script>
     <!-- /Chart.js -->
@@ -311,7 +301,7 @@
         @foreach($categories as $category)
             {label: '{{ $category->name }}', value: {{ $category->percentage }}},
         @endforeach
-            {label: 'Others', value: 100 - {{ $categories->sum('percentage') }}}
+            {label: language.quarterly.label_others, value: 100 - {{ $categories->sum('percentage') }}}
         ];
 
         var topTenData = [
@@ -351,6 +341,7 @@
         });
     });
     </script>
+    <script src="/js/statistics/quarterly.custom.js"></script>
 @endpush
 
 @push('stylesheet')
