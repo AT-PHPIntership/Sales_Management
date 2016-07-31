@@ -31,19 +31,20 @@ class StatisticController extends Controller
     /**
      * Quarterly statistics counting
      *
+     * @param Illuminate\Http\Request $request request
+     *
      * @return Illuminate\Http\Response
      */
     public function quarterly(Request $request)
     {
-        if(!isset($request->quarter)) {
-            $quarter = date('Y') . 'Q' . StatisticController::toQuarter((date('n') -1));
+        if (!isset($request->quarter)) {
+            $quarter = date('Y') . 'Q' . (StatisticController::toQuarter(date('n')) - 1);
         } else {
             $quarter = $request->quarter;
         }
         $elements = explode('Q', $quarter);
         $year = $elements[0];
         $quarter = $elements[1];
-
 
         $data = [];
         $data['quatersList'] = Order::getQuarterList()->get();
@@ -53,42 +54,40 @@ class StatisticController extends Controller
 
         $data['categories'] = BillDetail::getQuarter($year, $quarter)->paginate(5);
         $data['topTen'] = Product::getQuarter($year, $quarter)->paginate(10);
-        // dd($data['categories']->paginate(5));
 
-        // dd($data['quaterlyTotalBill'], $data['quaterlyTotalOrder']);
+        $data['billIndex'] = Bill::getIndex()->get();
+        $data['orderIndex'] = Order::getIndex()->get();
+
+        $data['pi'] = Bill::getPI()->get();
+
+        $data['year'] = $year;
+        $data['quarter'] = $quarter;
         return view('statistics.quarterly')->with($data);
     }
 
     /**
-     * Convert partten 'YYYYM' to 'YYYYQ'
+     * Return quarter form month
      *
-     * @param int $yearMonth year and month
+     * @param int $month month of year
      *
      * @return int
      */
     public static function toQuarter($month)
     {
-        switch ($month) {
-            case '1':
-            case '2':
-            case '3':
-                return '1';
-            case '4':
-            case '5':
-            case '6':
-                return '2';
-            case '7':
-            case '8':
-            case '9':
-                return '3';
-            case '10':
-            case '11':
-            case '12':
-                return '4';
-            default:
-                throw new Exception('Unknow the month: ' . $month);
-                break;
+        $quarter = [1, 2, 3, 4];
+        if ($month < 1 || $month > 12) {
+            throw new Exception('Unknow the month: ' . $month);
         }
+
+        return $quarter[intval($month / 3)];
     }
 
+    /**
+     * Calculate the index
+     *
+     * @return Return type
+     */
+    public function calcIndex()
+    {
+    }
 }

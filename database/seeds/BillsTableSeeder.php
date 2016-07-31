@@ -20,18 +20,19 @@ class BillsTableSeeder extends Seeder
             Bill::create([
                 'user_id' => rand(1, 10),
                 'description' => $faker->text,
-                'total_cost' => rand(1, 15) * 100,
+                'total_cost' => rand(10, 999) * 100,
                 'created_at' => $faker->dateTimeBetween($startDate = '-3 years', $endDate = 'now')
             ]);
         }
 
         // Current day bills
-        for ($i = 0; $i < 10; $i++) {
-            foreach (User::get() as $user) {
+        foreach (User::get() as $user) {
+            $amount = rand(0, 10);
+            for ($i = 0; $i < $amount; $i++) {
                 Bill::create([
                     'user_id' => $user->id,
                     'description' => $faker->text($maxNbChars = 255),
-                    'total_cost' => rand(1, 99) * 100,
+                    'total_cost' => rand(1, 99) * 10,
                 ]);
             }
         }

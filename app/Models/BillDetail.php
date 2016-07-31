@@ -62,7 +62,9 @@ class BillDetail extends Model
     /**
      * Scope a query to select bill details by quarterly
      *
-     * @param string $query query string
+     * @param int $query   query string
+     * @param int $year    year
+     * @param int $quarter quarter
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -97,11 +99,12 @@ class BillDetail extends Model
     }
 
     /**
-     * Description
+     * Get total amount by quarter
      *
-     * @param Data type $parameter Description
+     * @param int $year    year
+     * @param int $quarter quarter
      *
-     * @return Return type
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public static function quarterTotalAmount($year, $quarter)
     {
@@ -109,11 +112,12 @@ class BillDetail extends Model
     }
 
     /**
-     * Description
+     * Get total by quarter
      *
-     * @param Data type $parameter Description
+     * @param int $year    year
+     * @param int $quarter quarter
      *
-     * @return Return type
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public static function getQuarter($year, $quarter)
     {
@@ -124,5 +128,4 @@ class BillDetail extends Model
                         ->groupBy('categories.name')
                         ->orderBy('percentage', 'desc');
     }
-
 }

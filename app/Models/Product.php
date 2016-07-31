@@ -70,9 +70,10 @@ class Product extends Model
     }
 
     /**
-     * Description
+     * Get all products of
      *
-     * @param Data type $parameter Description
+     * @param int $year    year
+     * @param int $quarter quarter
      *
      * @return Return type
      */

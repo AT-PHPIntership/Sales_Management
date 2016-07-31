@@ -5,16 +5,8 @@
 @stop
 
 @section('section-title')
-    @lang('statistics.quarterly.title')
+    {{ $year }} - Quarter {{ $quarter }} Statistics
 @stop
-
-{{-- @section('errors-message')
-    @include('common.errors')
-@stop
-
-@section('susscess-message')
-    @include('common.success')
-@stop --}}
 
 @section('page-content')
     <div class="col-md-4 col-sm-4 col-xs-12 pull-right">
@@ -79,67 +71,50 @@
             </div>
             <div class="x_content">
               <div class="x_title">
-                <h2>Top Campaign Performance</h2>
+                <div class="row tile_count">
+                  <div class="col-md-12 col-sm-12 col-xs-12 tile_stats_count">
+                    <span class="count_top"><i class="fa fa-calendar"></i><b> Current {{ $pi[0]->year }}-Q{{ $pi[0]->quarter }}</b></span>
+                    <div class="count green">{{ $pi[0]->PI }}%</div>
+                    <span class="count_bottom">
+                    @if(($diffrence = $pi[0]->PI - $pi[1]->PI) > 0)
+                      <i class="green">
+                            <i class="fa fa-sort-asc"></i>{{ $diffrence }}%
+                    @else
+                      <i class="red">
+                            <i class="fa fa-sort-desc"></i>{{ $diffrence }}%
+                    @endif
+                      </i> From last Quarter
+                    </span>
+                  </div>
+                </div>
                 <div class="clearfix"></div>
               </div>
-
               <div class="col-md-12 col-sm-12 col-xs-6">
+                @for($i = 1; $i < 4; $i++)
                 <div>
-                  <p>Facebook Campaign</p>
-                  <div class="">
-                    <div class="progress progress_sm" style="width: 76%;">
-                      <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="80"></div>
-                    </div>
+                  <div class="count">
+                      <p><b>{{ $pi[$i]->year }}-Q{{ $pi[$i]->quarter }}: <span class="green">{{ $pi[$i]->PI }}%</span></b>
+                      @if(($diffrence = $pi[$i]->PI - $pi[$i + 1]->PI) > 0)
+                      <i class="green pull-right">
+                          <i class="fa fa-sort-asc"></i> {{ $diffrence }}%
+                      @else
+                      <i class="red pull-right">
+                          <i class="fa fa-sort-desc"></i> {{ $diffrence }}%
+                      @endif
+                      </i>
+                      </p>
                   </div>
-                </div>
-                <div>
-                  <p>Twitter Campaign</p>
-                  <div class="">
-                    <div class="progress progress_sm" style="width: 76%;">
-                      <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="60"></div>
+                    <div class="">
+                        <div class="progress progress_sm">
+                            <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="{{ $pi[$i]->PI }}"></div>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
-              <div class="col-md-12 col-sm-12 col-xs-6">
-                <div>
-                  <p>Conventional Media</p>
-                  <div class="">
-                    <div class="progress progress_sm" style="width: 76%;">
-                      <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="40"></div>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <p>Bill boards</p>
-                  <div class="">
-                    <div class="progress progress_sm" style="width: 76%;">
-                      <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>
-                    </div>
-                  </div>
-                </div>
+                @endfor
               </div>
             </div>
         </div>
     </div> <!-- /numbers -->
-
-    <!-- index -->
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-          <div class="x_title">
-            <h2><i class="glyphicon glyphicon-calendar fa fa-calendar"></i> @lang('statistics.label_bills')</h2>
-            <ul class="nav navbar-right panel_toolbox">
-              <li class="pull-right">
-                  <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-              </li>
-            </ul>
-            <div class="clearfix"></div>
-          </div>
-          <div class="x_content">
-            <canvas id="lineChart"></canvas>
-          </div>
-        </div>
-    </div> <!-- /index -->
 
     <!-- product -->
     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -176,6 +151,24 @@
             </div>
         </div>
     </div> <!-- /user -->
+
+    <!-- index -->
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2><i class="glyphicon glyphicon-calendar fa fa-calendar"></i> Growth Chart <small>From first Quarter</small></h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li class="pull-right">
+                  <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <canvas id="lineChart"></canvas>
+          </div>
+        </div>
+    </div> <!-- /index -->
 @stop
 
 @push('end-page-scripts')
@@ -212,225 +205,158 @@
 
     <!-- Chart.js -->
     <script>
-        Chart.defaults.global.legend = {
-            enabled: false
-        };
+    var quartersLabel = [
+      @for ($i = 0; $i < 8; $i++)
+        "{{ $billIndex[$i]->year }}-Q{{ $billIndex[$i]->quarter }}",
+      @endfor
+    ].reverse();
+    var billsData = [
+      @for ($i = 0; $i < 8; $i++)
+        {{ $billIndex[$i]->index }},
+      @endfor
+    ].reverse();
+    var ordersData = [
+      @for ($i = 0; $i < 8; $i++)
+        {{ $orderIndex[$i]->index }},
+      @endfor
+    ].reverse();
 
-        // Line chart
-        var ctx = document.getElementById("lineChart");
-        var lineChart = new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [{
-              label: "My First dataset",
-              backgroundColor: "rgba(38, 185, 154, 0.31)",
-              borderColor: "rgba(38, 185, 154, 0.7)",
-              pointBorderColor: "rgba(38, 185, 154, 0.7)",
-              pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(220,220,220,1)",
-              pointBorderWidth: 1,
-              data: [31, 74, 6, 39, 20, 85, 7]
-            }, {
-              label: "My Second dataset",
-              backgroundColor: "rgba(3, 88, 106, 0.3)",
-              borderColor: "rgba(3, 88, 106, 0.70)",
-              pointBorderColor: "rgba(3, 88, 106, 0.70)",
-              pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(151,187,205,1)",
-              pointBorderWidth: 1,
-              data: [82, 23, 66, 9, 99, 4, 2]
-            }]
-          },
-        });
+      Chart.defaults.global.legend = {
+        enabled: false
+      };
 
-          // Bar chart
-         var months = [
-             @foreach($quaterlyTotalOrder as $totalOrder)
-                 "{{ $totalOrder->month }}",
-             @endforeach
-         ];
-         var totalOrder = [
-             @foreach($quaterlyTotalOrder as $totalOrder)
-                 "{{ $totalOrder->total }}",
-             @endforeach
-         ];
-         var totalBill = [
-             @foreach($quaterlyTotalBill as $totalBill)
-                 "{{ $totalBill->total }}",
-             @endforeach
-         ];
-         console.log(months);
-         console.log(totalOrder);
-         console.log(totalBill);
-         var ctx = document.getElementById("quater-bar-chart");
-         var mybarChart = new Chart(ctx, {
-           type: 'bar',
-           data: {
-             labels: months,
-             datasets: [{
-               label: '# of Votes',
-               backgroundColor: "#26B99A",
-               data: totalOrder
-             }, {
-               label: '# of Votes',
-               backgroundColor: "#03586A",
-               data: totalBill
-             }]
-           },
+      // Line chart
+      var ctx = document.getElementById("lineChart");
+      var lineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: quartersLabel,
+          datasets: [{
+            label: "My First dataset",
+            backgroundColor: "rgba(38, 185, 154, 0.31)",
+            borderColor: "rgba(38, 185, 154, 0.7)",
+            pointBorderColor: "rgba(38, 185, 154, 0.7)",
+            pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointBorderWidth: 1,
+            data: billsData
+          }, {
+            label: "My Second dataset",
+            backgroundColor: "rgba(3, 88, 106, 0.3)",
+            borderColor: "rgba(3, 88, 106, 0.70)",
+            pointBorderColor: "rgba(3, 88, 106, 0.70)",
+            pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "rgba(151,187,205,1)",
+            pointBorderWidth: 1,
+            data: ordersData
+          }]
+        },
+      });
 
-           options: {
-             scales: {
-               yAxes: [{
-                 ticks: {
-                   beginAtZero: true
-                 }
-               }]
+      // Bar chart
+     var months = [
+         @foreach($quaterlyTotalOrder as $totalOrder)
+             "{{ $totalOrder->month }}",
+         @endforeach
+     ];
+     var totalOrder = [
+         @foreach($quaterlyTotalOrder as $totalOrder)
+             "{{ $totalOrder->total }}",
+         @endforeach
+     ];
+     var totalBill = [
+         @foreach($quaterlyTotalBill as $totalBill)
+             "{{ $totalBill->total }}",
+         @endforeach
+     ];
+
+     var ctx = document.getElementById("quater-bar-chart");
+     var mybarChart = new Chart(ctx, {
+       type: 'bar',
+       data: {
+         labels: months,
+         datasets: [{
+           label: '# of orders',
+           backgroundColor: "#26B99A",
+           data: totalOrder
+         }, {
+           label: '# of bills',
+           backgroundColor: "#03586A",
+           data: totalBill
+         }]
+       },
+
+       options: {
+         scales: {
+           yAxes: [{
+             ticks: {
+               beginAtZero: true
              }
-           }
-         });
-        </script>
-        <!-- /Chart.js -->
+           }]
+         }
+       }
+     });
+    </script>
+    <!-- /Chart.js -->
 
+    <!-- morris.js -->
+    <script src="/bower_resources/gentelella/vendors/raphael/raphael.min.js"></script>
+    <script src="/bower_resources/gentelella/vendors/morris.js/morris.min.js"></script>
 
-        <!-- Flot -->
-        <script>
-          $(document).ready(function() {
-            var data1 = [
-              [gd(2012, 1, 1), 17],
-              [gd(2012, 1, 2), 74],
-              [gd(2012, 1, 3), 6],
-              [gd(2012, 1, 4), 39],
-              [gd(2012, 1, 5), 20],
-              [gd(2012, 1, 6), 85],
-              [gd(2012, 1, 7), 7]
-            ];
+    <!-- morris.js -->
+    <script>
+        var categoryData = [
+        @foreach($categories as $category)
+            {label: '{{ $category->name }}', value: {{ $category->percentage }}},
+        @endforeach
+            {label: 'Others', value: 100 - {{ $categories->sum('percentage') }}}
+        ];
 
-            var data2 = [
-              [gd(2012, 1, 1), 82],
-              [gd(2012, 1, 2), 23],
-              [gd(2012, 1, 3), 66],
-              [gd(2012, 1, 4), 9],
-              [gd(2012, 1, 5), 119],
-              [gd(2012, 1, 6), 6],
-              [gd(2012, 1, 7), 9]
-            ];
-            $("#canvas_dahs").length && $.plot($("#canvas_dahs"), [
-              data1, data2
-            ], {
-              series: {
-                lines: {
-                  show: false,
-                  fill: true
-                },
-                splines: {
-                  show: true,
-                  tension: 0.4,
-                  lineWidth: 1,
-                  fill: 0.4
-                },
-                points: {
-                  radius: 0,
-                  show: true
-                },
-                shadowSize: 2
-              },
-              grid: {
-                verticalLines: true,
-                hoverable: true,
-                clickable: true,
-                tickColor: "#d5d5d5",
-                borderWidth: 1,
-                color: '#fff'
-              },
-              colors: ["rgba(38, 185, 154, 0.38)", "rgba(3, 88, 106, 0.38)"],
-              xaxis: {
-                tickColor: "rgba(51, 51, 51, 0.06)",
-                mode: "time",
-                tickSize: [1, "day"],
-                //tickLength: 10,
-                axisLabel: "Date",
-                axisLabelUseCanvas: true,
-                axisLabelFontSizePixels: 12,
-                axisLabelFontFamily: 'Verdana, Arial',
-                axisLabelPadding: 10
-              },
-              yaxis: {
-                ticks: 8,
-                tickColor: "rgba(51, 51, 51, 0.06)",
-              },
-              tooltip: false
-            });
-
-            function gd(year, month, day) {
-              return new Date(year, month - 1, day).getTime();
-            }
-          });
-        </script>
-        <!-- /Flot -->
-
-        <!-- morris.js -->
-        <script src="/bower_resources/gentelella/vendors/raphael/raphael.min.js"></script>
-        <script src="/bower_resources/gentelella/vendors/morris.js/morris.min.js"></script>
-
-        <!-- morris.js -->
-        <script>
-            var categoryData = [
-            @foreach($categories as $category)
-                {label: '{{ $category->name }}', value: {{ $category->percentage }}},
+        var topTenData = [
+            @foreach($topTen as $product)
+                {product: '{{ $product->name }}', total: {{ $product->total }}},
             @endforeach
-                {label: 'Others', value: 100 - {{ $categories->sum('percentage') }}}
-            ];
-
-            var topTenData = [
-                @foreach($topTen as $product)
-                    {product: '{{ $product->name }}', total: {{ $product->total }}},
-                @endforeach
-            ];
-        </script>
-        <script>
-        $(document).ready(function() {
-            Morris.Bar({
-              element: 'graph_bar',
-              data: topTenData,
-              xkey: 'product',
-              ykeys: ['total'],
-              labels: [language.label_total],
-              barRatio: 0.4,
-              barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
-              xLabelAngle: 35,
-              hideHover: 'auto',
-              resize: true,
-              gridTextSize: 10
-            });
-
-            Morris.Donut({
-                element: 'graph_donut',
-                data: categoryData,
-                colors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
-                formatter: function(y) {
-                    return y + "%";
-                },
-                resize: true
-            });
-
-            $MENU_TOGGLE.on('click', function() {
-                $(window).resize();
-            });
+        ];
+    </script>
+    <script>
+    $(document).ready(function() {
+        Morris.Bar({
+          element: 'graph_bar',
+          data: topTenData,
+          xkey: 'product',
+          ykeys: ['total'],
+          labels: [language.label_total],
+          barRatio: 0.4,
+          barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+          xLabelAngle: 35,
+          hideHover: 'auto',
+          resize: true,
+          gridTextSize: 10
         });
 
-        </script>
+        Morris.Donut({
+            element: 'graph_donut',
+            data: categoryData,
+            colors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+            formatter: function(y) {
+                return y + "%";
+            },
+            resize: true
+        });
+
+        $MENU_TOGGLE.on('click', function() {
+            $(window).resize();
+        });
+    });
+    </script>
 @endpush
 
 @push('stylesheet')
-    <!-- Datatables -->
-    <link href="/bower_resources/gentelella/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="/bower_resources/gentelella/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
-    <link href="/bower_resources/gentelella/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-    <link href="/bower_resources/gentelella/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-    <link href="/bower_resources/gentelella/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <!-- bootstrap-progressbar -->
     <link href="/bower_resources/gentelella/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="/bower_resources/gentelella/build/css/custom.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/custom.css">
 @endpush

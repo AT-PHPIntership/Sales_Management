@@ -22,19 +22,20 @@ class OrdersTableSeeder extends Seeder
                 'user_id' => rand(1, 10),
                 'description' => $faker->realText($maxNbChars = 255, $indexSize = 2),
                 'supplier_id' => rand(1, 5),
-                'total_cost' => rand(10, 990) * 100,
+                'total_cost' => rand(1, 990) * 100,
                 'created_at' => $faker->dateTimeBetween($startDate = '-3 years', $endDate = 'now')
             ]);
         }
 
         // Orders today
-        for ($i = 0; $i < 5; $i++) {
-            foreach (User::get() as $user) {
+        foreach (User::get() as $user) {
+            $amount = rand(0, 10);
+            for ($i = 0; $i < $amount; $i++) {
                 Order::create([
                     'user_id' => $user->id,
                     'description' => $faker->text($maxNbChars = 255),
                     'supplier_id' => rand(1, 5),
-                    'total_cost' => rand(10, 990) * 100,
+                    'total_cost' => rand(1, 990) * 10,
                 ]);
             }
         }

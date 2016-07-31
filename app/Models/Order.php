@@ -92,17 +92,36 @@ class Order extends Model
     }
 
     /**
-     * Description
+     * Get total cost by quarter
      *
-     * @param Data type $parameter Description
+     * @param int $year    year
+     * @param int $quarter quarter
      *
-     * @return Return type
+     * @return Illuminate\Database\Eloquent\Collection
      */
     public static function quarterTotal($year, $quarter)
     {
-        return Order::selectRaw('year(created_at) as `year`, month(created_at) as `month`, sum(total_cost) as total')
+        return Order::selectRaw('year(created_at) as `year`, monthname(created_at) as `month`, sum(total_cost) as total')
                    ->whereRaw('QUARTER(created_at) = ' . $quarter . ' and year(created_at) = ' . $year)
                    ->groupBy('year', 'month')
                    ->orderByRaw('`year` desc, `month` asc');
+    }
+
+    /**
+     * Get index by quarter
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function getIndex()
+    {
+        $firstMonth = Order::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`, sum(total_cost) as sum')
+                          ->groupBy('year', 'quarter')
+                          ->orderByRaw('year(created_at) asc , QUARTER(created_at) asc')
+                          ->first()
+                          ->sum;
+
+        return Order::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`, round((sum(total_cost) - ' . $firstMonth . ')/' . $firstMonth . ', 2) as `index`')
+                   ->groupBy('year', 'quarter')
+                   ->orderByRaw('`year` desc, `quarter` desc');
     }
 }
