@@ -90,7 +90,7 @@
                 <div class="clearfix"></div>
               </div>
               <div class="col-md-12 col-sm-12 col-xs-6">
-                @for($i = 1; $i < 4; $i++)
+                @for($i = 1; $i < \Config::get('common.FOUR_NEWEST_QUARTER'); $i++)
                 <div>
                   <div class="count">
                       <p><b>{{ $pi[$i]->year }}-Q{{ $pi[$i]->quarter }}: <span class="green">{{ $pi[$i]->PI }}%</span></b>

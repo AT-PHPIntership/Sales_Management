@@ -25,4 +25,7 @@ return [
     'IS_OFF_SALE' => 0,
     'IMAGE_FOLDER' => '/public/file/avatar',
     'INITAL_TIME' => ' 00:00:00',
+    'SELECT_FIVE' => 5,
+    'SELECT_TEN' => 10,
+    'FOUR_NEWEST_QUARTER' => 4,
 ];

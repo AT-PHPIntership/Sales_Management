@@ -52,8 +52,8 @@ class StatisticController extends Controller
         $data['quaterlyTotalBill'] = Bill::quarterTotal($year, $quarter)->get();
         $data['quaterlyTotalOrder'] = Order::quarterTotal($year, $quarter)->get();
 
-        $data['categories'] = BillDetail::getQuarter($year, $quarter)->paginate(5);
-        $data['topTen'] = Product::getQuarter($year, $quarter)->paginate(10);
+        $data['categories'] = BillDetail::getQuarter($year, $quarter)->paginate(\Config::get('common.SELECT_FIVE'));
+        $data['topTen'] = Product::getQuarter($year, $quarter)->paginate(\Config::get('common.SELECT_TEN'));
 
         $data['billIndex'] = Bill::getIndex()->get();
         $data['orderIndex'] = Order::getIndex()->get();
