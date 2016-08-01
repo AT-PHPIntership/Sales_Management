@@ -16,6 +16,16 @@
 @stop --}}
 
 @section('page-content')
+    <div class="col-md-3 col-sm-4 col-xs-6 date-picker pull-right">
+        <div class="control-group">
+            <div class="controls xdisplay_inputx form-group has-feedback">
+                <input name="birthday" id="birthday" class="date-picker form-control has-feedback-left" required="required" type="text" value="{{ date('D/M/Y', time()) }}">
+                <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                <span id="inputSuccess2Status" class="sr-only">(success)</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Tables -->
     <div class="col-md-12 col-sm-12 col-xs-12">
         <!-- bills -->
@@ -208,6 +218,32 @@
 
     <script src="/js/statistics/datatable.buttons.custom.js"></script>
     <!-- /Datatables -->
+    <!-- bootstrap-daterangepicker -->
+    <script src="/bower_resources/gentelella/production/js/moment/moment.min.js"></script>
+    <script src="/bower_resources/gentelella/production/js/datepicker/daterangepicker.js"></script>
+    <script src="/bower_resources/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript">
+      var errorMessages = {!! json_encode(trans('errors')) !!};
+      var dateFormat = '{{ \Config::get('common.DATE_DMY_FORMAT_DATE_PICKER') }}';
+    </script>
+    {{-- <!-- Ion.RangeSlider -->
+    <script src="/bower_resources/gentelella/vendors/ion.rangeSlider/js/ion.rangeSlider.min.js"></script> --}}
+
+    <script>
+        $(function() {
+          $('#birthday').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            locale: {
+              format : dateFormat
+            }
+          },
+          function(start, end, label) {
+            var years = moment().diff(start, 'years');
+          });
+        });
+    </script>
+
 @endpush
 
 @push('stylesheet')
@@ -217,4 +253,7 @@
     <link href="/bower_resources/gentelella/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="/bower_resources/gentelella/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="/bower_resources/gentelella/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <!-- Ion.RangeSlider -->
+    <link href="/bower_resources/gentelella/vendors/normalize-css/normalize.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/custom.css">
 @endpush
