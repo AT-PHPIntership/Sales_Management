@@ -128,24 +128,34 @@ th {
     height:300px;
 }
 
+#selected-product-datatable td{
+  vertical-align: middle;
+}
+
+.table-container {
+  overflow-y: auto;
+  height: 300px;
+
+}
+
 .tile_count {
   margin-bottom: 0px;
   margin-top: 0px;
-  }
+}
 
 .tile_count .tile_stats_count {
-    padding-bottom: 0px;
-    margin-buttom: 0px;
+  padding-bottom: 0px;
+  margin-buttom: 0px;
 }
 
 .progress-bar {
-    width: 100%;
+  width: 100%;
 }
 
 .progress.progress_sm {
-    margin-bottom: 22px;
+  margin-bottom: 22px;
 }
 
 h2 small {
-    line-height: 100%;
+  line-height: 100%;
 }
