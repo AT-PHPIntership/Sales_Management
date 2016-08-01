@@ -24,6 +24,14 @@ class OrderRequest extends Request
     public function rules()
     {
         switch ($this->method()) {
+            case 'PUT':
+            case 'PATCH':
+                return [
+                    'product_id.*' => 'required|exists:products,id',
+                    'amount.*' => 'required|numeric|min:1',
+                    'supplier_id' => 'required|exists:suppliers,id',
+                    'total_cost' => 'required|numeric|min:1',
+                ];
             case 'POST':
                 return [
                     'product_id.*' => 'required|exists:products,id',
