@@ -40,7 +40,7 @@
               <td>{{ $bill->created_at }}</td>
               <td class="center">
                 <a href="{{ route('bill.show', [$bill->id]) }}" class="btn btn-info btn-xs"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
-                <a class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                <a href="{{ route('bill.edit', [$bill->id]) }}" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                 <a id='del' data-toggle="modal" data-target="#confirm-deleting" class="btn btn-danger btn-xs btn_delete" title="@lang('bills.delete.btn_remove_account')"><i class="fa fa-trash"></i></a>
                 <input id="bill_id" type="hidden" value="{{ $bill->id }}">
               </td>
