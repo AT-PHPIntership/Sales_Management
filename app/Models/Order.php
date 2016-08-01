@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use Event;
 
 class Order extends Model
 {
@@ -65,6 +66,20 @@ class Order extends Model
         parent::boot();
         static::deleting(function ($order) {
             $order->orderDetails()->delete();
+        });
+
+        Event::listen('eloquent.order.update', function ($order, $productIDArray, $amountArray) {
+            collect($productIDArray)->combine($amountArray)->each(function ($amount, $productID) use ($order) {
+                OrderDetail::create([
+                    'order_id' => $order->id,
+                    'product_id' => $productID,
+                    'amount' => $amount
+                ]);
+
+                $product = Product::find($productID);
+                $product->remaining_amount += $amount;
+                $product->save();
+            });
         });
     }
 
