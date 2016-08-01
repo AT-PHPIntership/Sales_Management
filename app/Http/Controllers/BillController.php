@@ -56,7 +56,9 @@ class BillController extends Controller
                     'bill_id' => $bill->id,
                     'product_id' => $request->input('product_id.'.$i),
                     'amount' => $request->input('amount.'.$i),
-                    'cost' => $request->input('amount.'. $i) * $request->input('price.'. $i)
+                    'cost' => $request->input('amount.'. $i) * $request->input('price.'. $i),
+                    'created_at' =>  \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now()
                 ]);
             }
             BillDetail::insert($billsDetail);
