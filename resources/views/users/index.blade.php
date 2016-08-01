@@ -57,7 +57,7 @@
                                 </ul>
                             </div>
                             <div class="right col-xs-5 text-center">
-                                <img src="{{ url('/file/avatar/' . $user->avatar) }}" alt="" class="img-circle img-responsive" title="{{ $user->name }}">
+                                <img src="{{ url(\Config::get('common.AVATAR_PATH') . '/' . $user->avatar) }}" alt="" class="img-circle img-responsive" title="{{ $user->name }}">
                             </div>
                         </div>
                         <div class="col-xs-12 bottom">
