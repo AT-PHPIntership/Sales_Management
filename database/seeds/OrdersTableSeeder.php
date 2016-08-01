@@ -15,7 +15,6 @@ class OrdersTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-
         // Orders in the past
         for ($i = 0; $i < 100; $i++) {
             Order::create([

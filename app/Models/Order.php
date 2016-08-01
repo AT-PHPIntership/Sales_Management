@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 use DB;
 
 class Order extends Model
@@ -65,6 +66,26 @@ class Order extends Model
         return Order::where('orders.created_at', '>=', DB::raw('concat(CURDATE(), \'' . \Config::get('common.INITAL_TIME') . '\')'))
                     ->orderBy('created_at', 'asc');
     }
+    
+    /**
+     * Get all orders with specific year
+     *
+     * @param int $year determine specific year
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public static function compileMonthsData($year)
+    {   
+        return Order::whereYear('created_at', '=', $year)
+                      ->get()
+                      ->groupBy(function($item, $key) {
+                          return Carbon::parse($item['created_at'])->format('m');
+                      })
+                      ->sortBy(function($collection, $key) {
+                          return $key;
+                      });
+    }
+    
     /**
      * The "booting" method of the model.
      *

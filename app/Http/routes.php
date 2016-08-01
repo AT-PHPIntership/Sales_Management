@@ -65,4 +65,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('api/product', function () {
         return Response::json(\App\Models\Product::where('remaining_amount', '!=', 0)->get());
     });
+    
+    Route::get('demo', 'StatisticController@demoeloquent');
 });

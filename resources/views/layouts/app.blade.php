@@ -85,5 +85,6 @@
     @stack('end-page-scripts')
     <!-- Custom Theme Scripts -->
     <script src="/bower_resources/gentelella/build/js/custom.min.js"></script>
+    @stack('end-page-scripts')
   </body>
 </html>

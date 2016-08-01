@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 use DB;
 
 class Bill extends Model
@@ -54,6 +55,46 @@ class Bill extends Model
         return Bill::where('bills.created_at', '>=', DB::raw('concat(CURDATE(), \'' . \Config::get('common.INITAL_TIME') . '\')'))
                    ->orderBy('created_at', 'asc');
     }
+    
+    /**
+     * Get all bills with specific year
+     *
+     * @param int $year determine specific year
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public static function compileMonthsData($year)
+    {   
+        return Bill::whereYear('created_at', '=', $year)
+                    ->get()
+                    ->groupBy(function($item, $key) {
+                        return Carbon::parse($item['created_at'])->format('m');
+                    })
+                    ->sortBy(function($collection, $key) {
+                        return $key;
+                    });
+    }
+    
+    /**
+     * Get all bills with specific year
+     *
+     * @param int $year  determine specific year
+     * @param int $month determine specific month
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public static function compileStaffContribution($year, $month)
+    {   
+        return Bill::whereYear('created_at', '=', $year)
+                    ->whereMonth('created_at', '=', $month)
+                    ->get()
+                    ->groupBy('user_id')
+                    ->sortByDesc(function($value, $key) {
+                        return $value->sum('total_cost');
+                    })
+                    ->take(5);
+    }
+    
      /**
      * The "booting" method of the model.
      *
