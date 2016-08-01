@@ -17,7 +17,7 @@ class ProductsTableSeeder extends Seeder
 
         for ($i = 0; $i < 200; $i++) {
             $order = Product::create([
-                'category_id' => rand(1, 5),
+                'category_id' => rand(1, 15),
                 'name' => $faker->word,
                 'description' => $faker->text,
                 'price' => rand(1, 100),
