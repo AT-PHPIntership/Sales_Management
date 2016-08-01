@@ -1,13 +1,13 @@
 <?php
 return [
     'item_edit_product' => 'Edit Product',
-    'label_name_product'=>'Product',
+    'label_name_product'=>'Product name',
     'label_date_product'=>'Date',
     'label_description_product'=>'Description',
     'label_price_product'=> 'Price',
-    'label_is_on_sale_product'=> 'Sale',
+    'label_is_on_sale_product'=> 'Is on sale',
     'label_remaining_amount_product'=> 'Amount',
-    'label_categories_product'=> 'Categories',
+    'label_categories_product'=> 'Category',
     'label_submit_add_product'=> 'Add product',
     'btn_cancel' => 'Cancel',
     'btn_edit' => 'Edit',
@@ -20,14 +20,14 @@ return [
     'label_option_product' => 'Option',
     'option_sale_y_product'=>'1',
     'option_sale_n_product'=>'0',
-    
+
     'btn_remove_product' => 'Remove this product',
     'item_add_product'=> 'Add Product',
     'item_show_product' => 'Show product',
     'successfull_message' => 'Create product successfull',
     'error_message' => 'Oops. Something went wrong! Please try again',
-  
-     
+
+
     'delete' => [
         'confirm_title' => 'Confirm deleting',
         'confirm_msg' => 'Are you sure you want to delete this product?',
@@ -40,7 +40,7 @@ return [
     'title_show_product' => 'show',
     'title_edit_product' => 'edit',
     'title_delete_product' => 'delete',
+    'select_empty' => 'Select a category',
 
-    
 
 ];

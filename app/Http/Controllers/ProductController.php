@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
 use App\Http\Requests\ProductRequest;
@@ -30,26 +28,29 @@ class ProductController extends Controller
      * @param Request $request request
      *
      * @return \Illuminate\Http\Response
-    */
+     */
     public function store(ProductRequest $request)
     {
-
+        if (null == $request->is_on_sale) {
+            $request['is_on_sale'] = 0;
+        } else {
+            $request['is_on_sale'] = 1;
+        }
         try {
-             $product = $request->all();
-             Product::create($product);
+            Product::create($request->all());
 
-             return redirect()->route('product.create')->withMessage(trans('products.successfull_message'));
+            return redirect()->route('product.create')->withMessage(trans('products.successfull_message'));
         } catch (Exception $saveException) {
             // Catch exceptions when data cannot save.
             return redirect()->route('product.create')->withErrors(trans('products.error_message'));
         }
     }
 
-  /**
-  * Display a listing of the resource.
-  *
-  * @return \Illuminate\Http\Response
-  */
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $products = Product::all();
@@ -57,8 +58,6 @@ class ProductController extends Controller
         return view('product.index', ['products' => $products]);
     }
 
-
-    
     /**
      * Destroy the specified product from database.
      *
@@ -78,12 +77,14 @@ class ProductController extends Controller
             } else {
                 $productName = $product->name;
                 $product->delete();
+
                 return redirect()->route('product.index')
                                  ->withMessage($productName.'  '.trans('products.delete.delete_successful'));
             }
         } catch (Exception $modelNotFound) {
             return redirect()->route('product.index')->withErrors(trans('products.error_message'));
         }
+
         return redirect()->route('product.index')->withErrors($errors);
     }
 
@@ -99,6 +100,7 @@ class ProductController extends Controller
         try {
             $categories = Category::all();
             $product = Product::findOrFail($id);
+
             return view('product.edit')->with('categories', $categories)
                                        ->with('product', $product);
         } catch (ModelNotFoundException $ex) {
@@ -116,20 +118,20 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-    
         try {
             $input = $request->all();
             $product = Product::findOrFail($id);
             $product->fill($input)->save();
+
             return Redirect::back()->withMessage(trans('products.successfull_edit_message'));
         } catch (ModelNotFoundException $ex) {
             return Redirect::back()->withInput()->withErrors(trans('products.error_message'));
         }
     }
     /**
-     * Show the application user profile
+     * Show the application user profile.
      *
-     * @param integer $id determine specific user
+     * @param int $id determine specific user
      *
      * @return \Illuminate\Http\Response
      */
