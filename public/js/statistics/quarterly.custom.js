@@ -42,7 +42,7 @@ var mybarChart = new Chart(ctx, {
             backgroundColor: "#26B99A",
             data: totalOrder
         }, {
-            label: language.quarterly.label_of_orders,
+            label: language.quarterly.label_of_bills,
             backgroundColor: "#03586A",
             data: totalBill
         }]
