@@ -31,7 +31,6 @@ return [
         'label_of_bills' => 'of Bills',
         'label_of_orders' => 'of Orders',
         'label_others' => 'Others',
-        '' => '',
-        '' => '',
+        'label_separator' => 'Q',
     ],
 ];

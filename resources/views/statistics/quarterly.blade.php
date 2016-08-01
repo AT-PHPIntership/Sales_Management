@@ -24,7 +24,7 @@
                                             @if($index == 0)
                                                 @continue
                                             @endif
-                                            <option value="{{ $quarter->year }}Q{{ $quarter->quarter }}">{{ $quarter->year . ' - Q' . $quarter->quarter }}</option>
+                                            <option value="{{ $quarter->year }}Q{{ $quarter->quarter }}">{{ $quarter->year . ' - ' . trans('statistics.quarterly.label_separator') . $quarter->quarter }}</option>
                                         @endforeach
                                     </select>
                                 </div>
