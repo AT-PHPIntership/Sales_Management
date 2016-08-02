@@ -93,13 +93,13 @@
           </div>
         <h3 class="center">{{ $user->name }}</h3>
         </div>
-        
-        
+
+
         <div class="col-md-9 col-sm-9 col-xs-12">
           <form action="{{ route('user.update', [$user->id]) }}" novalidate data-parsley-validate class="form-horizontal form-label-left form-validate" method="POST">
             <input type="hidden" name="_method" value="PUT">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            
+
             <!-- start profile -->
             <div class="x_title">
               <h2><i class="fa fa-user"></i> @lang('users.edit.label_profile') </h2>
@@ -110,7 +110,7 @@
                 @lang('users.label_name') <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" name="name" required="required" placeholder="@lang('users.eg_name')" data-validate-length-range="2" 
+                <input type="text" name="name" required="required" placeholder="@lang('users.eg_name')" data-validate-length-range="2"
                   data-validate-words="2" class="form-control col-md-7 col-xs-12" value="{{ old('name') == null ? $user->name : old('name') }}">
               </div>
             </div>
@@ -119,10 +119,12 @@
                 @lang('users.label_phone') <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="tel" name="phone_number" required="required" data-validate-length-range="6,20" 
+                <input type="text" name="phone_number" required="required" data-validate-length-range="6,20"
                   class="form-control col-md-7 col-xs-12" value="{{ old('phone_number') == null ? $user->phone_number : old('phone_number') }}">
               </div>
             </div>
+            @if (Auth()->user()->role_id == \Config::get('common.SUPERADMIN_ROLE_ID') &&
+                $user->role_id != \Config::get('common.SUPERADMIN_ROLE_ID'))
             <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">
                 @lang('users.label_account_permission') <span class="required">*</span>
@@ -130,20 +132,21 @@
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <select class="form-control" name="role_id" class="form-control col-md-7 col-xs-12">
                   <option value="{{ \Config::get('common.MANAGER_ROLE_ID') }}" {{ $user->role_id == \Config::get('common.MANAGER_ROLE_ID') ? 'selected' : '' }}>
-                    @lang('users.option_manager') 
+                    @lang('users.option_manager')
                   </option>
                   <option value="{{ \Config::get('common.STAFF_ROLE_ID') }}" {{ $user->role_id == \Config::get('common.STAFF_ROLE_ID') ? 'selected' : '' }}>
-                    @lang('users.option_staff') 
+                    @lang('users.option_staff')
                   </option>
                 </select>
               </div>
             </div>
+            @endif
             <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">
                 @lang('users.label_address') <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input class="form-control col-md-7 col-xs-12" type="text" name="address" data-validate-length-range="2" required="required" 
+                <input class="form-control col-md-7 col-xs-12" type="text" name="address" data-validate-length-range="2" required="required"
                   value="{{ old('address') == null ? $user->address : old('address') }}">
               </div>
             </div>
@@ -152,10 +155,11 @@
                 @lang('users.label_gender') <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <label class="control-label"> @lang('users.edit.label_male'): </label>
                 <input type="radio" name="gender" value="{{ \Config::get('common.MALE_GENDER') }}" {{ $user->gender == \Config::get('common.MALE_GENDER') ? 'checked':''}} />
-                <label class="control-label">@lang('users.edit.label_female'): </label>
+                <label class="control-label"> @lang('users.edit.label_male')</label>
+                &nbsp;
                 <input type="radio" name="gender" value="{{ \Config::get('common.FEMALE_GENDER') }}" {{ $user->gender == \Config::get('common.FEMALE_GENDER') ? 'checked':''}} />
+                <label class="control-label">@lang('users.edit.label_female')</label>
               </div>
             </div>
             <div class="item form-group">
@@ -164,7 +168,7 @@
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input name="birthday" id="birthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text"
-                  value="{{ $user->birthday->format(\Config::get('common.DATE_DMY_FORMAT')) }}">
+                  value="{{ $user->birthday }}">
               </div>
             </div>
             <!-- end profile -->
@@ -192,29 +196,29 @@
               </div>
             </div>
             <div class="item form-group">
-              <label for="current_password" class="control-label col-md-3 col-sm-3 col-xs-12">@lang('users.label_current_password') 
+              <label for="current_password" class="control-label col-md-3 col-sm-3 col-xs-12">@lang('users.label_current_password')
                 <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="current_password" type="password" name="current_password" data-validate-length-range="6,32" 
+                <input id="current_password" type="password" name="current_password" data-validate-length-range="6,32"
                   class="form-control col-md-7 col-xs-12" required="required" placeholder="{{ trans('users.edit.place_holder_current_password') }}"/>
               </div>
             </div>
             <div class="item form-group">
-              <label for="password" class="control-label col-md-3 col-sm-3 col-xs-12">@lang('users.label_new_password') 
+              <label for="password" class="control-label col-md-3 col-sm-3 col-xs-12">@lang('users.label_new_password')
                 <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="password" type="password" name="password" data-validate-length-range="6,32" 
+                <input id="password" type="password" name="password" data-validate-length-range="6,32"
                   class="form-control col-md-7 col-xs-12" required="required" placeholder="{{ trans('users.edit.place_holder_new_password') }}"/>
               </div>
             </div>
             <div class="item form-group">
-              <label for="password_confirmation" class="control-label col-md-3 col-sm-3 col-xs-12">@lang('users.label_password_confirm') 
+              <label for="password_confirmation" class="control-label col-md-3 col-sm-3 col-xs-12">@lang('users.label_password_confirm')
                 <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="password_confirmation" type="password" name="password_confirmation" data-validate-linked="password" 
+                <input id="password_confirmation" type="password" name="password_confirmation" data-validate-linked="password"
                   class="form-control col-md-7 col-xs-12" required="required" placeholder="{{ trans('users.edit.place_holder_renew_password') }}"/>
               </div>
             </div>

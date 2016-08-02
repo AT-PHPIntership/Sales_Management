@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
         $user->email = 'superadmin@salesmanage.ment';
         $user->password = '12345678';
         $user->role_id = 1;
-        $user->birthday = '1994-10-03';
+        $user->birthday = '03/10/1994';
         $user->gender = 0;
         $user->address = 'Asian Tech Inc';
         $user->phone_number = '0123456789';
@@ -31,7 +31,7 @@ class UsersTableSeeder extends Seeder
         $user->email = 'admin@salesmanage.ment';
         $user->password = '12345678';
         $user->role_id = 2;
-        $user->birthday = '1994-10-03';
+        $user->birthday = '03/10/1994';
         $user->gender = 0;
         $user->address = 'Asian Tech Inc';
         $user->phone_number = '0123456789';
@@ -43,7 +43,7 @@ class UsersTableSeeder extends Seeder
                 'email' => $faker->email,
                 'password' => '12345678',
                 'role_id' => rand(2, 3),
-                'birthday' => $faker->dateTimeBetween('-40 years', '-18 years'),
+                'birthday' => $faker->dateTimeBetween('-40 years', '-18 years')->format('d/m/Y'),
                 'gender' => rand(0, 1),
                 'address' => $faker->address,
                 'phone_number' => $faker->phoneNumber,

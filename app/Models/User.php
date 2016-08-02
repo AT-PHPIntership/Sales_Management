@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -101,5 +102,29 @@ class User extends Authenticatable
     private function checkIfUserHasRole($role)
     {
         return (strtolower($role) == strtolower($this->role->name)) ? true: false;
+    }
+
+    /**
+     * Format the date field in access
+     *
+     * @param string $date date input
+     *
+     * @return void
+     */
+    public function setBirthdayAttribute($date)
+    {
+        $this->attributes['birthday'] = Carbon::createFromFormat(\Config::get('common.DATE_DMY_FORMAT'), $date)->toDateString();
+    }
+
+    /**
+     * Format the date to d/m/Y
+     *
+     * @param string $date date
+     *
+     * @return void
+     */
+    public function getBirthdayAttribute($date)
+    {
+        return Carbon::parse($date)->format(\Config::get('common.DATE_DMY_FORMAT'));
     }
 }

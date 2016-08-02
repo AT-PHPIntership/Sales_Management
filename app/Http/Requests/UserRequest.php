@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
 use App\Models\User;
+use Auth;
 
 class UserRequest extends Request
 {
@@ -24,7 +24,6 @@ class UserRequest extends Request
      */
     public function rules()
     {
-        
         switch ($this->method()) {
             case 'PUT':
             case 'PATCH':
@@ -33,7 +32,8 @@ class UserRequest extends Request
                   'birthday' => 'required|date_format:d/m/Y',
                   'gender' => 'required|boolean',
                   'address' => 'required|max:255',
-                  'phone_number' =>'required|numeric',
+                  'phone_number' => 'required|max:15|regex:/^\+?\d+?$/',
+                  'role_id' => 'required|integer|between:2,3',
                 ];
             case 'POST':
                 return [
