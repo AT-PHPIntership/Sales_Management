@@ -31,11 +31,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        if (null == $request->is_on_sale) {
-            $request['is_on_sale'] = 0;
-        } else {
-            $request['is_on_sale'] = 1;
-        }
+        $request['is_on_sale'] = (null == $request->is_on_sale) ? \Config::get('common.OFF_SALE') : \Config::get('common.ON_SALE');
         try {
             Product::create($request->all());
 
