@@ -13,6 +13,7 @@ use Exception;
 use Redirect;
 use Hash;
 use Image;
+use Auth;
 
 class UserController extends Controller
 {
@@ -38,6 +39,7 @@ class UserController extends Controller
         try {
             $user = new User($request->all());
             $user->save();
+
             return redirect()->route('user.create')->withMessage(trans('users.successfull_message'));
         } catch (Exception $saveException) {
             return redirect()->route('user.create')->withErrors(trans('users.error_message'));
@@ -45,9 +47,9 @@ class UserController extends Controller
     }
 
     /**
-     * Show the application user profile
+     * Show the application user profile.
      *
-     * @param integer $id determine specific user
+     * @param int $id determine specific user
      *
      * @return \Illuminate\Http\Response
      */
@@ -82,6 +84,7 @@ class UserController extends Controller
     {
         $users = User::where('role_id', '!=', \Config::get('common.SUPERADMIN_ROLE_ID'))
                        ->paginate(\Config::get('common.ACCOUNTS_PER_PAGES'));
+
         return view('users.index')->with('users', $users);
     }
 
@@ -104,20 +107,22 @@ class UserController extends Controller
             } else {
                 $userName = $user->name;
                 $user->delete();
+
                 return redirect()->route('user.index')
                                  ->withMessage($userName.trans('users.delete.delete_successful'));
             }
         } catch (Exception $modelNotFound) {
             return redirect()->route('user.index')->withErrors(trans('users.error_message'));
         }
+
         return redirect()->route('user.index')->withErrors($errors);
     }
 
     /**
-     * Update user infomation
+     * Update user infomation.
      *
      * @param Request $request hold all data from request
-     * @param integer $id      determine specific user
+     * @param int     $id      determine specific user
      *
      * @return \Illuminate\Http\Response
      */
@@ -126,22 +131,27 @@ class UserController extends Controller
         try {
             $input = $request->all();
             $user = User::findOrFail($id);
-            unset($input['birthday']);
+            $currentUserRole = Auth::user()->role_id;
+            if ($currentUserRole > \Config::get('common.SUPERADMIN_ROLE_ID') ||
+                $user->role_id == \Config::get('common.SUPERADMIN_ROLE_ID')) {
+                unset($input['role_id']);
+            }
             $user->fill($input);
-            $dateFormat = str_replace('/', '-', $request->birthday);
-            $user->birthday = date(\Config::get('common.DATE_YMD_FORMAT'), strtotime($dateFormat));
             $user->save();
-            return Redirect::back()->withMessage(trans('users.edit.edit_successful_message'))->withInput();
+
+            return Redirect::back()
+                ->withMessage(trans('users.edit.edit_successful_message'))
+                ->withInput();
         } catch (Exception $saveException) {
             return Redirect::back()->withErrors(trans('users.error_message'));
         }
     }
 
     /**
-     * Update user account
+     * Update user account.
      *
      * @param Request $request hold all data from request
-     * @param integer $id      determine specific user
+     * @param int     $id      determine specific user
      *
      * @return \Illuminate\Http\Response
      */
@@ -150,10 +160,12 @@ class UserController extends Controller
         try {
             $user = User::findOrFail($id);
             if (Hash::check($request->current_password, $user->password)) {
-                $user->password= $request->password;
+                $user->password = $request->password;
                 $user->save();
+
                 return Redirect::back()->withMessage(trans('users.edit.edit_account_successful_message'));
             }
+
             return Redirect::back()->withErrors(trans('users.edit.error_password_incorrect'));
         } catch (Exception $saveException) {
             return Redirect::back()->withErrors(trans('users.error_message'));
@@ -161,10 +173,10 @@ class UserController extends Controller
     }
 
     /**
-     * Update user avatar
+     * Update user avatar.
      *
      * @param Request $request hold all data from request
-     * @param integer $id      determine specific user
+     * @param int     $id      determine specific user
      *
      * @return \Illuminate\Http\Response
      */
@@ -174,13 +186,15 @@ class UserController extends Controller
             $user = User::findOrFail($id);
             $file = $request->file('image');
             if ($file) {
-                $filename = $user->id . '.' .$file->getClientOriginalExtension();
-                $path = base_path() . \Config::get('common.IMAGE_FOLDER');
-                Image::make($file)->fit(\Config::get('common.IMAGE_WIDTH'), \Config::get('common.IMAGE_HEIGHT'))->save($path. '/' .$filename);
+                $filename = $user->id.'.'.$file->getClientOriginalExtension();
+                $path = base_path().\Config::get('common.IMAGE_FOLDER');
+                Image::make($file)->fit(\Config::get('common.IMAGE_WIDTH'), \Config::get('common.IMAGE_HEIGHT'))->save($path.'/'.$filename);
                 $user->avatar = $filename;
                 $user->update();
+
                 return Redirect::back()->withMessage(trans('users.edit.edit_avatar_successful_message'));
             }
+
             return Redirect::back()->withErrors(trans('users.edit.error_password_incorrect'));
         } catch (Exception $saveException) {
             return Redirect::back()->withErrors(trans('users.error_message'));
@@ -188,9 +202,9 @@ class UserController extends Controller
     }
 
     /**
-     * Show the application edit form
+     * Show the application edit form.
      *
-     * @param integer $id determine specific user
+     * @param int $id determine specific user
      *
      * @return \Illuminate\Http\Response
      */
@@ -198,6 +212,7 @@ class UserController extends Controller
     {
         try {
             $user = User::findOrFail($id);
+
             return view('users.edit', compact('user'));
         } catch (ModelNotFoundException $ex) {
             return redirect()->route('user.index')->withErrors(trans('users.error_message'));
@@ -205,7 +220,7 @@ class UserController extends Controller
     }
 
     /**
-     * Search user in database
+     * Search user in database.
      *
      * @param Illuminate\Http\Request $request request
      *
@@ -215,8 +230,8 @@ class UserController extends Controller
     {
         $keyword = $request->q;
         $result = User::where('role_id', '!=', \Config::get('common.SUPERADMIN_ROLE_ID'))
-                ->where('name', 'like', '%' . $keyword . '%')
-                ->orWhere('id', 'like', $keyword . '%')
+                ->where('name', 'like', '%'.$keyword.'%')
+                ->orWhere('id', 'like', $keyword.'%')
                 ->paginate(\Config::get('common.ACCOUNTS_PER_PAGES'));
 
         return view('users.index')->withKeyword($keyword)->withUsers($result);
