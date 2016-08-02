@@ -14,7 +14,6 @@ class ProductsTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-
         for ($i = 0; $i < 200; $i++) {
             $order = Product::create([
                 'category_id' => rand(1, 15),

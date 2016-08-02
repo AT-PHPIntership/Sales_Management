@@ -14,7 +14,6 @@ class BillsTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-
         // 500 Bills are created in the past
         for ($i = 0; $i < 500; $i++) {
             Bill::create([

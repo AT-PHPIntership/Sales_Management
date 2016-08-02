@@ -14,7 +14,6 @@ class OrderDetailsTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-
         $orders = Order::all();
         foreach ($orders as $order) {
             $amount = rand(5, 30);

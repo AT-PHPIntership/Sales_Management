@@ -24,6 +24,7 @@
     "jScrollPane": "^2.0.23",
     "datepicker": "*",
     "moment": "momentjs#^2.14.1",
-    "Fixed-Header-Table": "*"
+    "Fixed-Header-Table": "*",
+    "jquery-ui-month-picker": "^3.0.3"
   }
 }

@@ -14,7 +14,6 @@ class BillsDetailsTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-
         $bills = Bill::all();
         foreach ($bills as $bill) {
             $amount = rand(1, 10);
