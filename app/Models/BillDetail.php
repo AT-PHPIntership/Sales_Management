@@ -54,9 +54,9 @@ class BillDetail extends Model
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeDaily($query)
+    public function scopeDaily($query, $type)
     {
-        return $query->where('bills_details.created_at', '>=', DB::raw("concat(CURDATE(), '" . \Config::get('common.INITAL_TIME') . "')"));
+        return $query->whereRaw('date(`bills_details`.`created_at`) = \'' . $type . '\'');
     }
 
 
@@ -65,9 +65,9 @@ class BillDetail extends Model
      *
      * @return int
      */
-    public static function dailyTotalAmount()
+    public static function dailyTotalAmount($date)
     {
-        return BillDetail::daily()->sum('bills_details.amount');
+        return BillDetail::daily($date)->sum('bills_details.amount');
     }
 
     /**
@@ -75,12 +75,12 @@ class BillDetail extends Model
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public static function getTodays()
+    public static function getByDate($date)
     {
         return BillDetail::join('products', 'bills_details.product_id', '=', 'products.id')
                         ->join('categories', 'products.category_id', '=', 'categories.id')
-                        ->select('categories.id', 'categories.name', DB::raw('round(sum(bills_details.amount) / ' . BillDetail::dailyTotalAmount() . ' * ' . BillDetail::PERCENT . ') as percentage'))
-                        ->daily()
+                        ->select('categories.id', 'categories.name', DB::raw('round(sum(bills_details.amount) / ' . BillDetail::dailyTotalAmount($date) . ' * ' . BillDetail::PERCENT . ', 2) as percentage'))
+                        ->daily($date)
                         ->groupBy('categories.name');
     }
 }

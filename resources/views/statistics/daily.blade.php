@@ -19,9 +19,17 @@
     <div class="col-md-3 col-sm-4 col-xs-6 date-picker pull-right">
         <div class="control-group">
             <div class="controls xdisplay_inputx form-group has-feedback">
-                <input name="birthday" id="birthday" class="date-picker form-control has-feedback-left" required="required" type="text" value="{{ date('D/M/Y', time()) }}">
-                <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
-                <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                <form id="date-selector" action="{{ route('statistic.daily') }}" method="get">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input name="date-picker" id="date-picker" class="form-control date-picker form-control has-feedback-left" title="@lang('statistics.title_select_date')" required="required" type="text" value="{{ $date }}">
+                            <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                            <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                            <span class="input-group-addon btn" id="btnView"><i class="fa fa-arrow-right"></i></span>
+                        </div>
+                    </div>
+
+                </form>
             </div>
         </div>
     </div>
@@ -95,7 +103,7 @@
               <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <div class="clearfix"></div>
-                  @if(!count($orders))
+                  @if(!count($orders->get()))
                       <div class="col-md-12 col-sm-12 col-xs-12">
                           <h5>
                               @lang('users.show.mgs_no_order')
@@ -186,13 +194,15 @@
 
     <!-- morris.js -->
     <script>
+        ONE_HUNDRED_PERCENT = 100;
         var categoryData = [
-            @foreach($categories->get() as $category)
+            @foreach($categories as $category)
                 {label: '{{ $category->name }}', value: {{ $category->percentage }}},
             @endforeach
+                {label: language.label_others, value: ONE_HUNDRED_PERCENT - {{ $categories->sum('percentage') }}}
         ];
         var topTenData = [
-            @foreach($topTen->paginate(10) as $product)
+            @foreach($topTen as $product)
                 {product: '{{ $product->name }}', total: {{ $product->total }}},
             @endforeach
         ];
@@ -231,12 +241,13 @@
 
     <script>
         $(function() {
-          $('#birthday').daterangepicker({
+          $('#date-picker').daterangepicker({
             singleDatePicker: true,
             showDropdowns: true,
             locale: {
               format : dateFormat
-            }
+            },
+            maxDate: new Date()
           },
           function(start, end, label) {
             var years = moment().diff(start, 'years');
@@ -244,6 +255,13 @@
         });
     </script>
 
+    <script>
+        $(document).ready(function() {
+            $('#btnView').click(function() {
+                $('#date-selector').submit();
+            });
+        });
+    </script>
 @endpush
 
 @push('stylesheet')

@@ -8,7 +8,7 @@ use DB;
 class Bill extends Model
 {
     protected $table = 'bills';
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -49,12 +49,12 @@ class Bill extends Model
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
-    public static function getTodays()
+    public static function getByDate($date)
     {
-        return Bill::where('bills.created_at', '>=', DB::raw('concat(CURDATE(), \'' . \Config::get('common.INITAL_TIME') . '\')'))
+        return Bill::whereRaw('date(created_at) = \'' . $date . '\'')
                    ->orderBy('created_at', 'asc');
     }
-    
+
      /**
      * The "booting" method of the model.
      *

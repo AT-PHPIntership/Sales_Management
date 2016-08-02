@@ -60,11 +60,11 @@ class Product extends Model
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
-    public static function getTodays()
+    public static function getByDate($date)
     {
         return Product::join('bills_details', 'bills_details.product_id', '=', 'products.id')
                       ->select('products.id', 'products.name', DB::raw('sum(bills_details.amount) as total'))
-                      ->where('bills_details.created_at', '>=', DB::raw('concat(CURDATE(), \'' . \Config::get('common.INITAL_TIME') . '\')'))
+                      ->whereRaw('date(`bills_details`.`created_at`) = \'' . $date . '\'')
                       ->groupBy('products.id')
                       ->orderBy('total', 'desc');
     }

@@ -60,9 +60,9 @@ class Order extends Model
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
-    public static function getTodays()
+    public static function getByDate($date)
     {
-        return Order::where('orders.created_at', '>=', DB::raw('concat(CURDATE(), \'' . \Config::get('common.INITAL_TIME') . '\')'))
+        return Order::whereRaw('date(created_at) = \'' . $date . '\'')
                     ->orderBy('created_at', 'asc');
     }
     /**
