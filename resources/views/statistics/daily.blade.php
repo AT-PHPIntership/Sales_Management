@@ -16,6 +16,24 @@
 @stop --}}
 
 @section('page-content')
+    <div class="col-md-3 col-sm-4 col-xs-6 date-picker pull-right">
+        <div class="control-group">
+            <div class="controls xdisplay_inputx form-group has-feedback">
+                <form id="date-selector" action="{{ route('statistic.daily') }}" method="get">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input name="date-picker" id="date-picker" class="form-control date-picker form-control has-feedback-left" title="@lang('statistics.title_select_date')" required="required" type="text" value="{{ $date }}">
+                            <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                            <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                            <span class="input-group-addon btn" id="btnView"><i class="fa fa-arrow-right"></i></span>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Tables -->
     <div class="col-md-12 col-sm-12 col-xs-12">
         <!-- bills -->
@@ -85,7 +103,7 @@
               <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <div class="clearfix"></div>
-                  @if(!count($orders))
+                  @if(!count($orders->get()))
                       <div class="col-md-12 col-sm-12 col-xs-12">
                           <h5>
                               @lang('users.show.mgs_no_order')
@@ -176,13 +194,15 @@
 
     <!-- morris.js -->
     <script>
+        ONE_HUNDRED_PERCENT = 100;
         var categoryData = [
-            @foreach($categories->get() as $category)
+            @foreach($categories as $category)
                 {label: '{{ $category->name }}', value: {{ $category->percentage }}},
             @endforeach
+                {label: language.label_others, value: ONE_HUNDRED_PERCENT - {{ $categories->sum('percentage') }}}
         ];
         var topTenData = [
-            @foreach($topTen->paginate(10) as $product)
+            @foreach($topTen as $product)
                 {product: '{{ $product->name }}', total: {{ $product->total }}},
             @endforeach
         ];
@@ -208,6 +228,40 @@
 
     <script src="/js/statistics/datatable.buttons.custom.js"></script>
     <!-- /Datatables -->
+    <!-- bootstrap-daterangepicker -->
+    <script src="/bower_resources/gentelella/production/js/moment/moment.min.js"></script>
+    <script src="/bower_resources/gentelella/production/js/datepicker/daterangepicker.js"></script>
+    <script src="/bower_resources/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript">
+      var errorMessages = {!! json_encode(trans('errors')) !!};
+      var dateFormat = '{{ \Config::get('common.DATE_DMY_FORMAT_DATE_PICKER') }}';
+    </script>
+    {{-- <!-- Ion.RangeSlider -->
+    <script src="/bower_resources/gentelella/vendors/ion.rangeSlider/js/ion.rangeSlider.min.js"></script> --}}
+
+    <script>
+        $(function() {
+          $('#date-picker').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            locale: {
+              format : dateFormat
+            },
+            maxDate: new Date()
+          },
+          function(start, end, label) {
+            var years = moment().diff(start, 'years');
+          });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#btnView').click(function() {
+                $('#date-selector').submit();
+            });
+        });
+    </script>
 @endpush
 
 @push('stylesheet')
@@ -217,4 +271,7 @@
     <link href="/bower_resources/gentelella/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="/bower_resources/gentelella/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="/bower_resources/gentelella/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <!-- Ion.RangeSlider -->
+    <link href="/bower_resources/gentelella/vendors/normalize-css/normalize.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/custom.css">
 @endpush

@@ -80,7 +80,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(\Config::get('common.ACCOUNTS_PER_PAGES'));
+        $users = User::where('role_id', '!=', \Config::get('common.SUPERADMIN_ROLE_ID'))
+                       ->paginate(\Config::get('common.ACCOUNTS_PER_PAGES'));
         return view('users.index')->with('users', $users);
     }
 
@@ -185,7 +186,7 @@ class UserController extends Controller
             return Redirect::back()->withErrors(trans('users.error_message'));
         }
     }
-    
+
     /**
      * Show the application edit form
      *

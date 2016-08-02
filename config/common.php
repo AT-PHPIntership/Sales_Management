@@ -23,6 +23,9 @@ return [
     'IS_ON_SALE_NO'=> 'No',
     'IS_ON_SALE' => 1,
     'IS_OFF_SALE' => 0,
-    'IMAGE_FOLDER' => '/public/file/avatar',
+    'AVATAR_PATH' => '/file/avatar',
     'INITAL_TIME' => ' 00:00:00',
+    'SELECT_FIVE' => 5,
+    'SELECT_TEN' => 10,
+    'FOUR_NEWEST_QUARTER' => 4,
 ];

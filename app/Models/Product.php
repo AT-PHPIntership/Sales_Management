@@ -14,7 +14,6 @@ class Product extends Model
      *
      * @var array
      */
-
     protected $fillable = array(
         'id',
         'category_id',
@@ -28,7 +27,7 @@ class Product extends Model
     );
 
     /**
-     * Product belongs to Category
+     * Product belongs to Category.
      *
      * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -36,8 +35,9 @@ class Product extends Model
     {
         return $this->belongsTo('App\Models\Category');
     }
+    
     /**
-     * Product has many BillDetail
+     * Product has many BillDetail.
      *
      * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -45,8 +45,9 @@ class Product extends Model
     {
         return $this->hasMany('App\Models\BillDetail');
     }
+
     /**
-     * Product has many OrderDetail
+     * Product has many OrderDetail.
      *
      * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -56,15 +57,34 @@ class Product extends Model
     }
 
     /**
-     * Get all today's products
+     * Get all today's products.
+     *
+     * @param string $date input date
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
-    public static function getTodays()
+    public static function getByDate($date)
     {
-        return Product::join('bills_details', 'bills_details.product_id', '=', 'products.id')
+        return self::join('bills_details', 'bills_details.product_id', '=', 'products.id')
                       ->select('products.id', 'products.name', DB::raw('sum(bills_details.amount) as total'))
-                      ->where('bills_details.created_at', '>=', DB::raw('concat(CURDATE(), \'' . \Config::get('common.INITAL_TIME') . '\')'))
+                      ->whereRaw('date(`bills_details`.`created_at`) = \''.$date.'\'')
+                      ->groupBy('products.id')
+                      ->orderBy('total', 'desc');
+    }
+
+    /**
+     * Get all products of.
+     *
+     * @param int $year    year
+     * @param int $quarter quarter
+     *
+     * @return Return type
+     */
+    public static function getQuarter($year, $quarter)
+    {
+        return self::join('bills_details', 'bills_details.product_id', '=', 'products.id')
+                      ->select('products.id', 'products.name', DB::raw('sum(bills_details.amount) as total'))
+                      ->whereRaw('QUARTER(bills_details.created_at) = '.$quarter.' and year(bills_details.created_at) = '.$year)
                       ->groupBy('products.id')
                       ->orderBy('total', 'desc');
     }
