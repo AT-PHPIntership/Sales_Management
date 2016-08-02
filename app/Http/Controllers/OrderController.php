@@ -12,6 +12,7 @@ use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\Supplier;
 use Auth;
+use Event;
 
 class OrderController extends Controller
 {
@@ -57,6 +58,57 @@ class OrderController extends Controller
         return redirect()->action('OrderController@show', [
             'order' => $orderID
         ])->withMessage(trans('orders.create.successful_msg'));
+    }
+
+    /**
+     * Show the application edit form
+     *
+     * @param integer $id determine specific order
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        try {
+            $order = Order::findOrFail($id);
+            $orderDetails = $order->orderDetails;
+            $suppliers = Supplier::all();
+            return view('orders.edit', [
+                'order' => $order,
+                'orderDetails' => $orderDetails,
+                'suppliers' => $suppliers
+            ]);
+        } catch (ModelNotFoundException $ex) {
+            return redirect()->action('OrderController@index')
+                             ->withErrors(trans('order.common.error_message'));
+        }
+    }
+
+    /**
+     * Update order infomation
+     *
+     * @param Request $request hold all data from request
+     * @param integer $id      determine specific order
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(OrderRequest $request, $id)
+    {
+        try {
+            $order = Order::findOrFail($id);
+            $order->update($request->all());
+            Event::fire('eloquent.order.update', [
+                $order,
+                $request->product_id,
+                $request->amount
+            ]);
+            return redirect()->action('OrderController@show', [
+                'order' => $id
+            ])->withMessage(trans('orders.edit.successful_msg'));
+        } catch (ModelNotFoundException $ex) {
+            return redirect()->action('OrderController@edit', ['order' => $id])
+                             ->withErrors(trans('orders.common.error_message'));
+        }
     }
 
     /**

@@ -56,6 +56,9 @@ return [
         'successful_msg' => 'Create order successful!',
     ],
     'edit' => [
+        'title' => 'Edit Order #:id Details',
+        'section-title' => 'Edit Order #:id Details',
+        'successful_msg' => 'Update order successful!'
     ],
     'delete' => [
         'confirm_title' => 'Confirm deleting',

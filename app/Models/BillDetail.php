@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
-use Carbon\Carbon;
 
 class BillDetail extends Model
 {
@@ -16,7 +15,6 @@ class BillDetail extends Model
      *
      * @var array
      */
-
     protected $fillable = array(
         'id',
         'bill_id',
@@ -24,11 +22,11 @@ class BillDetail extends Model
         'amount',
         'cost',
         'created_at',
-        'updated_at'
+        'updated_at',
     );
 
     /**
-     * Bill detail belongs to a bill
+     * Bill detail belongs to a bill.
      *
      * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -38,7 +36,7 @@ class BillDetail extends Model
     }
 
     /**
-     * Bill detail has a product
+     * Bill detail has a product.
      *
      * @return Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -48,39 +46,88 @@ class BillDetail extends Model
     }
 
     /**
-     * Scope a query to select only today's bill detail
+     * Scope a query to select only today's bill detail.
      *
      * @param string $query query string
+     * @param string $date  input date
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeDaily($query, $type)
+    public function scopeDaily($query, $date)
     {
-        return $query->whereRaw('date(`bills_details`.`created_at`) = \'' . $type . '\'');
+        return $query->whereRaw('date(`bills_details`.`created_at`) = \''.$date.'\'');
     }
 
+    /**
+     * Scope a query to select bill details by quarterly.
+     *
+     * @param int $query   query string
+     * @param int $year    year
+     * @param int $quarter quarter
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeQuarterly($query, $year, $quarter)
+    {
+        return $query->whereRaw('QUARTER(bills_details.created_at) = '.$quarter.' and year(bills_details.created_at) = '.$year);
+    }
 
     /**
-     * Get total daily amount
+     * Get total daily amount.
+     *
+     * @param string $date input date
      *
      * @return int
      */
     public static function dailyTotalAmount($date)
     {
-        return BillDetail::daily($date)->sum('bills_details.amount');
+        return self::daily($date)->sum('bills_details.amount');
     }
 
     /**
-     * Get daily percentage of categories
+     * Get daily percentage of categories.
+     *
+     * @param string $date input date
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public static function getByDate($date)
     {
-        return BillDetail::join('products', 'bills_details.product_id', '=', 'products.id')
+        return self::join('products', 'bills_details.product_id', '=', 'products.id')
                         ->join('categories', 'products.category_id', '=', 'categories.id')
-                        ->select('categories.id', 'categories.name', DB::raw('round(sum(bills_details.amount) / ' . BillDetail::dailyTotalAmount($date) . ' * ' . BillDetail::PERCENT . ', 2) as percentage'))
+                        ->select('categories.id', 'categories.name', DB::raw('round(sum(bills_details.amount) / '.self::dailyTotalAmount($date).' * '.self::PERCENT.', 2) as percentage'))
                         ->daily($date)
                         ->groupBy('categories.name');
+    }
+
+    /**
+     * Get total amount by quarter.
+     *
+     * @param int $year    year
+     * @param int $quarter quarter
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function quarterTotalAmount($year, $quarter)
+    {
+        return self::quarterly($year, $quarter)->sum('bills_details.amount');
+    }
+
+    /**
+     * Get total by quarter.
+     *
+     * @param int $year    year
+     * @param int $quarter quarter
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function getQuarter($year, $quarter)
+    {
+        return self::join('products', 'bills_details.product_id', '=', 'products.id')
+                        ->join('categories', 'products.category_id', '=', 'categories.id')
+                        ->select('categories.id', 'categories.name', DB::raw('round(sum(bills_details.amount) / '.self::quarterTotalAmount($year, $quarter).' * '.self::PERCENT.', 2) as percentage'))
+                        ->quarterly($year, $quarter)
+                        ->groupBy('categories.name')
+                        ->orderBy('percentage', 'desc');
     }
 }
