@@ -75,13 +75,13 @@ class Order extends Model
      * @return Illuminate\Database\Eloquent\Collection
      */
     public static function compileMonthsData($year)
-    {   
+    {
         return Order::whereYear('created_at', '=', $year)
                       ->get()
-                      ->groupBy(function($item, $key) {
+                      ->groupBy(function ($item, $key) {
                           return Carbon::parse($item['created_at'])->format('m');
                       })
-                      ->sortBy(function($collection, $key) {
+                      ->sortBy(function ($item, $key) {
                           return $key;
                       });
     }

@@ -68,4 +68,23 @@ class Product extends Model
                       ->groupBy('products.id')
                       ->orderBy('total', 'desc');
     }
+    
+    /**
+     * Get top hot 5 products monthly
+     *
+     * @param int $year  determine specific year
+     * @param int $month determine specific month
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public static function getTopHotProducts($year, $month)
+    {
+        return BillDetail::whereYear('created_at', '=', $year)
+                    ->whereMonth('created_at', '=', $month)
+                    ->get()
+                    ->groupBy('product_id')
+                    ->sortByDesc(function ($value) {
+                        return $value->sum('amount');
+                    });
+    }
 }

@@ -9,7 +9,7 @@ use DB;
 class Bill extends Model
 {
     protected $table = 'bills';
-
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -64,13 +64,13 @@ class Bill extends Model
      * @return Illuminate\Database\Eloquent\Collection
      */
     public static function compileMonthsData($year)
-    {   
+    {
         return Bill::whereYear('created_at', '=', $year)
                     ->get()
-                    ->groupBy(function($item, $key) {
+                    ->groupBy(function ($item, $key) {
                         return Carbon::parse($item['created_at'])->format('m');
                     })
-                    ->sortBy(function($collection, $key) {
+                    ->sortBy(function ($item, $key) {
                         return $key;
                     });
     }
@@ -84,15 +84,15 @@ class Bill extends Model
      * @return Illuminate\Database\Eloquent\Collection
      */
     public static function compileStaffContribution($year, $month)
-    {   
+    {
         return Bill::whereYear('created_at', '=', $year)
                     ->whereMonth('created_at', '=', $month)
                     ->get()
                     ->groupBy('user_id')
-                    ->sortByDesc(function($value, $key) {
-                        return $value->sum('total_cost');
+                    ->sortByDesc(function ($item) {
+                        return $item->sum('total_cost');
                     })
-                    ->take(5);
+                    ->take(\Config::get('common.TOP_4'));
     }
     
      /**
@@ -103,6 +103,7 @@ class Bill extends Model
     protected static function boot()
     {
         parent::boot();
+
         static::deleting(function ($bill) {
             $bill->billDetails()->delete();
         });

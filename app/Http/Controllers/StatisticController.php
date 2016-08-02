@@ -31,32 +31,30 @@ class StatisticController extends Controller
     /**
      * Daily statistics
      *
+     * @param \Illuminate\Http\Request $request hold data from request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function monthly()
-    {   
-        $total_cost = Bill::whereYear('created_at', '=', 2015)
-                    ->whereMonth('created_at', '=', 5)
+    public function monthly(Request $request)
+    {
+        $year = Carbon::now()->year;
+        $month = Carbon::now()->month-1;
+        if (isset($request->date_picker)) {
+            $month = explode("/", $request->date_picker)[0];
+            $year = explode("/", $request->date_picker)[1];
+        } else {
+        }
+        $totalCost = Bill::whereYear('created_at', '=', $year)
+                    ->whereMonth('created_at', '=', $month)
                     ->get()
                     ->sum('total_cost');
-        $data['billMonths'] = Bill::compileMonthsData(2015);
-        $data['orderMonths'] = Order::compileMonthsData(2015);
-        $data['staffsData'] = Bill::compileStaffContribution(2015, 5);
-        $data['total_cost'] = $total_cost;
+        $data['billMonths'] = Bill::compileMonthsData($year);
+        $data['orderMonths'] = Order::compileMonthsData($year);
+        $data['staffsData'] = Bill::compileStaffContribution($year, $month);
+        $data['totalCost'] = $totalCost;
+        $data['topProducts'] = Product::getTopHotProducts($year, $month);
+        $data['month'] = $month;
+        $data['year'] = $year;
         return view('statistics.monthly')->with($data);
-    }
-    
-    public function demoeloquent () {
-      // $months = Bill::compileStaffContribution(2015, 8);
-      $months = BillDetail::whereYear('created_at', '=', 2015)
-                  ->whereMonth('created_at', '=', 5)
-                  ->get();
-      dd($months->groupBy('product_id')->each(function($value, $key) {
-          return $value->count();
-      }));
-      foreach ($months as $month) {
-          echo $month->first()->user->name ."<br>";
-      }
-      // echo $bill->sum('total_cost');
     }
 }

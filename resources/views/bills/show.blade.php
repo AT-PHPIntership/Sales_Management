@@ -60,6 +60,7 @@
                         <th class="width-10">@lang('bills.common.field_id')</th>
                         <th class="width-20">@lang('bills.common.field_product_id')</th>
                         <th class="width-50">@lang('bills.common.field_product')</th>
+                        <th class="width-50">@lang('bills.common.field_cost')</th>
                         <th class="text-right width-20">@lang('bills.common.field_amount')</th>
                     </tr>
                 </thead>
@@ -69,10 +70,12 @@
                         <th>{{ ++$index }}</th>
                         <td>{{ $billDetail->product_id }}</td>
                         <td>{{ $billDetail->product->name }}</td>
+                        <td>{{ $billDetail->cost }}</td>
                         <td class="text-right">{{ $billDetail->amount }}</td>
                     </tr>
                     @endforeach
                     <tr>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
