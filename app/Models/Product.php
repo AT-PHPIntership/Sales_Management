@@ -68,4 +68,21 @@ class Product extends Model
                       ->groupBy('products.id')
                       ->orderBy('total', 'desc');
     }
+
+    /**
+     * Get all products of
+     *
+     * @param int $year    year
+     * @param int $quarter quarter
+     *
+     * @return Return type
+     */
+    public static function getQuarter($year, $quarter)
+    {
+        return Product::join('bills_details', 'bills_details.product_id', '=', 'products.id')
+                      ->select('products.id', 'products.name', DB::raw('sum(bills_details.amount) as total'))
+                      ->whereRaw('QUARTER(bills_details.created_at) = ' . $quarter . ' and year(bills_details.created_at) = ' . $year)
+                      ->groupBy('products.id')
+                      ->orderBy('total', 'desc');
+    }
 }

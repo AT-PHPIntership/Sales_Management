@@ -17,8 +17,8 @@ class UsersTableSeeder extends Seeder
 
         $user = new User();
         $user->name = 'Super Admin';
-        $user->email = 'superadmin@salesmanagement.com';
-        $user->password = '123456';
+        $user->email = 'superadmin@salesmanage.ment';
+        $user->password = '12345678';
         $user->role_id = 1;
         $user->birthday = '1994-10-03';
         $user->gender = 0;
@@ -28,8 +28,8 @@ class UsersTableSeeder extends Seeder
 
         $user = new User();
         $user->name = 'Admin';
-        $user->email = 'admin@salesmanagement.com';
-        $user->password = '123456';
+        $user->email = 'admin@salesmanage.ment';
+        $user->password = '12345678';
         $user->role_id = 2;
         $user->birthday = '1994-10-03';
         $user->gender = 0;
@@ -37,18 +37,7 @@ class UsersTableSeeder extends Seeder
         $user->phone_number = '0123456789';
         $user->save();
 
-        $user = new User();
-        $user->name = 'Quan Ly';
-        $user->email = 'quanly@salesmanagement.com';
-        $user->password = '123456';
-        $user->role_id = 3;
-        $user->birthday = '1994-10-03';
-        $user->gender = 0;
-        $user->address = 'Asian Tech Inc';
-        $user->phone_number = '0123456789';
-        $user->save();
-
-        for ($i=0; $i < 7; $i++) {
+        for ($i=0; $i < 50; $i++) {
             $user = User::create([
                 'name' => $faker->name,
                 'email' => $faker->email,
