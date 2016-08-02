@@ -22,4 +22,6 @@ return [
     'max' => ':max characters maximum.',
     'number' => 'Need to be numeric',
     'beyond_remaining_amount' => 'Number product is beyond remaining amount',
+    'invalid_category' => 'Invalid category.',
+    'min_2' => 'At least 2 characters.',
 ];

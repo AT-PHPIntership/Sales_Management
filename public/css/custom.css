@@ -160,6 +160,19 @@ h2 small {
   line-height: 100%;
 }
 
+.remove-bottom-margin {
+    margin-bottom: 0px;
+}
+
+.switchery {
+    height: 26px;
+}
+
+.switchery>small {
+    height: 26px;
+    width: 26px;
+}
+
 .date-picker {
     border-color: 1px solid #E6E9ED;
 }
@@ -177,5 +190,4 @@ h2 small {
 
 .add-on-btn-right {
     border-left: 0;
-
 }

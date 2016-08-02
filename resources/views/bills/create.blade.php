@@ -77,7 +77,7 @@
               <td>
                 <span class="product-label"></span>
                 <input type="hidden" name="product_id[]" class="product-input" value="1">
-              </td> 
+              </td>
               <td class="center">
                 <span class="amount-label"></span>
                 <input type="hidden" name="amount[]" class="amount-input" value="1">

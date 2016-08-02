@@ -22,7 +22,7 @@
             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">@lang('products.label_name_product') <span class="required">@lang('products.required_product')</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="2" data-validate-words="1" name="name" placeholder="@lang('products.label_name_product')" required="required" type="text" >
+              <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="2" name="name" placeholder="@lang('products.label_name_product')" required="required" type="text">
             </div>
           </div>
           <div class="item form-group">
@@ -31,6 +31,7 @@
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
               <select class="form-control" name="category_id">
+                  <option value="#">--@lang('products.select_empty')--</option>
                   @foreach($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                   @endforeach
@@ -41,7 +42,10 @@
             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number"> @lang('products.label_price_product') <span class="required">@lang('products.required_product')</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <input type="number" id="number" name="price" required="required" class="form-control col-md-7 col-xs-12" placeholder="@lang('products.label_price_product')">
+                <div class="input-group remove-bottom-margin">
+                    <input type="number" id="number" name="price" required="required" class="form-control col-md-7 col-xs-12" placeholder="@lang('products.label_price_product')">
+                    <span class="input-group-addon">@lang('common.usa_currency_label')</span>
+                </div>
             </div>
           </div>
           <div class="item form-group">
@@ -56,10 +60,11 @@
             @lang('products.label_is_on_sale_product') <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <label class="control-label"> @lang('products.option_sale_no_product'): </label>
-              <input type="radio" name="is_on_sale" value="@lang('products.option_sale_n_product')"/>
-              <label class="control-label">@lang('products.option_sale_yes_product'): </label>
-              <input type="radio" name="is_on_sale" value="@lang('products.option_sale_y_product')"/>
+              <div class="">
+                <label>
+                  <input name="is_on_sale" type="checkbox" class="js-switch" checked />
+                </label>
+              </div>
             </div>
           </div>
           <div class="form-group">
@@ -78,11 +83,13 @@
 
    <!-- validator -->
   <script src="/bower_resources/gentelella/vendors/validator/validator.min.js"></script>
+  <!-- Switchery -->
+  <script src="/bower_resources/gentelella/vendors/switchery/dist/switchery.min.js"></script>
 
   <!-- Validator submit -->
   <script>
     // Override validate message
-    validator.message.min = errorMessages.min_6;
+    validator.message.min = errorMessages.min_2;
     validator.message.max = errorMessages.max_32;
     validator.message.date = errorMessages.invalid_date;
     validator.message.empty = errorMessages.field_required;
@@ -115,4 +122,10 @@
       });
     </script>
     <!-- /validator -->
+@endpush
+
+@push('stylesheet')
+    <!-- Switchery -->
+    <link href="/bower_resources/gentelella/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/custom.css">
 @endpush
