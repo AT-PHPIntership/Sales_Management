@@ -14,24 +14,24 @@ class BillsTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-        // Bills are created in the past
+        // 500 Bills are created in the past
         for ($i = 0; $i < 500; $i++) {
             Bill::create([
                 'user_id' => rand(1, 10),
                 'description' => $faker->text,
-                'total_cost' => rand(10, 999) * 100,
+                'total_cost' => rand(1, 200) * 10,
                 'created_at' => $faker->dateTimeBetween($startDate = '-3 years', $endDate = 'now')
             ]);
         }
 
-        // Current day bills
+        // Current day bills (for daily statistics)
         foreach (User::get() as $user) {
-            $amount = rand(0, 10);
+            $amount = rand(0, 7);
             for ($i = 0; $i < $amount; $i++) {
                 Bill::create([
                     'user_id' => $user->id,
                     'description' => $faker->text($maxNbChars = 255),
-                    'total_cost' => rand(1, 99) * 10,
+                    'total_cost' => rand(1, 300) * 10,
                 ]);
             }
         }

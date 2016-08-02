@@ -138,7 +138,7 @@ th {
 .table-container {
   overflow-y: auto;
   height: 300px;
-  
+
 }
 
 .tile_count {
@@ -161,4 +161,36 @@ th {
 
 h2 small {
   line-height: 100%;
+}
+
+.remove-bottom-margin {
+    margin-bottom: 0px;
+}
+
+.switchery {
+    height: 26px;
+}
+
+.switchery>small {
+    height: 26px;
+    width: 26px;
+}
+
+.date-picker {
+    border-color: 1px solid #E6E9ED;
+}
+
+.form-control-feedback {
+    margin-left: 0px;
+    margin-top: 5px;
+    width: 27px;
+}
+
+.form-control.has-feedback-left {
+    padding-left: 50px;
+    padding-right: 10px;
+}
+
+.add-on-btn-right {
+    border-left: 0;
 }

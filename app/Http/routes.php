@@ -67,4 +67,8 @@ Route::group(['middleware' => ['auth']], function () {
     });
     
     Route::get('demo', 'StatisticController@demoeloquent');
+
+    Route::get('api/order/product', function () {
+        return Response::json(\App\Models\Product::all());
+    });
 });

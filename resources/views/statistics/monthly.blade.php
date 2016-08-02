@@ -134,17 +134,17 @@
           <div class="x_content">
             @foreach ($staffsData as $staffData)
               <div class="widget_summary">
-                <div class="w_left w_25">
+                <div class="col-md-5 col-xs-5">
                   <span>{{ $staffData->first()->user->name }}</span>
                 </div>
-                <div class="w_center w_55">
+                <div class="col-md-6 col-xs-6">
                   <div class="progress">
                     <div class="progress-bar bg-green" role="progressbar"
                         style="width: {{ $staffData->sum('total_cost')*\Config::get('common.ONE_HUNDRED') / $totalCost }}%;" title="@lang('common.usa_currency_label'){{ $staffData->sum('total_cost') }}">
                     </div>
                   </div>
                 </div>
-                <div class="w_right margin-left-4">
+                <div class="col-md-1 col-xs-1">
                   <span style="font-size: 14px;">
                     {{ ceil(($staffData->sum('total_cost') * \Config::get('common.ONE_HUNDRED')) / $totalCost) }}@lang('statistics.percentage')
                     <?php
@@ -157,17 +157,17 @@
               </div>
             @endforeach
             <div class="widget_summary">
-              <div class="w_left w_25">
+              <div class="col-md-5 col-xs-5">
                 <span>@lang('statistics.label_other')</span>
               </div>
-              <div class="w_center w_55">
+              <div class="col-md-6 col-xs-6">
                 <div class="progress">
                   <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" 
                       style="width: {{ ceil((\Config::get('common.ONE_HUNDRED') - $subtractDedicatedStaff)) }}%;" title="@lang('common.usa_currency_label'){{ $leftCost }}">
                   </div>
                 </div>
               </div>
-              <div class="w_right margin-left-4">
+              <div class="col-md-1 col-xs-1">
                 <span style="font-size: 14px;">
                   {{ ceil((\Config::get('common.ONE_HUNDRED') - $subtractDedicatedStaff)) }}@lang('statistics.percentage')
                 </span>

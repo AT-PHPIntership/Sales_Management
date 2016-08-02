@@ -42,4 +42,5 @@ return [
     'btn_reset' => 'Reset',
     'btn_print' => 'Print',
     'usa_currency_label' => '$',
+    'currency' => '$',
 ];

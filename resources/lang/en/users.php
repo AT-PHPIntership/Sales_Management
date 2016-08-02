@@ -14,6 +14,7 @@ return [
     'label_password' => 'Password',
     'label_password_confirm' => 'Repeat Password',
     'label_account_permission' => 'Account Permission',
+    'option_admin' => 'Super Admin Account',
     'option_manager' => 'Manager Account',
     'option_staff' => 'Staff Account',
     'btn_cancel' => 'Reset',
