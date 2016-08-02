@@ -159,3 +159,23 @@ th {
 h2 small {
   line-height: 100%;
 }
+
+.date-picker {
+    border-color: 1px solid #E6E9ED;
+}
+
+.form-control-feedback {
+    margin-left: 0px;
+    margin-top: 5px;
+    width: 27px;
+}
+
+.form-control.has-feedback-left {
+    padding-left: 50px;
+    padding-right: 10px;
+}
+
+.add-on-btn-right {
+    border-left: 0;
+
+}

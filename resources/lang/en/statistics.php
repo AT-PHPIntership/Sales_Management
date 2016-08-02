@@ -13,6 +13,8 @@ return [
     'btn_pdf' => 'pdfHtml5',
     'btn_print' => 'print',
     'label_total' => 'Total',
+    'title_select_date' => 'Click to choose a date...',
+    'label_others' => 'Others',
     'quarterly' => [
         'title' => 'Quarterly Statistics',
         'label_totals' => 'Totals',

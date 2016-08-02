@@ -14,18 +14,17 @@ class Bill extends Model
      *
      * @var array
      */
-
     protected $fillable = array(
         'id',
         'user_id',
         'description',
         'total_cost',
         'created_at',
-        'updated_at'
+        'updated_at',
     );
 
     /**
-     * Bill belongs to user
+     * Bill belongs to user.
      *
      * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -35,7 +34,7 @@ class Bill extends Model
     }
 
     /**
-     * Bill has many BillDetail
+     * Bill has many BillDetail.
      *
      * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -45,10 +44,10 @@ class Bill extends Model
     }
 
     /**
-    * The "booting" method of the model.
-    *
-    * @return void
-    */
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
     protected static function boot()
     {
         parent::boot();
@@ -58,7 +57,7 @@ class Bill extends Model
     }
 
     /**
-     * Scope a query to join orders and bills to get PI
+     * Scope a query to join orders and bills to get PI.
      *
      * @param string $query query string
      *
@@ -73,30 +72,32 @@ class Bill extends Model
     }
 
     /**
-     * Get all today's bills
+     * Get all today's bills.
+     *
+     * @param string $date input date
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
-    public static function getTodays()
+    public static function getByDate($date)
     {
-        return Bill::where('bills.created_at', '>=', DB::raw('concat(CURDATE(), \'' . \Config::get('common.INITAL_TIME') . '\')'))
+        return self::whereRaw('date(created_at) = \''.$date.'\'')
                    ->orderBy('created_at', 'asc');
     }
 
     /**
-     * Get all order amount by quarter
+     * Get all order amount by quarter.
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
     public static function getQuartersList()
     {
-        return Bill::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`')
+        return self::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`')
                     ->groupBy('year', 'quarter')
                     ->orderByRaw('`year` desc, `quarter` desc');
     }
 
     /**
-     * Get total by quarter
+     * Get total by quarter.
      *
      * @param int $year    year
      * @param int $quarter quarter
@@ -105,39 +106,38 @@ class Bill extends Model
      */
     public static function quarterTotal($year, $quarter)
     {
-        return Bill::selectRaw('year(created_at) as `year`, monthname(created_at) as `month`, sum(total_cost) as total')
-                   ->whereRaw('QUARTER(created_at) = ' . $quarter . ' and year(created_at) = ' . $year)
+        return self::selectRaw('year(created_at) as `year`, monthname(created_at) as `month`, sum(total_cost) as total')
+                   ->whereRaw('QUARTER(created_at) = '.$quarter.' and year(created_at) = '.$year)
                    ->groupBy('year', 'month')
                    ->orderByRaw('`year` desc, `month` asc');
     }
 
-
     /**
-     * Get index by quarter
+     * Get index by quarter.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public static function getIndex()
     {
-        $firstMonth = Bill::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`, sum(total_cost) as sum')
+        $firstMonth = self::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`, sum(total_cost) as sum')
                           ->groupBy('year', 'quarter')
                           ->orderByRaw('year(created_at) asc , QUARTER(created_at) asc')
                           ->first()
                           ->sum;
 
-        return Bill::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`, round((sum(total_cost) / ' . $firstMonth . ') - 1, 2) as `index`')
+        return self::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`, round((sum(total_cost) / '.$firstMonth.') - 1, 2) as `index`')
                    ->groupBy('year', 'quarter')
                    ->orderByRaw('`year` desc, `quarter` desc');
     }
 
     /**
-     * Get Profitability Index
+     * Get Profitability Index.
      *
      * @return Return type
      */
     public static function getPI()
     {
-        return Bill::selectRaw('year(orders.created_at) as `year`, QUARTER(orders.created_at) as `quarter`, sum(orders.total_cost) as `totalOrder`, sum(bills.total_cost) as `totalBills`, round((sum(bills.total_cost) / sum(orders.total_cost) - 1), 2) as `PI`')
+        return self::selectRaw('year(orders.created_at) as `year`, QUARTER(orders.created_at) as `quarter`, sum(orders.total_cost) as `totalOrder`, sum(bills.total_cost) as `totalBills`, round((sum(bills.total_cost) / sum(orders.total_cost) - 1), 2) as `PI`')
                    ->joinOrders()
                    ->groupBy('year', 'quarter')
                    ->orderByRaw('`year` desc, `quarter` desc');

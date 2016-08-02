@@ -7,29 +7,38 @@ use App\Models\BillDetail;
 use App\Models\Bill;
 use App\Models\Order;
 use App\Models\Product;
-use App\Http\Requests;
-use DB;
+use Carbon\Carbon;
 use Exception;
 
 class StatisticController extends Controller
 {
     /**
-     * Daily statistics counting
+     * Get statistics counting by date.
+     *
+     * @param Illuminate\Http\Request $request request
      *
      * @return \Illuminate\Http\Response
      */
-    public function daily()
+    public function daily(Request $request)
     {
-        $data['bills'] = Bill::getTodays();
-        $data['orders'] = Order::getTodays();
-        $data['topTen'] = Product::getTodays();
-        $data['categories'] = BillDetail::getTodays();
+        if (!isset($request['date-picker'])) {
+            $data['date'] = date(\Config::get('common.DATE_DMY_FORMAT'), time());
+        } else {
+            $data['date'] = $request['date-picker'];
+        }
+        $date = Carbon::createFromFormat('d/m/Y', $data['date'])->toDateString();
+
+        $data['bills'] = Bill::getByDate($date);
+
+        $data['orders'] = Order::getByDate($date);
+        $data['topTen'] = Product::getByDate($date)->paginate(\Config::get('common.SELECT_TEN'));
+        $data['categories'] = BillDetail::getByDate($date)->paginate(\Config::get('common.SELECT_FIVE'));
 
         return view('statistics.daily')->with($data);
     }
 
     /**
-     * Quarterly statistics counting
+     * Quarterly statistics counting.
      *
      * @param Illuminate\Http\Request $request request
      *
@@ -38,7 +47,7 @@ class StatisticController extends Controller
     public function quarterly(Request $request)
     {
         if (!isset($request->quarter)) {
-            $quarter = date('Y') . 'Q' . (StatisticController::toQuarter(date('n')) - 1);
+            $quarter = date('Y').'Q'.(self::toQuarter(date('n')) - 1);
         } else {
             $quarter = $request->quarter;
         }
@@ -62,11 +71,12 @@ class StatisticController extends Controller
 
         $data['year'] = $year;
         $data['quarter'] = $quarter;
+
         return view('statistics.quarterly')->with($data);
     }
 
     /**
-     * Return quarter form month
+     * Return quarter form month.
      *
      * @param int $month month of year
      *
@@ -76,18 +86,9 @@ class StatisticController extends Controller
     {
         $quarter = [1, 2, 3, 4];
         if ($month < 1 || $month > 12) {
-            throw new Exception('Unknow the month: ' . $month);
+            throw new Exception('Unknow the month: '.$month);
         }
 
         return $quarter[intval($month / 3)];
-    }
-
-    /**
-     * Calculate the index
-     *
-     * @return Return type
-     */
-    public function calcIndex()
-    {
     }
 }
