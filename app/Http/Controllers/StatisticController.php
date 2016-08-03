@@ -91,4 +91,33 @@ class StatisticController extends Controller
 
         return $quarter[intval($month / 3)];
     }
+    
+    /**
+     * Daily statistics
+     *
+     * @param \Illuminate\Http\Request $request hold data from request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function monthly(Request $request)
+    {
+        $year = Carbon::now()->year;
+        $month = Carbon::now()->month-1;
+        if (isset($request->date_picker)) {
+            $month = explode("/", $request->date_picker)[0];
+            $year = explode("/", $request->date_picker)[1];
+        }
+        $totalCost = Bill::whereYear('created_at', '=', $year)
+                    ->whereMonth('created_at', '=', $month)
+                    ->get()
+                    ->sum('total_cost');
+        $data['billMonths'] = Bill::compileMonthsData($year);
+        $data['orderMonths'] = Order::compileMonthsData($year);
+        $data['staffsData'] = Bill::compileStaffContribution($year, $month);
+        $data['totalCost'] = $totalCost;
+        $data['topProducts'] = Product::getTopHotProducts($year, $month);
+        $data['month'] = $month;
+        $data['year'] = $year;
+        return view('statistics.monthly')->with($data);
+    }
 }

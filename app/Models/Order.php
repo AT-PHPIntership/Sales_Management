@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 use Event;
 
 class Order extends Model
@@ -138,5 +139,24 @@ class Order extends Model
         return self::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`, round((sum(total_cost) - '.$firstMonth.')/'.$firstMonth.', 2) as `index`')
                    ->groupBy('year', 'quarter')
                    ->orderByRaw('`year` desc, `quarter` desc');
+    }
+    
+    /**
+     * Get all orders with specific year
+     *
+     * @param int $year determine specific year
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public static function compileMonthsData($year)
+    {
+        return Order::whereYear('created_at', '=', $year)
+                      ->get()
+                      ->groupBy(function ($item, $key) {
+                          return Carbon::parse($item['created_at'])->format('m');
+                      })
+                      ->sortBy(function ($item, $key) {
+                          return $key;
+                      });
     }
 }
