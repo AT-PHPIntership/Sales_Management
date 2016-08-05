@@ -65,7 +65,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::get('api/product', function () {
-        return Response::json(\App\Models\Product::where('remaining_amount', '!=', 0)->where('is_on_sale', \Config::get('common.IS_ON_SALE'))->get());
+        return Response::json(\App\Models\Product::where('remaining_amount', '!=', 0)->where('is_on_sale', \Config::get('common.ON_SALE'))->get());
     });
 
     Route::get('api/order/product', function () {

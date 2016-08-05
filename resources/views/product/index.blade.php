@@ -21,6 +21,7 @@
 @stop
 
 @section('page-content')
+
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="clearfix"></div>
@@ -93,21 +94,23 @@
 
 @push('end-page-scripts')
 <script>
-        $(document).ready(function() {
-            $(document).on('click',".btn_delete", function() {
-                var id = $(this).next().val();
-                $('form').attr('action','product/'+id);
-                $('#idDel').text(id);
-            });
-        });
-    </script>
-
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $('#list-products-table').DataTable();
+  $(document).ready(function() {
+    $(document).on('click',".btn_delete", function() {
+      var id = $(this).next().val();
+      $('form').attr('action','product/'+id);
+      $('#idDel').text(id);
     });
-  </script>
-  <script src="/bower_resources/gentelella/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#list-products-table').DataTable({
+      "bSort": false
+    });
+  });
+</script>
+<script src="/bower_resources/gentelella/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
 
 
 @endpush
