@@ -19,6 +19,7 @@ class CreateSearchProductsTable extends Migration
             $table->text('search_text');
             $table->timestamps();
         });
+        DB::statement('ALTER TABLE search_products ADD FULLTEXT(`search_text`)');
     }
 
     /**

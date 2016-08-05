@@ -12,31 +12,6 @@ class CreateCategoriesTrigger extends Migration
      */
     public function up()
     {
-        /*
-        DB::unprepared('
-        CREATE TRIGGER `categories_AFTER_INSERT` AFTER INSERT ON `categories` FOR EACH ROW
-        BEGIN
-        	DECLARE product_name TEXT;
-            DECLARE search_text TEXT;
-
-        	SET @product_name := (
-        		SELECT `products`.`name`
-                FROM `products`
-                JOIN `categories`
-        			ON `products`.`category_id` = `categories`.`id`
-        		WHERE `categories`.`id` = NEW.`id` LIMIT 1);
-
-        	SET @search_text := IF(@product_name IS NOT NULL, CONCAT(NEW.`name`, \' \', @product_name), NEW.`name`);
-
-            INSERT INTO `search_products` (`product_id`, `search_text`, `created_at`, `updated_at`)
-            VALUES (
-        		NEW.`id`,
-                @search_text,
-                NEW.`created_at`,
-                NEW.`updated_at`);
-        END
-        ');
-         */
         DB::unprepared('
         CREATE TRIGGER `categories_AFTER_UPDATE` AFTER UPDATE ON `categories` FOR EACH ROW
             BEGIN
