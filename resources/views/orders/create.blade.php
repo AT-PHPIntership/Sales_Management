@@ -125,7 +125,7 @@
   <script src="/bower_resources/gentelella/vendors/validator/validator.min.js" type="text/javascript"></script>
   <script type="text/javascript">
     var currency_label = '{{ trans('common.currency') }}';
-    var url = '{{ url('api/product') }}';
+    var url = '{{ url('api/order/product') }}';
   </script>
   <script src="/js/orders/main.js" type="text/javascript"></script>
 @endpush
