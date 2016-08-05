@@ -94,6 +94,7 @@
 
 @push('end-page-scripts')
 <script>
+  var language = {!! json_encode(trans('common')) !!};
   $(document).ready(function() {
     $(document).on('click',".btn_delete", function() {
       var id = $(this).next().val();
@@ -102,15 +103,16 @@
     });
   });
 </script>
+<script src="/bower_resources/gentelella/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function(){
     $('#list-products-table').DataTable({
       "bSort": false
     });
+    $('#list-products-table_filter label').remove();
   });
 </script>
-<script src="/bower_resources/gentelella/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
 
 
 @endpush
