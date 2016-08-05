@@ -139,4 +139,16 @@ class ProductController extends Controller
         return view('product.show')->with('categories', $categories)
                                    ->with('product', $product);
     }
+
+    /**
+     * Search full-text product
+     *
+     * @param \Illuminate\Http\Request $request Http request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        return $request['q'];
+    }
 }

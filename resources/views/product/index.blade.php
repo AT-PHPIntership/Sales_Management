@@ -7,6 +7,11 @@
 @section('section-title')
  @lang('common.item_list_product')
 @stop
+
+@section('page-header-right')
+    @include('product.search')
+@stop
+
 @section('errors-message')
     @include('common.errors')
 @stop
