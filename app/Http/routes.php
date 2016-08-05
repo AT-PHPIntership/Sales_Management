@@ -17,6 +17,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/user/search', ['uses' => 'UserController@searchUser', 'as' => 'search.user']);
 
+    Route::get('/product/search', ['uses' => 'ProductController@search', 'as' => 'product.search']);
+
     Route::get('/', ['uses' => 'BillController@create', 'as' => 'home']);
 
     Route::get('/home', ['uses' => 'BillController@create', 'as' => 'home']);
@@ -25,12 +27,12 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('product', 'ProductController');
 
-
     Route::resource('category', 'CategoryController', [
         'except' => ['destroy']
     ]);
 
     Route::delete('category/{category?}', 'CategoryController@destroy');
+
     Route::resource('order', 'OrderController');
 
     Route::resource('user', 'UserController');
@@ -63,7 +65,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::get('api/product', function () {
-        return Response::json(\App\Models\Product::where('remaining_amount', '!=', 0)->where('is_on_sale', \Config::get('common.IS_ON_SALE'))->get());
+        return Response::json(\App\Models\Product::where('remaining_amount', '!=', 0)->where('is_on_sale', \Config::get('common.ON_SALE'))->get());
     });
 
     Route::get('api/order/product', function () {

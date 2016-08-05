@@ -329,3 +329,8 @@ $('#selected-month-year').MonthPicker({
     $("form").submit();
   }
 });
+
+$('#date-selector').on('keyup keypress', function(e) {
+    e.preventDefault();
+    return false;
+});

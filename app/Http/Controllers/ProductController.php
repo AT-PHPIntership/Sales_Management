@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\SearchProduct;
 use App\Http\Requests\ProductRequest;
 use Exception;
 use Redirect;
+use DB;
 
 class ProductController extends Controller
 {
@@ -50,7 +52,6 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-
         return view('product.index', ['products' => $products]);
     }
 
@@ -138,5 +139,27 @@ class ProductController extends Controller
 
         return view('product.show')->with('categories', $categories)
                                    ->with('product', $product);
+    }
+
+    /**
+     * Search full-text product
+     *
+     * @param \Illuminate\Http\Request $request Http request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        if ($request->q != null) {
+            $products = collect();
+            $productIDs = SearchProduct::select('product_id')
+                          ->whereRaw('MATCH (search_text) AGAINST (? IN NATURAL LANGUAGE MODE)', [$request->q])
+                          ->get();
+            $productIDs->each(function ($value) use ($products) {
+                $products->push(Product::findOrFail($value->product_id));
+            });
+            return view('product.index', ['products' => $products]);
+        }
+        return redirect()->route('product.index');
     }
 }

@@ -7,6 +7,11 @@
 @section('section-title')
  @lang('common.item_list_product')
 @stop
+
+@section('page-header-right')
+    @include('product.search')
+@stop
+
 @section('errors-message')
     @include('common.errors')
 @stop
@@ -16,6 +21,7 @@
 @stop
 
 @section('page-content')
+
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="clearfix"></div>
@@ -88,21 +94,25 @@
 
 @push('end-page-scripts')
 <script>
-        $(document).ready(function() {
-            $(document).on('click',".btn_delete", function() {
-                var id = $(this).next().val();
-                $('form').attr('action','product/'+id);
-                $('#idDel').text(id);
-            });
-        });
-    </script>
-
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $('#list-products-table').DataTable();
+  var language = {!! json_encode(trans('common')) !!};
+  $(document).ready(function() {
+    $(document).on('click',".btn_delete", function() {
+      var id = $(this).next().val();
+      $('form').attr('action','product/'+id);
+      $('#idDel').text(id);
     });
-  </script>
-  <script src="/bower_resources/gentelella/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+  });
+</script>
+<script src="/bower_resources/gentelella/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#list-products-table').DataTable({
+      "bSort": false
+    });
+    $('#list-products-table_filter label').remove();
+  });
+</script>
 
 
 @endpush
