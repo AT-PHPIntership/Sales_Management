@@ -17,7 +17,7 @@
     for="name">@lang('products.label_name_product')
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-      <input id="name" class="form-control col-md-7 col-xs-12"  name="name"  type="text" value="{{ $product->name }}" >
+      <input id="name" class="form-control col-md-7 col-xs-12"  name="name"  type="text" value="{{ $product->name }}" disabled="" >
     </div>
   </div>
   <div class="item form-group">
@@ -37,20 +37,20 @@
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">
     @lang('products.label_price_product')</label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-      <input type="text" name="price"   class="form-control col-md-7 col-xs-12" value="{{ $product->price }}" >
+      <input type="text" name="price"   class="form-control col-md-7 col-xs-12" value="{{ $product->price }}" disabled="">
     </div>
   </div>
   <div class="item form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">@lang('products.label_remaining_amount_product')</label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-      <input type="text" name="remaining_amount" class="form-control col-md-7 col-xs-12" value="{{ $product->remaining_amount }}">
+      <input type="text" name="remaining_amount" class="form-control col-md-7 col-xs-12" value="{{ $product->remaining_amount }}" disabled="">
     </div>
   </div>
     <div class="item form-group">
       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">@lang('products.label_description_product')
       </label>
       <div class="col-md-6 col-sm-6 col-xs-12">
-        <textarea  name="description" class="form-control col-md-7 col-xs-12">{{ $product->description }}</textarea>
+        <textarea  name="description" class="form-control col-md-7 col-xs-12" disabled="">{{ $product->description }}</textarea>
       </div>
     </div>
 
@@ -61,7 +61,7 @@
       <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="" >
           <label>
-            <input name="is_on_sale" type="checkbox" class="js-switch" {{ $product->is_on_sale ? 'checked' : ''}}/>
+            <input name="is_on_sale" type="checkbox" class="js-switch" disabled="" {{ $product->is_on_sale ? 'checked' : ''}}/>
           </label>
         </div>
       </div>
