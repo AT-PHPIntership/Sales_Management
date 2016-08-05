@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
 use App\Models\User;
+use Auth;
 
 class UserRequest extends Request
 {
@@ -24,13 +24,28 @@ class UserRequest extends Request
      */
     public function rules()
     {
-        return [
-            'name' => 'required|max:100',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|max:32|min:6|confirmed',
-            'password_confirmation' => 'required|max:32|min:6',
-            'role_id' => 'required|integer|between:2,3',
-        ];
+        switch ($this->method()) {
+            case 'PUT':
+            case 'PATCH':
+                return [
+                  'name' => 'required|min:4|max:100',
+                  'birthday' => 'required|date_format:d/m/Y',
+                  'gender' => 'required|boolean',
+                  'address' => 'required|max:255',
+                  'phone_number' => 'required|max:15|regex:/^\+?\d+?$/',
+                  'role_id' => 'required|integer|between:2,3',
+                ];
+            case 'POST':
+                return [
+                    'name' => 'required|max:100',
+                    'email' => 'required|email|max:255|unique:users',
+                    'password' => 'required|max:32|min:6|confirmed',
+                    'password_confirmation' => 'required|max:32|min:6',
+                    'role_id' => 'required|integer|between:2,3',
+                ];
+            default:
+                return [];
+        }
     }
 
     /**

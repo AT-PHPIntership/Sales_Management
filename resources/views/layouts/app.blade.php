@@ -82,8 +82,8 @@
     <script src="/bower_resources/gentelella/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="/bower_resources/gentelella/vendors/nprogress/nprogress.js"></script>
+    @stack('end-page-scripts')
     <!-- Custom Theme Scripts -->
     <script src="/bower_resources/gentelella/build/js/custom.min.js"></script>
-    @stack('end-page-scripts')
   </body>
 </html>

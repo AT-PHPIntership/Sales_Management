@@ -25,19 +25,28 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('product', 'ProductController');
 
+
     Route::resource('category', 'CategoryController', [
         'except' => ['destroy']
     ]);
 
     Route::delete('category/{category?}', 'CategoryController@destroy');
-
     Route::resource('order', 'OrderController');
 
     Route::resource('user', 'UserController');
 
+    Route::put('user/{id}/avatar', [
+        'uses' => 'UserController@updateAvatar',
+        'as' =>'user.updateAvatar'
+    ]);
+    Route::put('user/{id}/account', [
+        'uses' => 'UserController@updateAccount',
+        'as' =>'user.updateAccount'
+    ]);
+
     Route::group(['prefix' => 'statistic'], function () {
 
-        Route::get('/weekly', [
+        Route::get('/daily', [
             'uses' => 'StatisticController@daily',
             'as' => 'statistic.daily'
         ]);
@@ -54,6 +63,10 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::get('api/product', function () {
+        return Response::json(\App\Models\Product::where('remaining_amount', '!=', 0)->where('is_on_sale', \Config::get('common.IS_ON_SALE'))->get());
+    });
+
+    Route::get('api/order/product', function () {
         return Response::json(\App\Models\Product::all());
     });
 });
