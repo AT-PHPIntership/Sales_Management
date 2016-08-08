@@ -37,7 +37,9 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         try {
-            $user = new User($request->all());
+            $user = new User;
+            $user->fill($request->all());
+            $user->password = bcrypt($request->password);
             $user->save();
 
             return redirect()->route('user.create')->withMessage(trans('users.successfull_message'));
@@ -159,8 +161,8 @@ class UserController extends Controller
     {
         try {
             $user = User::findOrFail($id);
-            if (Hash::check($request->current_password, $user->password)) {
-                $user->password = $request->password;
+            if (Hash::check($request->current_password, bcrypt($user->password))) {
+                $user->password = bcrypt($request->password);
                 $user->save();
 
                 return Redirect::back()->withMessage(trans('users.edit.edit_account_successful_message'));

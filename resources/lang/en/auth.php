@@ -28,5 +28,9 @@ return [
     'label_password'    => 'Password',
     'label_confirm_pass' => 'Confirm Password',
     'btn_send_reset'    => 'Send Password Reset Link',
-    'label_click_to_reset_pass' => 'Click here to reset your password',
+    'label_link' => 'Click here to reset your password',
+    'reset_subject_email' => 'Reset Your Password | Sales Management',
+    'reset_body_email' => 'We recently received a password reset request for this email address. If you did not request a password reset, please ignore this email.',
+    'reset_mail_note' => '<b>NOTE:</b> Do not respond to this email, it does not accept incoming emails!',
+    'reset_signature' => '--Sales Management--',
 ];
