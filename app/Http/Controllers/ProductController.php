@@ -33,8 +33,9 @@ class ProductController extends Controller
     {
         $request['is_on_sale'] = (null == $request->is_on_sale) ? \Config::get('common.OFF_SALE') : \Config::get('common.ON_SALE');
         try {
+             $product = $request->all();
+             Product::create($product);
             Product::create($request->all());
-
             return redirect()->route('product.create')->withMessage(trans('products.successfull_message'));
         } catch (Exception $saveException) {
             // Catch exceptions when data cannot save.
@@ -114,6 +115,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request['is_on_sale'] = (null == $request->is_on_sale) ? \Config::get('common.OFF_SALE') : \Config::get('common.ON_SALE');
         try {
             $input = $request->all();
             $product = Product::findOrFail($id);
