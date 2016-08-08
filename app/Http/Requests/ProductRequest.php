@@ -21,12 +21,25 @@ class ProductRequest extends Request
      */
     public function rules()
     {
-        return [
-            'name' => 'required|string|min:2|unique:products',
-            'price' => 'required|integer|min:1',
-            'description' => 'string|max:255',
-            'category_id' => 'required|exists:categories,id',
-        ];
+        switch ($this->method()) {
+            case 'PUT':
+            case 'PATCH':
+                return [
+                  'name' => 'required|string|min:2',
+                  'price' => 'required|integer|min:1',
+                  'description' => 'string|max:255',
+                  'category_id' => 'required|exists:categories,id',
+                ];
+            case 'POST':
+                return [
+                  'name' => 'required|string|min:2|unique:products',
+                  'price' => 'required|integer|min:1',
+                  'description' => 'string|max:255',
+                  'category_id' => 'required|exists:categories,id',
+                ];
+            default:
+                return [];
+        }
     }
 
     /**
