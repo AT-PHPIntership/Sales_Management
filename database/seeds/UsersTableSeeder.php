@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
         $user = new User();
         $user->name = 'Super Admin';
         $user->email = 'superadmin@salesmanage.ment';
-        $user->password = '12345678';
+        $user->password = bcrypt('12345678');
         $user->role_id = 1;
         $user->birthday = '03/10/1994';
         $user->gender = 0;
@@ -29,7 +29,7 @@ class UsersTableSeeder extends Seeder
         $user = new User();
         $user->name = 'Admin';
         $user->email = 'admin@salesmanage.ment';
-        $user->password = '12345678';
+        $user->password = bcrypt('12345678');
         $user->role_id = 2;
         $user->birthday = '03/10/1994';
         $user->gender = 0;
@@ -41,7 +41,7 @@ class UsersTableSeeder extends Seeder
             $user = User::create([
                 'name' => $faker->name,
                 'email' => $faker->email,
-                'password' => '12345678',
+                'password' => bcrypt('12345678'),
                 'role_id' => rand(2, 3),
                 'birthday' => $faker->dateTimeBetween('-40 years', '-18 years')->format('d/m/Y'),
                 'gender' => rand(0, 1),

@@ -37,6 +37,8 @@ class AuthController extends Controller
      */
     public function __construct()
     {
+        $this->subject = trans('auth.reset_subject_email');
+
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
